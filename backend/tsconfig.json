@@ -1,11 +1,12 @@
 {
     "compilerOptions": {
-        "outDir": "./dist/"
+        "outDir": "./dist/",
+        "lib": [
+            "esnext",
+            "esnext.asynciterable"
+        ]
     },
     "include": [
         "./src/**/*"
-    ],
-    "lib": [
-        "esnext"
     ]
 }
