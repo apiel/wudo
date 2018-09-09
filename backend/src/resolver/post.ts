@@ -8,6 +8,7 @@ type PostResolver {
 }
 `;
 
+// @Resolver(PostResolver)
 // @Resolver(PostEntity)
 export default class PostResolver {
     // @Query(returns => [PostEntity])
