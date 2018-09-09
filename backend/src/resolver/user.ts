@@ -9,7 +9,7 @@ export default class UserResolver {
         const entity = new UserEntity;
         entity.name = 'Alex';
         entity.email = 'alex@gmail.com';
-        entity.id = 1;
+        entity.idUser = 1;
         entity.creationDate = new Date;
         return entity;
     }

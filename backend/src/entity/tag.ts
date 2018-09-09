@@ -1,16 +1,13 @@
 import 'reflect-metadata';
 import { ObjectType, Field } from 'type-graphql';
 
-@ObjectType({ description: "Object representing the user" })
-export default class UserEntity {
+@ObjectType({ description: "Object representing post tag" })
+export default class TagEntity {
   @Field()
-  idUser: number;
+  idTag: number;
 
   @Field()
   name: string;
-
-  @Field()
-  email: string;
 
   @Field()
   creationDate: Date;
