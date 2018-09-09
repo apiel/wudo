@@ -1,3 +1,5 @@
+import 'reflect-metadata';
+import { ObjectType, Field } from 'type-graphql';
 
 export const schemaEntity = `
 type PostEntity {
@@ -7,17 +9,17 @@ type PostEntity {
 }
 `; //   creationDate: Date!
 
-// @ObjectType({ description: "Object representing user post" })
+@ObjectType({ description: "Object representing user post" })
 export default class PostEntity {
-//   @Field()
+  @Field()
   text: string;
 
-//   @Field(type => [String])
+  @Field(type => [String])
   tags: string[]; // will became tag[]
 
-//   @Field()
+  @Field()
   user: string; // will became User
 
-//   @Field()
+  @Field()
   creationDate: Date;
 }

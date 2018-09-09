@@ -1,3 +1,5 @@
+import 'reflect-metadata';
+import { Resolver, Query } from 'type-graphql';
 import PostEntity, { schemaEntity } from '../entity/post';
 
 export const postSchema = `
@@ -8,9 +10,9 @@ type PostResolver {
 }
 `;
 
-// @Resolver(PostEntity)
+@Resolver(PostEntity)
 export default class PostResolver {
-    // @Query(returns => [PostEntity])
+    @Query(returns => [PostEntity])
     posts() {
         const entity = new PostEntity;
         entity.text = 'hello world';
