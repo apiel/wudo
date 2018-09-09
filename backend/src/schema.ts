@@ -11,3 +11,25 @@ const schema = buildSchemaSync({
 });
 
 export default schema;
+
+/*
+
+{
+  getPosts {
+    text
+    tags
+    user {
+      name
+      email
+    }
+    creationDate
+  }
+  getUser {
+    id
+    name
+    email
+    creationDate
+  }
+}
+
+*/
