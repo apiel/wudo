@@ -1,7 +1,7 @@
 import * as express from 'express';
 import * as graphqlHTTP from 'express-graphql';
 
-import { root, schema } from './model';
+import { rootValue, schema } from './graphql';
 
 const app = express();
 
@@ -18,11 +18,12 @@ app.get('/', (req, res) => {
     res.send(`Hello ${req.user.name}`);
 });
 
-app.use('/graphql', graphqlHTTP({
-    schema: schema,
-    rootValue: root,
+const options: graphqlHTTP.OptionsData = {
+    schema,
+    rootValue,
     graphiql: true,
-}));
+};
+app.use('/graphql', graphqlHTTP(options));
 
 app.listen(3000);
 
