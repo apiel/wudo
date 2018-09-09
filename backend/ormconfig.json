@@ -1,0 +1,20 @@
+{
+    "type": "postgres",
+    "host": "localhost",
+    "port": 5432,
+    "database": "wudo",
+    "username": "hello",
+    "password": "world",
+    "schemaName": "public",
+    "synchronize": true,
+    "logging": false,
+    "entities": [
+        "src/entity/**/*.ts"
+    ],
+    "migrations": [
+        "src/migration/**/*.ts"
+    ],
+    "subscribers": [
+        "src/subscriber/**/*.ts"
+    ]
+}

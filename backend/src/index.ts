@@ -1,5 +1,6 @@
 import * as express from 'express';
 import * as graphqlHTTP from 'express-graphql';
+import { createConnection } from 'typeorm';
 
 import schema from './schema';
 
@@ -9,6 +10,11 @@ const user = (req, res, next) => {
     req.user = {
         name: 'Alex Youi',
     }
+    next();
+}
+
+const db = async (req, res, next) => {
+    req.db = await createConnection();
     next();
 }
 
