@@ -1,14 +1,6 @@
 import 'reflect-metadata';
 import { Resolver, Query } from 'type-graphql';
-import PostEntity, { schemaEntity } from '../entity/post';
-
-export const postSchema = `
-${schemaEntity}
-type PostResolver {
-    posts: [PostEntity]
-    yo: Int
-}
-`;
+import PostEntity from '../entity/post';
 
 @Resolver(PostEntity)
 export default class PostResolver {
