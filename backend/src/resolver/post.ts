@@ -5,7 +5,7 @@ import PostEntity from '../entity/post';
 @Resolver(PostEntity)
 export default class PostResolver {
     @Query(returns => [PostEntity])
-    posts() {
+    getPosts() {
         const entity = new PostEntity;
         entity.text = 'hello world';
         entity.user = 'alex@gmail.com';
@@ -13,6 +13,4 @@ export default class PostResolver {
         entity.creationDate = new Date;
         return [entity];
     }
-
-    yo() { return 345 }
 }
