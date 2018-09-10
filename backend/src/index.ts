@@ -14,11 +14,12 @@ const user = (req, res, next) => {
 }
 
 const db = async (req, res, next) => {
-    req.db = await createConnection();
+    // req.db = await createConnection(); // need to put this outside let s do boot func
+    req.db = 'abc';
     next();
 }
 
-app.use(user);
+app.use(user, db);
 
 app.get('/', (req, res) => {
     res.send(`Hello ${req.user.name}`);

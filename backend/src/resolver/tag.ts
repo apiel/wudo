@@ -6,6 +6,7 @@ import TagEntity from '../entity/tag';
 export default class TagResolver {
     @Query(returns => TagEntity)
     getTag() {
+        // const { db } = 
         const entity = new TagEntity;
         entity.name = 'test';
         entity.idTag = 1;

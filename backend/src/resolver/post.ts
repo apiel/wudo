@@ -7,12 +7,17 @@ import TagResolver from '../resolver/tag';
 
 @Resolver(PostEntity)
 export default class PostResolver {
+    constructor(...yo) {
+        console.log('PostResolver', yo);
+    }
+
     @Query(returns => [PostEntity])
-    getPosts() {
+    getPosts(...yo) {
+        console.log('getPosts args', yo);
         const user = new UserResolver;
         const tag = new TagResolver;
         const entity = new PostEntity;
-        entity.text = 'hello world';
+        entity.text = `hello world ${123}`;
         entity.user = user.getUser();
         entity.tags = [tag.getTag()];
         entity.creationDate = new Date;
