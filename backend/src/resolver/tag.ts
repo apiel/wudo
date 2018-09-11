@@ -1,16 +1,16 @@
 import 'reflect-metadata';
-import { Resolver, Query } from 'type-graphql';
+import { Resolver, Query, Ctx, Arg } from 'type-graphql';
 import TagEntity from '../entity/tag';
 
 @Resolver(TagEntity)
 export default class TagResolver {
     @Query(returns => TagEntity)
-    getTag() {
-        // const { db } = 
-        const entity = new TagEntity;
-        entity.name = 'test';
-        entity.idTag = 1;
-        entity.creationDate = new Date;
-        return entity;
+    getTag(@Arg('id') id: number, @Ctx() ctx) {
+        return ctx.db.getRepository(TagEntity).findOne(id);
+    }
+
+    @Query(returns => [TagEntity])
+    getTags(@Ctx() ctx) {
+        return ctx.db.getRepository(TagEntity).find();
     }
 }

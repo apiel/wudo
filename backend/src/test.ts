@@ -5,5 +5,5 @@ export const test: MiddlewareFn = async (more, next) => {
   await next();
   const resolveTime = Date.now() - start;
   console.log(`${more.info.parentType.name}.${more.info.fieldName} [${resolveTime} ms]`);
-  console.log('more more more', more.context.db); // yes it does!!
+  // console.log('more more more', more.context.db); // yes it does!!
 };

@@ -43,4 +43,12 @@ export default schema;
   }
 }
 
+{
+  getTag(id: 1) {
+    idTag
+    name
+    creationDate
+  }
+}
+
 */

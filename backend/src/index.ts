@@ -6,30 +6,29 @@ import schema from './schema';
 
 const app = express();
 
-const user = (req, res, next) => {
-    req.user = {
-        name: 'Alex Youi',
+const boot = async () => {
+    const db = await createConnection();
+    const mainMiddleware = (req, res, next) => {
+        req.db = db;
+        req.user = {
+            name: 'Alex Youi',
+        }
+        next();
     }
-    next();
+
+    app.use(mainMiddleware);
+
+    app.get('/', (req, res) => {
+        res.send(`Hello ${req.user.name}`);
+    });
+
+    const options: graphqlHTTP.OptionsData = {
+        schema,
+        graphiql: true,
+    };
+    app.use('/graphql', graphqlHTTP(options));
+    app.listen(3000);
 }
-
-const db = async (req, res, next) => {
-    // req.db = await createConnection(); // need to put this outside let s do boot func
-    req.db = 'abc';
-    next();
-}
-
-app.use(user, db);
-
-app.get('/', (req, res) => {
-    res.send(`Hello ${req.user.name}`);
-});
-
-const options: graphqlHTTP.OptionsData = {
-    schema,
-    graphiql: true,
-};
-app.use('/graphql', graphqlHTTP(options));
-app.listen(3000);
+boot();
 
 export default app;

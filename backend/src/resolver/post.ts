@@ -1,5 +1,5 @@
 import 'reflect-metadata';
-import { Resolver, Query } from 'type-graphql';
+import { Resolver, Query, Ctx } from 'type-graphql';
 
 import PostEntity from '../entity/post';
 import UserResolver from '../resolver/user';
@@ -7,20 +7,22 @@ import TagResolver from '../resolver/tag';
 
 @Resolver(PostEntity)
 export default class PostResolver {
-    constructor(...yo) {
-        console.log('PostResolver', yo);
-    }
-
     @Query(returns => [PostEntity])
-    getPosts(...yo) {
-        console.log('getPosts args', yo);
-        const user = new UserResolver;
-        const tag = new TagResolver;
-        const entity = new PostEntity;
-        entity.text = `hello world ${123}`;
-        entity.user = user.getUser();
-        entity.tags = [tag.getTag()];
-        entity.creationDate = new Date;
-        return [entity];
+    getPosts(@Ctx() ctx) {
+        // const user = new UserResolver;
+        // const tag = new TagResolver();
+        // const entity = new PostEntity;
+        // entity.text = `hello world ${123}`;
+        // entity.user = user.getUser();
+        // entity.tags = tag.getTags(ctx); // this go away anyway
+        // entity.creationDate = new Date;
+        // return [entity];
+
+        const yo = ctx.db.getRepository(PostEntity).find({ relations: ['tags', 'tags.post'] });
+        // const yo = ctx.db.getRepository(PostEntity)
+        //             .createQueryBuilder('p')
+        //             .innerJoin('p.tags', 't').getMany();
+        yo.then(val => console.log('yooooooval', val));
+        return yo;
     }
 }
