@@ -51,4 +51,15 @@ export default schema;
   }
 }
 
+{
+  getPosts {
+    text
+    creationDate
+    tags {
+      name
+    }
+  }
+}
+
+
 */

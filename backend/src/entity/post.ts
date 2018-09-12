@@ -4,9 +4,10 @@ import {
   Entity,
   Column,
   PrimaryGeneratedColumn,
-  OneToMany,
+  ManyToOne,
   ManyToMany,
   JoinTable,
+  JoinColumn,
 } from 'typeorm';
 
 import UserEntity from './user';
@@ -28,14 +29,16 @@ export default class PostEntity {
   @JoinTable()
   tags: Promise<TagEntity[]>;
 
-  // @Column('string')
-  // @Field(type => UserEntity)
-  // user: UserEntity;
-  @Column()
-  @Field()
-  user: string;
-
   @Column()
   @Field()
   creationDate: Date;
+
+  // @Column()
+  // // @Field()
+  // idUser: string;
+
+  @Field(type => UserEntity)
+  @ManyToOne(type => UserEntity, user => user.posts)
+  @JoinColumn({ name: "idUser" })
+  user: Promise<UserEntity>;
 }
