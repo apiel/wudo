@@ -9,8 +9,6 @@ import TagResolver from '../resolver/tag';
 export default class PostResolver {
     @Query(returns => [PostEntity])
     getPosts(@Ctx() ctx) {
-        return ctx.db.getRepository(PostEntity).find({
-            relations: ['tags'], // we should use lazy loading
-        });
+        return ctx.db.getRepository(PostEntity).find();
     }
 }

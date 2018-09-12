@@ -26,7 +26,7 @@ export default class PostEntity {
   @Field(type => [TagEntity])
   @ManyToMany(type => TagEntity)
   @JoinTable()
-  tags: TagEntity[];
+  tags: Promise<TagEntity[]>;
 
   // @Column('string')
   // @Field(type => UserEntity)

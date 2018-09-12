@@ -25,5 +25,5 @@ export default class TagEntity {
   creationDate: Date;
 
   @ManyToMany(type => PostEntity)
-  posts: PostEntity[];
+  posts: Promise<PostEntity[]>;
 }
