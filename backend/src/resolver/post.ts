@@ -9,20 +9,8 @@ import TagResolver from '../resolver/tag';
 export default class PostResolver {
     @Query(returns => [PostEntity])
     getPosts(@Ctx() ctx) {
-        // const user = new UserResolver;
-        // const tag = new TagResolver();
-        // const entity = new PostEntity;
-        // entity.text = `hello world ${123}`;
-        // entity.user = user.getUser();
-        // entity.tags = tag.getTags(ctx); // this go away anyway
-        // entity.creationDate = new Date;
-        // return [entity];
-
-        const yo = ctx.db.getRepository(PostEntity).find({ relations: ['tags', 'tags.post'] });
-        // const yo = ctx.db.getRepository(PostEntity)
-        //             .createQueryBuilder('p')
-        //             .innerJoin('p.tags', 't').getMany();
-        yo.then(val => console.log('yooooooval', val));
-        return yo;
+        return ctx.db.getRepository(PostEntity).find({
+            relations: ['tags'], // we should use lazy loading
+        });
     }
 }

@@ -5,11 +5,12 @@ import {
   Column,
   PrimaryGeneratedColumn,
   OneToMany,
+  ManyToMany,
+  JoinTable,
 } from 'typeorm';
 
 import UserEntity from './user';
 import TagEntity from './tag';
-import PostTagsEntity from './postTags';
 
 @Entity({name: 'post'})
 @ObjectType({ description: "Object representing user post" })
@@ -22,13 +23,10 @@ export default class PostEntity {
   @Field()
   text: string;
 
-  // @Column('integer[]')
-  // @Column({ type: 'integer', array: true })
-  // @OneToMany(type => TagEntity, tag => tag.idTag)
-  @OneToMany(type => PostTagsEntity, tag => tag.post)
-  // @Field(type => [TagEntity])
-  // tags: number[];
-  tags: PostTagsEntity[];
+  @Field(type => [TagEntity])
+  @ManyToMany(type => TagEntity)
+  @JoinTable()
+  tags: TagEntity[];
 
   // @Column('string')
   // @Field(type => UserEntity)
