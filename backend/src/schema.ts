@@ -61,5 +61,25 @@ export default schema;
   }
 }
 
+{
+  getUser {
+    idUser
+    name
+    email
+    creationDate
+    posts { 
+      idPost
+      text
+    }
+  }
+  
+  getPosts {
+    text
+    user {
+      name
+    }
+  }
+}
+
 
 */

@@ -2,8 +2,6 @@ import 'reflect-metadata';
 import { Resolver, Query, Ctx } from 'type-graphql';
 
 import PostEntity from '../entity/post';
-import UserResolver from '../resolver/user';
-import TagResolver from '../resolver/tag';
 
 @Resolver(PostEntity)
 export default class PostResolver {

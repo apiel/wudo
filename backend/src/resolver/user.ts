@@ -1,16 +1,11 @@
 import 'reflect-metadata';
-import { Resolver, Query } from 'type-graphql';
+import { Resolver, Query, Ctx, Arg } from 'type-graphql';
 import UserEntity from '../entity/user';
 
 @Resolver(UserEntity)
 export default class UserResolver {
     @Query(returns => UserEntity)
-    getUser() {
-        const entity = new UserEntity;
-        entity.name = 'Alex';
-        entity.email = 'alex@gmail.com';
-        entity.idUser = 1;
-        entity.creationDate = new Date;
-        return entity;
+    getUser(@Arg('id') id: number, @Ctx() ctx) {
+        return ctx.db.getRepository(UserEntity).findOne(id);
     }
 }
