@@ -9,9 +9,10 @@ const app = express();
 
 const boot = async () => {
     const db = await createConnection();
+    const user = await db.getRepository(UserEntity).findOne(1);
     const mainMiddleware = (req, res, next) => {
         req.db = db;
-        req.user = db.getRepository(UserEntity).findOne(1);
+        req.user = user;
         next();
     }
 

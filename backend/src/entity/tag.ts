@@ -20,7 +20,7 @@ export default class TagEntity {
   @Field()
   name: string;
 
-  @Column()
+  @Column({ default: 'now()' })
   @Field()
   creationDate: Date;
 

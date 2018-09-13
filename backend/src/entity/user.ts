@@ -24,7 +24,7 @@ export default class UserEntity {
   @Field()
   email: string;
 
-  @Column()
+  @Column({ default: 'now()' })
   @Field()
   creationDate: Date;
 

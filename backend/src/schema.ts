@@ -81,5 +81,19 @@ export default schema;
   }
 }
 
+{
+  getUser(id: 1) {
+    idUser
+    name
+    email
+    creationDate
+    posts { 
+      idPost
+      text
+    }
+  }
+}
+
+
 
 */
