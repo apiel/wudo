@@ -39,11 +39,8 @@ export default class PostResolver {
         });
         await postRepo.insert(post);
 
-        const postWithTags = await postRepo.findOne(post.idPost, { relations: ['tags'] });
-        console.log('postWithTags', postWithTags);
-        (<TagEntity[]> postWithTags.tags) = await ctx.db.getRepository(TagEntity).find();
-        await postRepo.save(postWithTags);
-
-        return postWithTags;
+        (<TagEntity[]> post.tags) = await ctx.db.getRepository(TagEntity).find();
+        await postRepo.save(post);
+        return post;
     }
 }
