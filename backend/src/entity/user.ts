@@ -6,10 +6,12 @@ import {
   PrimaryGeneratedColumn,
   Column,
   OneToMany,
+  // JoinColumn,
 } from 'typeorm';
 
 import PostEntity from './post';
 import TagEntity from './tag';
+import FollowUserTagEntity from './followUserTag';
 
 @Entity('user')
 @ObjectType({ description: "Object representing the user" })
@@ -42,4 +44,13 @@ export default class UserEntity {
 
   @Field(type => [TagEntity], { nullable: true })
   tags: TagEntity[];
+
+  @OneToMany(type => FollowUserTagEntity, followUserTag => followUserTag.followed)
+  @Field(type => [FollowUserTagEntity])
+  // @JoinColumn({ name: 'followed' })
+  tagsFollowedByUser: Promise<FollowUserTagEntity[]>;
+
+  @OneToMany(type => FollowUserTagEntity, followUserTag => followUserTag.follower)
+  @Field(type => [FollowUserTagEntity])
+  followUserTags: Promise<FollowUserTagEntity[]>;
 }

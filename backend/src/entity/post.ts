@@ -39,6 +39,6 @@ export default class PostEntity {
 
   @Field(type => UserEntity)
   @ManyToOne(type => UserEntity, user => user.posts)
-  @JoinColumn({ name: "idUser" })
+  @JoinColumn({ name: 'idUser' })
   user: Promise<UserEntity>; // | UserEntity;
 }

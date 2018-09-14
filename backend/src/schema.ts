@@ -94,6 +94,20 @@ export default schema;
   }
 }
 
-
+{
+  getUser(id: 2) {
+    idUser
+    name
+    tags {
+      name
+    }
+    tagsFollowedByUser {
+      follower {
+        name
+      }
+      accepted
+    }
+  }
+}
 
 */
