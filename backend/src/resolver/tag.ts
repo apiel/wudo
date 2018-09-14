@@ -13,4 +13,6 @@ export default class TagResolver {
     getTags(@Ctx() ctx) {
         return ctx.db.getRepository(TagEntity).find();
     }
+
+    // need to create tag
 }

@@ -10,7 +10,6 @@ import {
 import UserEntity from '../entity/user';
 
 import TagEntity from '../entity/tag';
-import PostEntity from '../entity/post';
 
 @Resolver(UserEntity)
 export default class UserResolver {
@@ -28,4 +27,9 @@ export default class UserResolver {
             .groupBy('tag."idTag"')
             .getMany();
     }
+
+    // @FieldResolver()
+    // email(@Root() user: UserEntity, @Ctx() ctx) {
+    //     return ctx.user.idUser === user.idUser ? user.email : null;
+    // }
 }

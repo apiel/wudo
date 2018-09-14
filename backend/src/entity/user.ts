@@ -23,7 +23,7 @@ export default class UserEntity {
   name: string;
 
   @Column()
-  // @Field()
+  // @Field({ nullable: true })
   email: string;
 
   @Column({ default: 'now()' })
