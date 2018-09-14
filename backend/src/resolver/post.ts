@@ -1,4 +1,5 @@
 import 'reflect-metadata';
+import { In } from 'typeorm';
 import {
     Resolver,
     Query,
@@ -32,14 +33,18 @@ export default class PostResolver {
     @Mutation(returns => PostEntity)
     async addPost(@Arg('post') postInput: PostInput, @Ctx() ctx) {
         const postRepo = ctx.db.getRepository(PostEntity);
-        // postInput.tags = await ctx.db.getRepository(TagEntity).find(); // this doesnt work ??
         const post = postRepo.create({
             ...postInput,
             user: ctx.user,
         });
         await postRepo.insert(post);
 
-        (<TagEntity[]> post.tags) = await ctx.db.getRepository(TagEntity).find();
+        console.log('yoyoyoyo', postInput.tags);
+        (<TagEntity[]> post.tags) = await ctx.db.getRepository(TagEntity).find({
+            where: {
+                idTag: In(<number[]>postInput.tags),
+            }
+        });
         await postRepo.save(post);
         return post;
     }
