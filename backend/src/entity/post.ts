@@ -27,7 +27,7 @@ export default class PostEntity {
   @Field(type => [TagEntity])
   @ManyToMany(type => TagEntity)
   @JoinTable()
-  tags: Promise<TagEntity[]> | TagEntity[];
+  tags: Promise<TagEntity[]>; // | TagEntity[];
 
   @Column({ default: 'now()' })
   @Field()
@@ -40,5 +40,5 @@ export default class PostEntity {
   @Field(type => UserEntity)
   @ManyToOne(type => UserEntity, user => user.posts)
   @JoinColumn({ name: "idUser" })
-  user: Promise<UserEntity> | UserEntity;
+  user: Promise<UserEntity>; // | UserEntity;
 }

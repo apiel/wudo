@@ -39,7 +39,6 @@ export default class PostResolver {
         });
         await postRepo.insert(post);
 
-        console.log('yoyoyoyo', postInput.tags);
         (<TagEntity[]> post.tags) = await ctx.db.getRepository(TagEntity).find({
             where: {
                 idTag: In(<number[]>postInput.tags),
