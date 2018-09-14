@@ -9,6 +9,8 @@ import {
 } from 'typeorm';
 
 import PostEntity from './post';
+import TagEntity from './tag';
+
 @Entity('user')
 @ObjectType({ description: "Object representing the user" })
 export default class UserEntity {
@@ -21,11 +23,11 @@ export default class UserEntity {
   name: string;
 
   @Column()
-  @Field()
+  // @Field()
   email: string;
 
   @Column({ default: 'now()' })
-  @Field()
+  // @Field()
   creationDate: Date;
 
   @Column('bytea', { nullable: true })
@@ -37,4 +39,7 @@ export default class UserEntity {
   @OneToMany(type => PostEntity, post => post.user)
   @Field(type => [PostEntity])
   posts: Promise<PostEntity[]>;
+
+  @Field(type => [TagEntity], { nullable: true })
+  tags: TagEntity[];
 }

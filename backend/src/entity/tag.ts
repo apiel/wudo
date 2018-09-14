@@ -5,6 +5,7 @@ import {
   Column,
   PrimaryGeneratedColumn,
   ManyToMany,
+  JoinTable,
 } from 'typeorm';
 
 import PostEntity from './post';
@@ -25,5 +26,6 @@ export default class TagEntity {
   creationDate: Date;
 
   @ManyToMany(type => PostEntity)
+  @JoinTable({ name: 'post_tags_tag' })
   posts: Promise<PostEntity[]>;
 }
