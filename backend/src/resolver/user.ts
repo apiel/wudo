@@ -14,8 +14,10 @@ import TagEntity from '../entity/tag';
 @Resolver(UserEntity)
 export default class UserResolver {
     @Query(returns => UserEntity)
-    getUser(@Arg('id') id: number, @Ctx() ctx) {
-        return ctx.db.getRepository(UserEntity).findOne(id);
+    async getUser(@Arg('id') id: number, @Ctx() ctx) {
+        const z = await ctx.db.getRepository(UserEntity).findOne(id);
+        console.log('zzzzzz', z);
+        return z;
     }
 
     @FieldResolver()
