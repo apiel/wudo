@@ -112,4 +112,31 @@ export default schema;
   }
 }
 
+
+{
+  getFollowers {
+    users {
+      name
+    }
+    tags {
+      name
+    }
+    tagsFollowedByUser {
+      idTag
+      users {
+        id
+        accepted
+      }
+    }
+    followUserTags {
+      idUser
+      tags {
+        id
+        accepted
+      }
+    }
+  }
+}
+
+
 */

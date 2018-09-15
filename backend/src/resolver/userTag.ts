@@ -91,4 +91,7 @@ export default class UserTagResolver {
 
         return userTags;
     }
+
+    // mutation follow
+    // mutation accept
 }

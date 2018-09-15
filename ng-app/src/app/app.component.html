@@ -1,0 +1,7 @@
+<button nz-button nzType="primary">Primary</button>
+
+{{log('wasist', data | async)}}
+
+<ul *ngFor="let tag of data | async">
+  <li>name: {{tag.name}}</li>
+</ul>
