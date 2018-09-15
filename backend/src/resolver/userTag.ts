@@ -24,6 +24,8 @@ export default class UserTagResolver {
 
     getUserTagRaw = (ctx) => ctx.db.getRepository(UserTagEntity)
                 .createQueryBuilder('ut')
+                .where('ut.follower = :idUser', { idUser: ctx.user.idUser })
+                .orWhere('ut.followed = :idUser', { idUser: ctx.user.idUser })
                 .getRawMany();
 
     parseFollower(row) {
