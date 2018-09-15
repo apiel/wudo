@@ -7,10 +7,12 @@
     "@types/express": "^4.16.0",
     "@types/express-graphql": "^0.6.1",
     "@types/graphql": "0.13.4",
+    "@types/lodash": "^4.14.116",
     "@types/node": "^10.9.4",
     "express": "^4.16.3",
     "express-graphql": "^0.6.12",
     "graphql": "0.13.2",
+    "lodash": "^4.17.11",
     "pg": "^7.4.3",
     "reflect-metadata": "^0.1.12",
     "type-graphql": "^0.14.0",
@@ -26,6 +28,7 @@
     "dev": "nodemon dist/index.js",
     "dev-ts-node": "nodemon --config _nodemon.json",
     "build": "rm -fr dist && tsc",
-    "build-watch": "yarn build -w"
+    "build-watch": "yarn build -w",
+    "fix-package": "rm -rf node_modules/@types/graphql && cp -r node_modules/@types/express-graphql/node_modules/@types/graphql node_modules/@types/."
   }
 }

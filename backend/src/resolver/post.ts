@@ -6,22 +6,11 @@ import {
     Ctx,
     Mutation,
     Arg,
-    InputType,
-    Field,
 } from 'type-graphql';
 
 import PostEntity from '../entity/post';
 import TagEntity from '../entity/tag';
-
-// need to move this somewhere
-@InputType()
-export class PostInput {
-  @Field()
-  text: string;
-
-  @Field(type => [Number])
-  tags: number[] | TagEntity[];
-}
+import PostInput from './type/postInput';
 
 @Resolver(PostEntity)
 export default class PostResolver {

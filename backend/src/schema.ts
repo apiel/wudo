@@ -3,6 +3,7 @@ import { buildSchemaSync } from 'type-graphql';
 import PostResolver from './resolver/post';
 import UserResolver from './resolver/user';
 import TagResolver from './resolver/tag';
+import UserTagResolver from './resolver/userTag';
 import { test } from './test';
 
 const schema = buildSchemaSync({
@@ -10,6 +11,7 @@ const schema = buildSchemaSync({
     PostResolver,
     UserResolver,
     TagResolver,
+    UserTagResolver,
   ],
   globalMiddlewares: [test],
 });

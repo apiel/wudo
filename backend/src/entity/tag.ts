@@ -6,9 +6,12 @@ import {
   PrimaryGeneratedColumn,
   ManyToMany,
   JoinTable,
+  OneToMany,
+  OneToOne,
 } from 'typeorm';
 
 import PostEntity from './post';
+import UserTagEntity from './userTag';
 
 @Entity({name: 'tag'})
 @ObjectType({ description: "Object representing post tag" })
@@ -28,4 +31,8 @@ export default class TagEntity {
   @ManyToMany(type => PostEntity)
   @JoinTable({ name: 'post_tags_tag' })
   posts: Promise<PostEntity[]>;
+
+  @OneToMany(type => UserTagEntity, userTag => userTag.tag)
+  // @Field(type => [UserTagEntity]) // Maximum call stack size exceeded
+  users: Promise<UserTagEntity[]>;
 }
