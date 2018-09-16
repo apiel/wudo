@@ -19,20 +19,7 @@ import ColorHash from 'color-hash';
 import moment from 'moment';
 
 import PostItemTags from './PostItemTags';
-
-const styles = theme => ({
-  card: {
-    maxWidth: 700,
-    margin: 10,
-  },
-  media: {
-    height: 0,
-    paddingTop: '56.25%', // 16:9
-  },
-  actions: {
-    display: 'flex',
-  },
-});
+import styles from './PostCard.style';
 
 class RecipeReviewCard extends React.Component {
   render() {

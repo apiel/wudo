@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import Posts from './component/Posts';
+import Posts from './component/post/Posts';
 import AppBar from './component/AppBar';
 
 class App extends Component {
