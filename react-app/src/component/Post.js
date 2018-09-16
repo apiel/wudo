@@ -10,7 +10,7 @@ import CardActions from '@material-ui/core/CardActions';
 import Avatar from '@material-ui/core/Avatar';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
-import red from '@material-ui/core/colors/red';
+// import red from '@material-ui/core/colors/red';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import ShareIcon from '@material-ui/icons/Share';
 // import MoreVertIcon from '@material-ui/icons/MoreVert';
@@ -40,7 +40,6 @@ class RecipeReviewCard extends React.Component {
 
     const image = null;
     const backgroundColor = (new ColorHash()).hex(post.user.name);
-    console.log('backgroundColor', backgroundColor);
 
     return (
       <Card className={classes.card}>
