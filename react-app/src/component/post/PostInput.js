@@ -8,8 +8,8 @@ import CardHeader from '@material-ui/core/CardHeader';
 import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
 import Avatar from '@material-ui/core/Avatar';
-import IconButton from '@material-ui/core/IconButton';
-import Typography from '@material-ui/core/Typography';
+// import IconButton from '@material-ui/core/IconButton';
+// import Typography from '@material-ui/core/Typography';
 // import red from '@material-ui/core/colors/red';
 // import FavoriteIcon from '@material-ui/icons/Favorite';
 // import SaveIcon from '@material-ui/icons/Save';
@@ -19,6 +19,7 @@ import TextField from '@material-ui/core/TextField';
 import Icon from '@material-ui/core/Icon';
 import Button from '@material-ui/core/Button';
 import merge from 'lodash/merge';
+import urlRegex from 'url-regex';
 
 import moment from 'moment';
 
@@ -37,6 +38,22 @@ const styles = theme => merge(postCardStyles(theme), {
 });
 
 class RecipeReviewCard extends React.Component {
+  loadUrl = value => {
+    const urls = value.match(urlRegex());
+    if (urls) {
+      console.log('text urls:', urls);
+    }
+  }
+
+  onTextChange = ({ target }) => {
+    const { value } = target;
+
+    const lastChar = value.slice(-1);
+    if (lastChar === ' ' || lastChar === "\n") {
+      this.loadUrl(value);
+    }
+  }
+
   render() {
     const { classes } = this.props;
 
@@ -61,6 +78,7 @@ class RecipeReviewCard extends React.Component {
             multiline
             fullWidth
             placeholder="Type your text here"
+            onChange={this.onTextChange}
         />
         </CardContent>
         <CardActions className={classes.actions} disableActionSpacing>
