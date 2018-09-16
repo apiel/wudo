@@ -18,6 +18,8 @@ import ColorHash from 'color-hash';
 
 import moment from 'moment';
 
+import PostItemTags from './PostItemTags';
+
 const styles = theme => ({
   card: {
     maxWidth: 700,
@@ -51,6 +53,9 @@ class RecipeReviewCard extends React.Component {
           title={post.user.name}
           subheader={moment(post.creationDate).format('llll')} // LLLL
         />
+        <CardActions style={{ paddingTop: 0, paddingBottom: 0 }}>
+          <PostItemTags tags={post.tags} />
+        </CardActions>
         { image && <CardMedia
           className={classes.media}
           image={image}

@@ -13,6 +13,10 @@ const GET_POSTS = gql`
         user {
             name
         }
+        tags {
+            name
+            idTag
+        }
     }
 }
 `;
