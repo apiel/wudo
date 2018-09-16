@@ -25,6 +25,7 @@
     "ts-node": "^7.0.1"
   },
   "scripts": {
+    "start": "node dist/index.js",
     "dev": "nodemon dist/index.js",
     "dev-ts-node": "nodemon --config _nodemon.json",
     "build": "rm -fr dist && tsc",

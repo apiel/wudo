@@ -28,7 +28,7 @@ const boot = async () => {
         graphiql: true,
     };
     app.use('/graphql', graphqlHTTP(options));
-    app.listen(3000);
+    app.listen(3030);
 }
 boot();
 
