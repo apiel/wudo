@@ -37,12 +37,25 @@ const styles = theme => merge(postCardStyles(theme), {
   },
 });
 
+// {
+//   ogs(url: "https://google.com") {
+//     results
+//     error
+//   }
+// }
+
 class RecipeReviewCard extends React.Component {
   loadUrl = value => {
     const urls = value.match(urlRegex());
     if (urls) {
       console.log('text urls:', urls);
+      // need to query graphql for ogs
     }
+  }
+
+  onTextBlur = ({ target }) => {
+    const { value } = target;
+    this.loadUrl(value);
   }
 
   onTextChange = ({ target }) => {
@@ -79,6 +92,7 @@ class RecipeReviewCard extends React.Component {
             fullWidth
             placeholder="Type your text here"
             onChange={this.onTextChange}
+            onBlur={this.onTextBlur}
         />
         </CardContent>
         <CardActions className={classes.actions} disableActionSpacing>
