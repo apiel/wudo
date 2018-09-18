@@ -23,6 +23,7 @@ import urlRegex from 'url-regex';
 
 import moment from 'moment';
 
+import PostOgpQuery from './PostOgpQuery';
 import postCardStyles from './PostCard.style';
 
 const styles = theme => merge(postCardStyles(theme), {
@@ -37,19 +38,17 @@ const styles = theme => merge(postCardStyles(theme), {
   },
 });
 
-// {
-//   ogs(url: "https://google.com") {
-//     results
-//     error
-//   }
-// }
-
 class RecipeReviewCard extends React.Component {
+  state = {
+    url: null,
+  };
+
   loadUrl = value => {
     const urls = value.match(urlRegex());
     if (urls) {
-      console.log('text urls:', urls);
-      // need to query graphql for ogs
+      this.setState({ url: urls[0] });
+    } else {
+      this.setState({ url: null });
     }
   }
 
@@ -95,6 +94,7 @@ class RecipeReviewCard extends React.Component {
             onBlur={this.onTextBlur}
         />
         </CardContent>
+        { this.state.url && <PostOgpQuery url={this.state.url} /> }
         <CardActions className={classes.actions} disableActionSpacing>
             <Button variant="contained" color="primary" className={classes.button}>
                 Post

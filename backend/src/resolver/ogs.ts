@@ -1,6 +1,7 @@
 import 'reflect-metadata';
 import { Resolver, Query, Ctx, Arg } from 'type-graphql';
 import * as ogs from 'open-graph-scraper';
+import { get } from 'lodash';
 
 import OgsEntity from './type/ogs';
 
@@ -14,9 +15,13 @@ export default class OgsResolver {
     ogsPromise(url: string) {
         return new Promise((resolve/*, reject */) => {
             ogs({ url }, (error, results) => {
+                console.log('results', results);
                 const data: OgsEntity = {
-                    error,
-                    results: JSON.stringify(results),
+                    error: error ? results.error : null,
+                    title: get(results, 'data.ogTitle'),
+                    description: get(results, 'data.ogDescription'),
+                    video: get(results, 'data.ogVideo'),
+                    image: get(results, 'data.ogImage'),
                 }
                 resolve(data);
             });
