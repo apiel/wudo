@@ -15,17 +15,17 @@ import Avatar from '@material-ui/core/Avatar';
 // import SaveIcon from '@material-ui/icons/Save';
 // import MoreVertIcon from '@material-ui/icons/MoreVert';
 import ColorHash from 'color-hash';
-import TextField from '@material-ui/core/TextField';
+// import TextField from '@material-ui/core/TextField';
 import Icon from '@material-ui/core/Icon';
 import Button from '@material-ui/core/Button';
 import merge from 'lodash/merge';
 import urlRegex from 'url-regex';
 import moment from 'moment';
-import ChipInput from 'material-ui-chip-input';
-import Chip from '@material-ui/core/Chip';
+import ChipInput from 'material-ui-chip-input'; // need ChipAutoSuggest -> https://material-ui.com/demos/autocomplete/ ->downshift or react-select see multi
 
 import PostOgpQuery from './PostOgpQuery';
 import postCardStyles from './PostCard.style';
+import PostInputText from './PostInputText';
 
 const styles = theme => merge(postCardStyles(theme), {
   card: {
@@ -43,6 +43,8 @@ class RecipeReviewCard extends React.Component {
   state = {
     url: null,
   };
+
+  setUrl = url => this.setState({ url });
 
   loadUrl = value => {
     const urls = value.match(urlRegex());
@@ -96,13 +98,14 @@ class RecipeReviewCard extends React.Component {
           />
         </CardContent>
         <CardContent>
-          <TextField
+          <PostInputText setUrl={this.setUrl} />
+          {/* <TextField
             multiline
             fullWidth
             placeholder="Type your text here"
             onChange={this.onTextChange}
             onBlur={this.onTextBlur}
-        />
+          /> */}
         </CardContent>
         { this.state.url && <PostOgpQuery url={this.state.url} /> }
         <CardActions className={classes.actions} disableActionSpacing>
