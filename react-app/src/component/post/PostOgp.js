@@ -30,8 +30,7 @@ const styles = theme => ({
   },
 });
 
-const MediaControlCard = ({ classes, theme, ogp }) => {
-    return (
+const MediaControlCard = ({ classes, theme, ogp }) => (
     <div className={classes.card}>
         { ogp.image && <CardMedia
             className={classes.cover}
@@ -47,7 +46,7 @@ const MediaControlCard = ({ classes, theme, ogp }) => {
             </CardContent>
         </div>
     </div>
-) };
+);
 
 MediaControlCard.propTypes = {
   classes: PropTypes.object.isRequired,

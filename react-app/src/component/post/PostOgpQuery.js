@@ -22,9 +22,7 @@ query Ogs($url: String!) {
   }
 `;
 
-const PostOgpQuery = ({ url }) => {
-    console.log('url', url);
-    return (
+const PostOgpQuery = ({ url }) => (
     <Query
         query={OGS}
         variables={{url}}
@@ -37,6 +35,6 @@ const PostOgpQuery = ({ url }) => {
             ) : null;
         }}
     </Query>
-)};
+);
 
 export default PostOgpQuery;

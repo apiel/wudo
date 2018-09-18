@@ -20,8 +20,9 @@ import Icon from '@material-ui/core/Icon';
 import Button from '@material-ui/core/Button';
 import merge from 'lodash/merge';
 import urlRegex from 'url-regex';
-
 import moment from 'moment';
+import ChipInput from 'material-ui-chip-input';
+import Chip from '@material-ui/core/Chip';
 
 import PostOgpQuery from './PostOgpQuery';
 import postCardStyles from './PostCard.style';
@@ -83,8 +84,17 @@ class RecipeReviewCard extends React.Component {
             </Avatar>
           }
           title={user.name}
-          subheader={moment().format('llll')} // LLLL
+          subheader={moment().calendar()} // LLLL
         />
+        <CardContent>
+          <ChipInput
+            defaultValue={['foo', 'bar']}
+            fullWidth
+            disableUnderline
+            placeholder="Enter tags here"
+            blurBehavior="add"
+          />
+        </CardContent>
         <CardContent>
           <TextField
             multiline

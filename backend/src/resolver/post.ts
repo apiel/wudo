@@ -16,7 +16,11 @@ import PostInput from './type/postInput';
 export default class PostResolver {
     @Query(returns => [PostEntity])
     getPosts(@Ctx() ctx) {
-        return ctx.db.getRepository(PostEntity).find();
+        return ctx.db.getRepository(PostEntity).find({
+            order: {
+                creationDate: 'DESC',
+            },
+        });
     }
 
     @Mutation(returns => PostEntity)
@@ -31,7 +35,7 @@ export default class PostResolver {
         (<TagEntity[]> post.tags) = await ctx.db.getRepository(TagEntity).find({
             where: {
                 idTag: In(<number[]>postInput.tags),
-            }
+            },
         });
         await postRepo.save(post);
         return post;

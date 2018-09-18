@@ -37,7 +37,7 @@ class RecipeReviewCard extends React.Component {
             </Avatar>
           }
           title={post.user.name}
-          subheader={moment(post.creationDate).format('llll')} // LLLL
+          subheader={moment(post.creationDate).calendar(null, {sameElse : 'llll'})}
         />
         <CardActions style={{ paddingTop: 0, paddingBottom: 0 }}>
           <PostItemTags tags={post.tags} />
