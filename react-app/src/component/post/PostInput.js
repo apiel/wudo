@@ -19,7 +19,7 @@ import ColorHash from 'color-hash';
 import Icon from '@material-ui/core/Icon';
 import Button from '@material-ui/core/Button';
 import merge from 'lodash/merge';
-import urlRegex from 'url-regex';
+// import urlRegex from 'url-regex';
 import moment from 'moment';
 import ChipInput from 'material-ui-chip-input'; // need ChipAutoSuggest -> https://material-ui.com/demos/autocomplete/ ->downshift or react-select see multi
 
@@ -46,28 +46,7 @@ class RecipeReviewCard extends React.Component {
 
   setUrl = url => this.setState({ url });
 
-  loadUrl = value => {
-    const urls = value.match(urlRegex());
-    if (urls) {
-      this.setState({ url: urls[0] });
-    } else {
-      this.setState({ url: null });
-    }
-  }
-
-  onTextBlur = ({ target }) => {
-    const { value } = target;
-    this.loadUrl(value);
-  }
-
-  onTextChange = ({ target }) => {
-    const { value } = target;
-
-    const lastChar = value.slice(-1);
-    if (lastChar === ' ' || lastChar === "\n") {
-      this.loadUrl(value);
-    }
-  }
+  text = null;
 
   render() {
     const { classes } = this.props;
@@ -78,43 +57,43 @@ class RecipeReviewCard extends React.Component {
     const backgroundColor = (new ColorHash()).hex(user.name);
 
     return (
-      <Card className={classes.card}  style={{  }}>
-        <CardHeader
-          avatar={
-            <Avatar aria-label="Recipe" style={{ backgroundColor }}>
-              {user.name[0]}
-            </Avatar>
-          }
-          title={user.name}
-          subheader={moment().calendar()} // LLLL
-        />
-        <CardContent>
-          <ChipInput
-            defaultValue={['foo', 'bar']}
-            fullWidth
-            disableUnderline
-            placeholder="Enter tags here"
-            blurBehavior="add"
+      <form
+        onSubmit={e => {
+          e.preventDefault();
+          console.log('yoyoyoyo', this.text);
+        }}
+      >
+        <Card className={classes.card}  style={{  }}>
+          <CardHeader
+            avatar={
+              <Avatar aria-label="Recipe" style={{ backgroundColor }}>
+                {user.name[0]}
+              </Avatar>
+            }
+            title={user.name}
+            subheader={moment().calendar()} // LLLL
           />
-        </CardContent>
-        <CardContent>
-          <PostInputText setUrl={this.setUrl} />
-          {/* <TextField
-            multiline
-            fullWidth
-            placeholder="Type your text here"
-            onChange={this.onTextChange}
-            onBlur={this.onTextBlur}
-          /> */}
-        </CardContent>
-        { this.state.url && <PostOgpQuery url={this.state.url} /> }
-        <CardActions className={classes.actions} disableActionSpacing>
-            <Button variant="contained" color="primary" className={classes.button}>
-                Post
-                <Icon className={classes.rightIcon}>send</Icon>
-            </Button>
-        </CardActions>
-      </Card>
+          <CardContent>
+            <ChipInput
+              defaultValue={['foo', 'bar']}
+              fullWidth
+              disableUnderline
+              placeholder="Enter tags here"
+              blurBehavior="add"
+            />
+          </CardContent>
+          <CardContent>
+            <PostInputText setUrl={this.setUrl} ref={node => { this.text = node; }} />
+          </CardContent>
+          { this.state.url && <PostOgpQuery url={this.state.url} /> }
+          <CardActions className={classes.actions} disableActionSpacing>
+              <Button variant="contained" color="primary" className={classes.button} type="submit">
+                  Post
+                  <Icon className={classes.rightIcon}>send</Icon>
+              </Button>
+          </CardActions>
+        </Card>
+      </form>
     );
   }
 }

@@ -4,6 +4,10 @@ import TextField from '@material-ui/core/TextField';
 import urlRegex from 'url-regex';
 
 class PostInputText extends React.Component {
+  state = {
+    value: null,
+  };
+
   findUrl = value => {
     const urls = value.match(urlRegex());
     let url = null;
@@ -20,6 +24,7 @@ class PostInputText extends React.Component {
 
   onTextChange = ({ target }) => {
     const { value } = target;
+    this.setState({ value });
 
     const lastChar = value.slice(-1);
     if (lastChar === ' ' || lastChar === "\n") {
@@ -34,6 +39,7 @@ class PostInputText extends React.Component {
         placeholder="Type your text here"
         onChange={this.onTextChange}
         onBlur={this.onTextBlur}
+        {...props}
     />
   );
 }
