@@ -23,6 +23,8 @@ import merge from 'lodash/merge';
 import moment from 'moment';
 import ChipInput from 'material-ui-chip-input'; // need ChipAutoSuggest -> https://material-ui.com/demos/autocomplete/ ->downshift or react-select see multi
 
+import gql from 'graphql-tag';
+
 import PostOgpQuery from './PostOgpQuery';
 import postCardStyles from './PostCard.style';
 import PostInputText from './PostInputText';
@@ -39,14 +41,41 @@ const styles = theme => merge(postCardStyles(theme), {
   },
 });
 
+// https://github.com/neo4j-graphql/neo4j-graphql/issues/59
+// https://github.com/apollographql/react-apollo/issues/238
+// or make the tags logic in the resolver <- might make more sense
+// but lets first implement addTag to play around
+const ADD_POST = gql`
+  mutation AddPost($type: String!) {
+      addPost(
+        post: {
+          text: "yo"
+          tags: [1,2]
+        }
+      ) {
+        idPost
+      }
+  }
+`;
+
+// might need to use redux form
 class RecipeReviewCard extends React.Component {
   state = {
     url: null,
+    chips: ['foo', 'bar'],
   };
 
   setUrl = url => this.setState({ url });
 
   text = null;
+
+  onSubmit = event => {
+      event.preventDefault();
+      console.log('yoyoyoYO', this.text);
+      console.log('chips', this.state.chips);
+  }
+
+  onChipsChange = chips => this.setState({ chips });
 
   render() {
     const { classes } = this.props;
@@ -57,13 +86,8 @@ class RecipeReviewCard extends React.Component {
     const backgroundColor = (new ColorHash()).hex(user.name);
 
     return (
-      <form
-        onSubmit={e => {
-          e.preventDefault();
-          console.log('yoyoyoyo', this.text);
-        }}
-      >
-        <Card className={classes.card}  style={{  }}>
+      <form onSubmit={this.onSubmit}>
+        <Card className={classes.card}>
           <CardHeader
             avatar={
               <Avatar aria-label="Recipe" style={{ backgroundColor }}>
@@ -75,11 +99,12 @@ class RecipeReviewCard extends React.Component {
           />
           <CardContent>
             <ChipInput
-              defaultValue={['foo', 'bar']}
+              defaultValue={this.state.chips}
               fullWidth
               disableUnderline
               placeholder="Enter tags here"
               blurBehavior="add"
+              onChange={this.onChipsChange}
             />
           </CardContent>
           <CardContent>

@@ -140,5 +140,15 @@ export default schema;
   }
 }
 
+mutation {
+  addPost(
+    post: {
+      text: "yo"
+      tags: [1,2]
+    }
+  ) {
+    idPost
+  }
+}
 
 */
