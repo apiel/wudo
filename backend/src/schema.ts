@@ -151,4 +151,16 @@ mutation {
   }
 }
 
+mutation {
+  addPostAndTag(
+    post: {
+      text: "yo"
+      tags: ["ouioui","javascript2","yo","hello"]
+    }
+  ) {
+    idPost
+  }
+}
+
+
 */

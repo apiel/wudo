@@ -4,10 +4,10 @@ import {
 } from 'type-graphql';
 
 @InputType()
-export default class PostInput {
+export default class PostTagInput {
   @Field()
   text: string;
 
-  @Field(type => [Number])
-  tags: number[];
+  @Field(type => [String])
+  tags: string[];
 }

@@ -3,7 +3,7 @@ import { Query } from 'react-apollo';
 import gql from 'graphql-tag';
 
 import Post from './Post';
-import PostInput from './PostInput';
+import PostMutation from './PostMutation';
 
 const GET_POSTS = gql`
 {
@@ -24,7 +24,7 @@ const GET_POSTS = gql`
 
 const Posts = () => (
     <div>
-        <PostInput />
+        <PostMutation />
         <Query
             query={GET_POSTS}
         >

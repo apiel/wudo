@@ -32,10 +32,7 @@ const styles = theme => ({
     marginRight: 20,
   },
   title: {
-    display: 'none',
-    [theme.breakpoints.up('sm')]: {
-      display: 'block',
-    },
+    display: 'block',
   },
   inputRoot: {
     color: 'inherit',
