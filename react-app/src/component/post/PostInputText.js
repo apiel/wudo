@@ -35,15 +35,16 @@ class PostInputText extends React.Component {
     }
   }
 
-  render = (props) => (
+  render = () => (
     <TextField
         multiline
         fullWidth
         value={this.state.value}
-        placeholder="Type your text here"
+        placeholder="Type your text and #tags here"
         onChange={this.onTextChange}
         onBlur={this.onTextBlur}
-        {...props}
+        error={!!this.props.error}
+        helperText={this.props.error}
     />
   );
 }
@@ -51,6 +52,7 @@ class PostInputText extends React.Component {
 PostInputText.propTypes = {
     setUrl: PropTypes.func.isRequired,
     setHashTags: PropTypes.func.isRequired,
+    error: PropTypes.string,
 };
 
 export default PostInputText;

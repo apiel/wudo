@@ -34,6 +34,7 @@ const styles = theme => merge(postCardStyles(theme), {
 
 class PostForm extends React.Component {
   state = {
+    error: null,
     url: null,
     tags: [],
   };
@@ -47,21 +48,24 @@ class PostForm extends React.Component {
       event.preventDefault();
       const text = this.text.state.value;
       const tags = this.state.tags;
-      this.props.addPost({
-        variables: { text, tags },
-        update: (proxy, { data: { addPostAndTag } }) => {
-          const query = GET_POSTS;
-          const data = proxy.readQuery({ query });
-          data.getPosts.unshift(addPostAndTag);
-          proxy.writeQuery({ query, data });
-          this.text.setState({value: ''});
-          this.setState({tags: []});
-        },
-      });
+      if (!tags.length) {
+        this.setState({
+          error: 'Please specify at least one #tag. A tag should start by the character "#" for example #hello-world',
+        });
+      } else {
+        this.props.addPost({
+          variables: { text, tags },
+          update: (proxy, { data: { addPostAndTag } }) => {
+            const query = GET_POSTS;
+            const data = proxy.readQuery({ query });
+            data.getPosts.unshift(addPostAndTag);
+            proxy.writeQuery({ query, data });
+            this.text.setState({value: ''});
+            this.setState({tags: [], error: null});
+          },
+        });
+      }
   }
-  // deactivate field until button till tags and text is defined
-  // validate?
-  // refresh list after post
 
   onChipsChange = chips => this.setState({ chips });
 
@@ -94,6 +98,7 @@ class PostForm extends React.Component {
               }
               <CardContent>
                 <PostInputText
+                  error={this.state.error}
                   setUrl={this.setUrl}
                   setHashTags={this.setHashTags}
                   ref={node => { this.text = node; }}
