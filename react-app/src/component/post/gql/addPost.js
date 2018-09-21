@@ -1,5 +1,7 @@
 import gql from 'graphql-tag';
 
+import { select } from './getPosts';
+
 const template = gql`
 mutation AddPost($text: String!, $tags: [String!]!) {
     addPostAndTag(
@@ -7,18 +9,7 @@ mutation AddPost($text: String!, $tags: [String!]!) {
         text: $text
         tags: $tags
       }
-    ) {
-      idPost
-      text
-      creationDate
-      user {
-          name
-      }
-      tags {
-          name
-          idTag
-      }
-    }
+    ) ${select}
 }
 `;
 
