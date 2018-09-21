@@ -42,9 +42,8 @@ class PostForm extends React.Component {
   onSubmit = event => {
       event.preventDefault();
       const text = this.text.state.value;
-      console.log('yoyoyoYO', text);
-      console.log('chips', this.state.chips);
-      this.props.addPost({ variables: { text } });
+      const tags = this.state.chips;
+      this.props.addPost({ variables: { text, tags } });
   }
 
   onChipsChange = chips => this.setState({ chips });

@@ -9,11 +9,11 @@ import PostForm from './PostForm';
 // or make the tags logic in the resolver <- might make more sense
 // but lets first implement addTag to play around
 const ADD_POST = gql`
-  mutation AddPost($text: String!) {
+  mutation AddPost($text: String!, $tags: [String!]!) {
       addPostAndTag(
         post: {
           text: $text
-          tags: ["ouioui","javascript2","yo","hello"]
+          tags: $tags
         }
       ) {
         idPost

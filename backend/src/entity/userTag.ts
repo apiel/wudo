@@ -27,7 +27,7 @@ export default class UserTagEntity {
   // @Field(type => TagEntity)
   tag: Promise<TagEntity>;
 
-  @Column({ default: 'now()' })
+  @Column({ default: () => 'CURRENT_TIMESTAMP' })
   // @Field()
   creationDate: Date;
 

@@ -29,7 +29,7 @@ export default class PostEntity {
   @JoinTable()
   tags: Promise<TagEntity[]>; // | TagEntity[];
 
-  @Column({ default: 'now()' })
+  @Column({ default: () => 'CURRENT_TIMESTAMP' })
   @Field()
   creationDate: Date;
 

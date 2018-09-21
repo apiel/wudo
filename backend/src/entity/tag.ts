@@ -24,7 +24,7 @@ export default class TagEntity {
   @Field()
   name: string;
 
-  @Column({ default: 'now()' })
+  @Column({ default: () => 'CURRENT_TIMESTAMP' })
   @Field()
   creationDate: Date;
 
