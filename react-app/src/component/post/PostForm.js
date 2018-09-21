@@ -16,7 +16,7 @@ import ChipInput from 'material-ui-chip-input'; // need ChipAutoSuggest -> https
 import PostOgpQuery from './PostOgpQuery';
 import postCardStyles from './PostCard.style';
 import PostInputText from './PostInputText';
-import GET_POSTS from './query/getPosts';
+import GET_POSTS from './gql/getPosts';
 
 const styles = theme => merge(postCardStyles(theme), {
   card: {

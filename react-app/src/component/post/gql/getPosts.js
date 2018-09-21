@@ -1,6 +1,6 @@
 import gql from 'graphql-tag';
 
-const query = gql`
+const template = gql`
 {
     getPosts {
         idPost
@@ -17,4 +17,4 @@ const query = gql`
 }
 `;
 
-export default query;
+export default template;
