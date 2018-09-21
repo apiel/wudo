@@ -16,6 +16,7 @@ import ChipInput from 'material-ui-chip-input'; // need ChipAutoSuggest -> https
 import PostOgpQuery from './PostOgpQuery';
 import postCardStyles from './PostCard.style';
 import PostInputText from './PostInputText';
+import GET_POSTS from './query/getPosts';
 
 const styles = theme => merge(postCardStyles(theme), {
   card: {
@@ -43,8 +44,19 @@ class PostForm extends React.Component {
       event.preventDefault();
       const text = this.text.state.value;
       const tags = this.state.chips;
-      this.props.addPost({ variables: { text, tags } });
+      this.props.addPost({
+        variables: { text, tags },
+        update: (proxy, { data: { addPostAndTag } }) => {
+          const query = GET_POSTS;
+          const data = proxy.readQuery({ query });
+          data.getPosts.unshift(addPostAndTag);
+          proxy.writeQuery({ query, data });
+        }
+      });
   }
+  // deactivate field until button till tags and text is defined
+  // validate?
+  // refresh list after post
 
   onChipsChange = chips => this.setState({ chips });
 

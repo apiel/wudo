@@ -1,26 +1,10 @@
 import React from 'react';
 import { Query } from 'react-apollo';
-import gql from 'graphql-tag';
 
 import Post from './Post';
 import PostMutation from './PostMutation';
+import GET_POSTS from './query/getPosts';
 
-const GET_POSTS = gql`
-{
-    getPosts {
-        idPost
-        text
-        creationDate
-        user {
-            name
-        }
-        tags {
-            name
-            idTag
-        }
-    }
-}
-`;
 
 const Posts = () => (
     <div>

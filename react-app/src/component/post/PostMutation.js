@@ -17,6 +17,15 @@ const ADD_POST = gql`
         }
       ) {
         idPost
+        text
+        creationDate
+        user {
+            name
+        }
+        tags {
+            name
+            idTag
+        }
       }
   }
 `;
