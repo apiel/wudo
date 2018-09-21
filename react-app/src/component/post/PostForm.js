@@ -11,12 +11,14 @@ import Icon from '@material-ui/core/Icon';
 import Button from '@material-ui/core/Button';
 import merge from 'lodash/merge';
 import moment from 'moment';
-import ChipInput from 'material-ui-chip-input'; // need ChipAutoSuggest -> https://material-ui.com/demos/autocomplete/ ->downshift or react-select see multi
+// need ChipAutoSuggest -> https://material-ui.com/demos/autocomplete/ ->downshift or react-select see multi
 
 import PostOgpQuery from './PostOgpQuery';
 import postCardStyles from './PostCard.style';
 import PostInputText from './PostInputText';
 import GET_POSTS from './gql/getPosts';
+
+import PostItemTags from './PostItemTags';
 
 const styles = theme => merge(postCardStyles(theme), {
   card: {
@@ -33,17 +35,18 @@ const styles = theme => merge(postCardStyles(theme), {
 class PostForm extends React.Component {
   state = {
     url: null,
-    chips: ['foo', 'bar'],
+    tags: [],
   };
 
   setUrl = url => this.setState({ url });
+  setHashTags = tags => this.setState({ tags });
 
   text = null;
 
   onSubmit = event => {
       event.preventDefault();
       const text = this.text.state.value;
-      const tags = this.state.chips;
+      const tags = this.state.tags;
       this.props.addPost({
         variables: { text, tags },
         update: (proxy, { data: { addPostAndTag } }) => {
@@ -51,7 +54,9 @@ class PostForm extends React.Component {
           const data = proxy.readQuery({ query });
           data.getPosts.unshift(addPostAndTag);
           proxy.writeQuery({ query, data });
-        }
+          this.text.setState({value: ''});
+          this.setState({tags: []});
+        },
       });
   }
   // deactivate field until button till tags and text is defined
@@ -59,6 +64,8 @@ class PostForm extends React.Component {
   // refresh list after post
 
   onChipsChange = chips => this.setState({ chips });
+
+  getTags = () => this.state.tags.map(tag => ({ idTag: tag, name: tag }));
 
   render() {
     const { classes } = this.props;
@@ -80,18 +87,17 @@ class PostForm extends React.Component {
                 title={user.name}
                 subheader={moment().calendar()} // LLLL
               />
+              { this.state.tags &&
+                <CardActions style={{ paddingTop: 0, paddingBottom: 0 }}>
+                  <PostItemTags tags={this.getTags()} />
+                </CardActions>
+              }
               <CardContent>
-                <ChipInput
-                  defaultValue={this.state.chips}
-                  fullWidth
-                  disableUnderline
-                  placeholder="Enter tags here"
-                  blurBehavior="add"
-                  onChange={this.onChipsChange}
+                <PostInputText
+                  setUrl={this.setUrl}
+                  setHashTags={this.setHashTags}
+                  ref={node => { this.text = node; }}
                 />
-              </CardContent>
-              <CardContent>
-                <PostInputText setUrl={this.setUrl} ref={node => { this.text = node; }} />
               </CardContent>
               { this.state.url && <PostOgpQuery url={this.state.url} /> }
               <CardActions className={classes.actions} disableActionSpacing>

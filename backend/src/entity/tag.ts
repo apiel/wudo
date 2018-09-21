@@ -7,13 +7,14 @@ import {
   ManyToMany,
   JoinTable,
   OneToMany,
-  OneToOne,
+  Unique,
 } from 'typeorm';
 
 import PostEntity from './post';
 import UserTagEntity from './userTag';
 
 @Entity({name: 'tag'})
+@Unique(['name'])
 @ObjectType({ description: "Object representing post tag" })
 export default class TagEntity {
   @PrimaryGeneratedColumn()

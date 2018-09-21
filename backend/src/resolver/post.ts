@@ -7,7 +7,7 @@ import {
     Mutation,
     Arg,
 } from 'type-graphql';
-import { difference } from 'lodash';
+import { difference, uniq } from 'lodash';
 
 import PostEntity from '../entity/post';
 import TagEntity from '../entity/tag';
@@ -62,8 +62,7 @@ export default class PostResolver {
     async addPostAndTag(@Arg('post') postTagInput: PostTagInput, @Ctx() ctx) {
         // we should start a transaction
         const post = await this.insertPost(postTagInput.text, ctx);
-
-        const tags = postTagInput.tags.map(tag => tag.toLocaleLowerCase());
+        const tags = uniq(postTagInput.tags.map(tag => tag.toLocaleLowerCase()));
         const existingTags: TagEntity[] = await ctx.db.getRepository(TagEntity).find({
             select: ['name', 'idTag'],
             where: {

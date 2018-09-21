@@ -3,23 +3,26 @@ import PropTypes from 'prop-types';
 import TextField from '@material-ui/core/TextField';
 import urlRegex from 'url-regex';
 
+import findHashtags from '../../utils/hashtag';
+
 class PostInputText extends React.Component {
   state = {
-    value: null,
+    value: '',
   };
 
-  findUrl = value => {
+  analyseText = value => {
     const urls = value.match(urlRegex());
     let url = null;
     if (urls) {
         url = urls[0];
     }
     this.props.setUrl(url);
+    this.props.setHashTags(findHashtags(value));
   }
 
   onTextBlur = ({ target }) => {
     const { value } = target;
-    this.findUrl(value);
+    this.analyseText(value);
   }
 
   onTextChange = ({ target }) => {
@@ -28,7 +31,7 @@ class PostInputText extends React.Component {
 
     const lastChar = value.slice(-1);
     if (lastChar === ' ' || lastChar === "\n") {
-      this.findUrl(value);
+      this.analyseText(value);
     }
   }
 
@@ -36,6 +39,7 @@ class PostInputText extends React.Component {
     <TextField
         multiline
         fullWidth
+        value={this.state.value}
         placeholder="Type your text here"
         onChange={this.onTextChange}
         onBlur={this.onTextBlur}
@@ -46,6 +50,7 @@ class PostInputText extends React.Component {
 
 PostInputText.propTypes = {
     setUrl: PropTypes.func.isRequired,
+    setHashTags: PropTypes.func.isRequired,
 };
 
 export default PostInputText;
