@@ -26,12 +26,10 @@ export default class PostResolver {
     }
 
     async insertPost(text: string, ctx) {
-        const postRepo = ctx.db.getRepository(PostEntity);
-        const post = postRepo.create({
-            text,
-            user: ctx.user,
-        });
-        await postRepo.insert(post);
+        const post = new PostEntity;
+        post.text = text;
+        post.user = ctx.user;
+        await ctx.db.getRepository(PostEntity).save(post);
 
         return post;
     }
@@ -41,7 +39,7 @@ export default class PostResolver {
         // we should start a transaction
         const post = await this.insertPost(postInput.text, ctx);
 
-        (<TagEntity[]> post.tags) = await ctx.db.getRepository(TagEntity).find({
+        post.tags = await ctx.db.getRepository(TagEntity).find({
             where: {
                 idTag: In(<number[]>postInput.tags),
             },
@@ -66,7 +64,7 @@ export default class PostResolver {
         const post = await this.insertPost(postTagInput.text, ctx);
 
         const tags = postTagInput.tags.map(tag => tag.toLocaleLowerCase());
-        const existingTags = await ctx.db.getRepository(TagEntity).find({
+        const existingTags: TagEntity[] = await ctx.db.getRepository(TagEntity).find({
             select: ['name', 'idTag'],
             where: {
                 name: In(tags),
@@ -74,9 +72,9 @@ export default class PostResolver {
         });
         const existingTagNames = existingTags.map(tag => tag.name);
         const missingTags = difference(tags, existingTagNames);
-        const newTags = await this.insertTags(missingTags, ctx);
+        const newTags:TagEntity[] = missingTags ? await this.insertTags(missingTags, ctx) : [];
 
-        post.tags = [...existingTags, ...newTags];
+        post.tags = (async () => [...existingTags, ...newTags])();
         await ctx.db.getRepository(PostEntity).save(post);
 
         return post;
