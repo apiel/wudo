@@ -53,6 +53,7 @@ class PostForm extends React.Component {
           error: 'Please specify at least one #tag. A tag should start by the character "#" for example #hello-world',
         });
       } else {
+        this.setState({error: null});
         this.props.addPost({
           variables: { text, tags },
           update: (proxy, { data: { addPostAndTag } }) => {
@@ -79,6 +80,10 @@ class PostForm extends React.Component {
     }
     const backgroundColor = (new ColorHash()).hex(user.name);
 
+    const error = this.props.result.error ?
+      'Something went wrong while sending your post, please try again. If the problem persist, don\'t hesitate to contact us.'
+      : this.state.error;
+
     return (
           <form onSubmit={this.onSubmit}>
             <Card className={classes.card}>
@@ -98,7 +103,7 @@ class PostForm extends React.Component {
               }
               <CardContent>
                 <PostInputText
-                  error={this.state.error}
+                  error={error}
                   setUrl={this.setUrl}
                   setHashTags={this.setHashTags}
                   ref={node => { this.text = node; }}
@@ -106,9 +111,18 @@ class PostForm extends React.Component {
               </CardContent>
               { this.state.url && <PostOgpQuery url={this.state.url} /> }
               <CardActions className={classes.actions} disableActionSpacing>
-                  <Button variant="contained" color="primary" className={classes.button} type="submit">
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    className={classes.button}
+                    type="submit"
+                    disabled={this.props.result.loading}
+                  >
                       Post
-                      <Icon className={classes.rightIcon}>send</Icon>
+                      {this.props.result.loading ?
+                        'ing...'
+                        : (<Icon className={classes.rightIcon}>send</Icon>)
+                      }
                   </Button>
               </CardActions>
             </Card>
@@ -120,6 +134,7 @@ class PostForm extends React.Component {
 PostForm.propTypes = {
   classes: PropTypes.object.isRequired,
   addPost: PropTypes.func.isRequired,
+  result: PropTypes.object.isRequired, // mutation result
 };
 
 export default withStyles(styles)(PostForm);
