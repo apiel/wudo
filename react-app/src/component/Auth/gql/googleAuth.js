@@ -10,6 +10,6 @@ mutation googleAuth($tokenId: String!) {
     }
   }
 }
-`;
+`; // need to use select from getMe
 
 export default template;

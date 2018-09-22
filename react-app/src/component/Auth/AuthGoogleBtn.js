@@ -15,7 +15,8 @@ class AuthGoogleBtn extends React.Component {
     this.props.googleAuth({
       variables: { tokenId },
       update: (proxy, { data: { googleAuth }}) => {
-        console.log('yoyoyoyo others', googleAuth);
+        console.log('I should proxy the user to the profile', googleAuth);
+        localStorage.setItem('token', googleAuth.jwt);
       },
     });
   }

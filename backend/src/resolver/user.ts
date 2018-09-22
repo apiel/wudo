@@ -20,6 +20,11 @@ export default class UserResolver {
         return z;
     }
 
+    @Query(returns => UserEntity)
+    getMe(@Ctx() ctx) {
+        return ctx.db.getRepository(UserEntity).findOne(ctx.user.idUser);
+    }
+
     @FieldResolver()
     tags(@Root() user: UserEntity, @Ctx() ctx) {
         return ctx.db.getRepository(TagEntity)
