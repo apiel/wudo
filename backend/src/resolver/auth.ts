@@ -6,6 +6,7 @@ import * as crypto from 'crypto';
 
 import AuthEntity from './type/auth';
 import UserEntity from '../entity/user';
+import { generateToken } from '../lib/auth';
 
 @Resolver(AuthEntity)
 export default class AuthResolver {
@@ -34,8 +35,9 @@ export default class AuthResolver {
             await ctx.db.getRepository(UserEntity).save(user);
         } // else if different we could update
 
+        const jwt = await generateToken(user);
         const auth: AuthEntity = {
-            jwt: 'lol',
+            jwt,
             email: user.email,
             name: user.name,
             type,
