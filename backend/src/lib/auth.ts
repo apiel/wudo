@@ -4,19 +4,21 @@ import { fs } from 'mz';
 import UserEntity from '../entity/user';
 
 export type JsonWebToken = {
+    idUser: number;
     email: string;
 };
 
 export async function generateToken(user: UserEntity): Promise<string> {
     const secretkey: string = await getPrivateKey();
     const jwt: JsonWebToken = {
+        idUser: user.idUser,
         email: user.email,
     };
     return sign(jwt , secretkey, { expiresIn: '12h' });
 }
 
 let privateKey: string;
-async function getPrivateKey(): Promise<string> {
+export async function getPrivateKey(): Promise<string> {
     if (!privateKey) {
         // need to find a better way to load the private key file
         // right now it is taking the path from where we execute the npm run command

@@ -17,6 +17,8 @@ import MailIcon from '@material-ui/icons/Mail';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 // import MoreIcon from '@material-ui/icons/MoreVert';
 
+import Avatar from './Avatar';
+
 // #2095ab
 // #fda329
 
@@ -48,7 +50,7 @@ class PrimarySearchAppBar extends React.Component {
 
   render() {
     // const { anchorEl, mobileMoreAnchorEl } = this.state;
-    const { classes } = this.props;
+    const { classes, profile } = this.props;
 
     return (
       <div className={classes.root}>
@@ -70,6 +72,7 @@ class PrimarySearchAppBar extends React.Component {
                 </Badge>
               </IconButton>
             </div>
+            {profile && <Avatar user={profile} useHashColor={false} />}
           </Toolbar>
         </AppBar>
       </div>
@@ -79,6 +82,7 @@ class PrimarySearchAppBar extends React.Component {
 
 PrimarySearchAppBar.propTypes = {
   classes: PropTypes.object.isRequired,
+  profile: PropTypes.object,
 };
 
 export default withStyles(styles)(PrimarySearchAppBar);

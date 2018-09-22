@@ -3,7 +3,7 @@ import { Query } from 'react-apollo';
 import get from 'lodash/get';
 
 import Posts from './component/post/Posts';
-import Auth from './component/Auth/Auth';
+import Auth from './component/auth/Auth';
 import AppBar from './component/AppBar';
 import GET_ME from './gql/getMe';
 
@@ -18,10 +18,12 @@ class App extends Component {
           // if (error) return <p>Error :(</p>; // we might have to check for proper error
           // eg if it s not 403/401 show an error
 
+          const profile = get(data, 'getMe');
+
           return (
             <div className="App">
-              <AppBar />
-              { !error && get(data, 'getMe') ? (<Posts />) : <Auth /> }
+              <AppBar profile={profile} />
+              { !error && profile ? (<Posts />) : <Auth /> }
             </div>
           );
         }}

@@ -22,6 +22,7 @@ export default class UserResolver {
 
     @Query(returns => UserEntity)
     getMe(@Ctx() ctx) {
+        // console.log('getMe query', ctx.user);
         return ctx.db.getRepository(UserEntity).findOne(ctx.user.idUser);
     }
 

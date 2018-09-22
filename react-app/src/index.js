@@ -22,11 +22,13 @@ const client = new ApolloClient({
   uri: '/graphql',
   request: (operation) => {
     const token = localStorage.getItem('token');
-    operation.setContext({
-      headers: {
-        authorization: token,
-      },
-    });
+    if (token) {
+      operation.setContext({
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+    }
   },
 })
 

@@ -7,34 +7,28 @@ import CardHeader from '@material-ui/core/CardHeader';
 import CardMedia from '@material-ui/core/CardMedia';
 import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
-import Avatar from '@material-ui/core/Avatar';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 // import red from '@material-ui/core/colors/red';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import ShareIcon from '@material-ui/icons/Share';
 // import MoreVertIcon from '@material-ui/icons/MoreVert';
-import ColorHash from 'color-hash';
-
 import moment from 'moment';
 
+import Avatar from '../Avatar';
 import PostItemTags from './PostItemTags';
 import styles from './PostCard.style';
 
 class RecipeReviewCard extends React.Component {
   render() {
     const { classes, post } = this.props;
-
     const image = null;
-    const backgroundColor = (new ColorHash()).hex(post.user.name);
 
     return (
       <Card className={classes.card}>
         <CardHeader
           avatar={
-            <Avatar aria-label="Recipe" style={{ backgroundColor }}>
-              {post.user.name[0]}
-            </Avatar>
+            <Avatar user={post.user} />
           }
           title={post.user.name}
           subheader={moment(post.creationDate).calendar(null, {sameElse : 'llll'})}

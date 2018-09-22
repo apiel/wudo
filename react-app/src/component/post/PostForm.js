@@ -5,7 +5,6 @@ import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
-import Avatar from '@material-ui/core/Avatar';
 import ColorHash from 'color-hash';
 import Icon from '@material-ui/core/Icon';
 import Button from '@material-ui/core/Button';
@@ -17,7 +16,7 @@ import PostOgpQuery from './PostOgpQuery';
 import postCardStyles from './PostCard.style';
 import PostInputText from './PostInputText';
 import GET_POSTS from './gql/getPosts';
-
+import Avatar from '../Avatar';
 import PostItemTags from './PostItemTags';
 
 const styles = theme => merge(postCardStyles(theme), {
@@ -89,9 +88,7 @@ class PostForm extends React.Component {
             <Card className={classes.card}>
               <CardHeader
                 avatar={
-                  <Avatar aria-label="Recipe" style={{ backgroundColor }}>
-                    {user.name[0]}
-                  </Avatar>
+                  <Avatar user={user} />
                 }
                 title={user.name}
                 subheader={moment().calendar()} // LLLL

@@ -31,6 +31,7 @@ export default class UserEntity {
   // @Field()
   creationDate: Date;
 
+  @Field(type => String, { nullable: true })
   @Column('bytea', { nullable: true })
   avatar: Buffer;
 
