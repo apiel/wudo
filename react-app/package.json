@@ -7,6 +7,7 @@
     "@material-ui/core": "^3.0.3",
     "@material-ui/icons": "^3.0.1",
     "apollo-boost": "^0.1.16",
+    "classnames": "^2.2.6",
     "color-hash": "^1.0.3",
     "graphql": "^14.0.2",
     "lodash": "^4.17.11",
@@ -14,6 +15,7 @@
     "react": "^16.5.1",
     "react-apollo": "^2.1.11",
     "react-dom": "^16.5.1",
+    "react-google-login": "^3.2.1",
     "react-scripts": "1.1.5",
     "url-regex": "^4.1.1"
   },

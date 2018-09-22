@@ -5,6 +5,7 @@ import UserResolver from './resolver/user';
 import TagResolver from './resolver/tag';
 import UserTagResolver from './resolver/userTag';
 import OgsResolver from './resolver/ogs';
+import AuthResolver from './resolver/auth';
 import { test } from './test';
 
 const schema = buildSchemaSync({
@@ -14,6 +15,7 @@ const schema = buildSchemaSync({
     TagResolver,
     UserTagResolver,
     OgsResolver,
+    AuthResolver,
   ],
   globalMiddlewares: [test],
 });
