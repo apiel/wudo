@@ -3,7 +3,7 @@ import { Query } from 'react-apollo';
 
 import Post from './Post';
 import PostMutation from './PostMutation';
-import GET_POSTS from './gql/getPosts';
+import GET_POSTS from '../../gql/getPosts';
 
 
 const Posts = () => (

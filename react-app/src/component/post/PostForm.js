@@ -5,7 +5,6 @@ import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
-import ColorHash from 'color-hash';
 import Icon from '@material-ui/core/Icon';
 import Button from '@material-ui/core/Button';
 import merge from 'lodash/merge';
@@ -15,7 +14,7 @@ import moment from 'moment';
 import PostOgpQuery from './PostOgpQuery';
 import postCardStyles from './PostCard.style';
 import PostInputText from './PostInputText';
-import GET_POSTS from './gql/getPosts';
+import GET_POSTS from '../../gql/getPosts';
 import Avatar from '../Avatar';
 import PostItemTags from './PostItemTags';
 
@@ -77,7 +76,6 @@ class PostForm extends React.Component {
     const user = {
         name: 'Alexandre Piel'
     }
-    const backgroundColor = (new ColorHash()).hex(user.name);
 
     const error = this.props.result.error ?
       'Something went wrong while sending your post, please try again. If the problem persist, don\'t hesitate to contact us.'

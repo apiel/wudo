@@ -26,6 +26,7 @@ export default class PostResolver {
     }
 
     async insertPost(text: string, ctx) {
+        console.log('ctx.user insert post', ctx.user);
         const post = new PostEntity;
         post.text = text;
         post.user = ctx.user;

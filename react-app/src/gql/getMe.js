@@ -1,13 +1,10 @@
 import gql from 'graphql-tag';
 
-export const select = `{
-    name
-    avatar
-}`;
+import selectUser from './selectUser';
 
 const template = gql`
 {
-    getMe ${select}
+    getMe ${selectUser}
 }
 `;
 

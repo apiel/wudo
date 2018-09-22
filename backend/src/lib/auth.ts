@@ -6,6 +6,7 @@ import UserEntity from '../entity/user';
 export type JsonWebToken = {
     idUser: number;
     email: string;
+    name: string; // to remove when we use session verification
 };
 
 export async function generateToken(user: UserEntity): Promise<string> {
@@ -13,6 +14,7 @@ export async function generateToken(user: UserEntity): Promise<string> {
     const jwt: JsonWebToken = {
         idUser: user.idUser,
         email: user.email,
+        name: user.name,
     };
     return sign(jwt , secretkey, { expiresIn: '12h' });
 }
