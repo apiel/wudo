@@ -14,9 +14,10 @@ import moment from 'moment';
 import PostOgpQuery from './PostOgpQuery';
 import postCardStyles from './PostCard.style';
 import PostInputText from './PostInputText';
-import GET_POSTS from '../../gql/getPosts';
 import Avatar from '../Avatar';
 import PostItemTags from './PostItemTags';
+
+import GET_POSTS from '../../gql/getPosts';
 
 const styles = theme => merge(postCardStyles(theme), {
   card: {

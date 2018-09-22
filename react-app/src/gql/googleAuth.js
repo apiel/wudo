@@ -1,13 +1,13 @@
 import gql from 'graphql-tag';
 
+import selectUser from './selectUser';
+
 const template = gql`
 mutation googleAuth($tokenId: String!) {
   googleAuth(token: $tokenId) {
     jwt
     type
-    user {
-      name
-    }
+    user ${selectUser}
   }
 }
 `; // need to use select from getMe

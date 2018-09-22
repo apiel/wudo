@@ -4,6 +4,8 @@ import Button from '@material-ui/core/Button';
 import classNames from 'classnames';
 import { GoogleLogin } from 'react-google-login';
 
+import GET_ME from '../../gql/getMe';
+
 const googleWebClientId = '746478807929-4hpugtvcq9ss69d31kg5dilif0dudktk.apps.googleusercontent.com';
 
 class AuthGoogleBtn extends React.Component {
@@ -15,7 +17,12 @@ class AuthGoogleBtn extends React.Component {
     this.props.googleAuth({
       variables: { tokenId },
       update: (proxy, { data: { googleAuth }}) => {
-        console.log('I should proxy the user to the profile', googleAuth);
+        // console.log('I should proxy the user to the profile', googleAuth);
+        const query = GET_ME;
+        const getMe = googleAuth.user;
+        const data = { getMe };
+        proxy.writeQuery({ query, data });
+
         localStorage.setItem('token', googleAuth.jwt);
       },
     });
