@@ -31,9 +31,8 @@ export default class AuthResolver {
             const hash = crypto.createHash('sha1');
             hash.update(user.avatar);
             user.avatarChecksum = hash.digest('hex');
-            // await ctx.db.entityManager.persist(user);
             await ctx.db.getRepository(UserEntity).save(user);
-        }
+        } // else if different we could update
 
         const auth: AuthEntity = {
             jwt: 'lol',

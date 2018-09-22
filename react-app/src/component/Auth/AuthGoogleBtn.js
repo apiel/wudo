@@ -5,12 +5,19 @@ import classNames from 'classnames';
 import { GoogleLogin } from 'react-google-login';
 
 const googleWebClientId = '746478807929-4hpugtvcq9ss69d31kg5dilif0dudktk.apps.googleusercontent.com';
-const googleServerClientId = '746478807929-m46e3ae4glhnuqqcv7d1olfh35b31um4.apps.googleusercontent.com';
 
 class AuthGoogleBtn extends React.Component {
 
-  onSuccess= data => console.log('google success', data);
   onFailure= data => console.error('google err', data); // we should show an error
+
+  onSuccess = ({ tokenId }) => {
+    this.props.googleAuth({
+      variables: { tokenId },
+      update: (proxy, others) => {
+        console.log('yoyoyoyo others', others);
+      },
+    });
+  }
 
   render() {
     const { classes } = this.props;
@@ -42,6 +49,8 @@ class AuthGoogleBtn extends React.Component {
 
 AuthGoogleBtn.propTypes = {
   classes: PropTypes.object.isRequired,
+  googleAuth: PropTypes.func.isRequired,
+  result: PropTypes.object.isRequired, // mutation result
 };
 
 export default AuthGoogleBtn;
