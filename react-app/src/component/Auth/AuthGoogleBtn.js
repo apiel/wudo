@@ -11,10 +11,11 @@ class AuthGoogleBtn extends React.Component {
   onFailure= data => console.error('google err', data); // we should show an error
 
   onSuccess = ({ tokenId }) => {
+    // console.log('tokenId', tokenId);
     this.props.googleAuth({
       variables: { tokenId },
-      update: (proxy, others) => {
-        console.log('yoyoyoyo others', others);
+      update: (proxy, { data: { googleAuth }}) => {
+        console.log('yoyoyoyo others', googleAuth);
       },
     });
   }

@@ -38,8 +38,7 @@ export default class AuthResolver {
         const jwt = await generateToken(user);
         const auth: AuthEntity = {
             jwt,
-            email: user.email,
-            name: user.name,
+            user,
             type,
         }
         return auth;

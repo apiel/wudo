@@ -4,9 +4,10 @@ const template = gql`
 mutation googleAuth($tokenId: String!) {
   googleAuth(token: $tokenId) {
     jwt
-    email
-    name
     type
+    user {
+      name
+    }
   }
 }
 `;
