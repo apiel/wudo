@@ -7,7 +7,6 @@ import ADD_POST from './gql/addPost'
 const PostMutation = () => (
   <Mutation
     mutation={ADD_POST}
-    onError={err => console.log('errrrrrrrrrrrr', err)}
   >
     {(addPost, result) => (
       <PostForm addPost={addPost} result={result} />
