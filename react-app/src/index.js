@@ -9,6 +9,7 @@ import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
 import './index.css';
 import App from './App';
 import registerServiceWorker from './registerServiceWorker';
+// import client from './apollo';
 
 const theme = createMuiTheme({
   palette: {
@@ -18,8 +19,16 @@ const theme = createMuiTheme({
 });
 
 const client = new ApolloClient({
-    uri: '/graphql',
-});
+  uri: '/graphql',
+  request: (operation) => {
+    const token = localStorage.getItem('token');
+    operation.setContext({
+      headers: {
+        authorization: token,
+      },
+    });
+  },
+})
 
 const AppApollo = () => (
     <ApolloProvider client={client}>
