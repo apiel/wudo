@@ -8,7 +8,6 @@ import BackIcon from '@material-ui/icons/ArrowBackIos';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 
-import AppTitle from './AppBarTitle';
 import styles from './AppBarStyle';
 
 const AppBarBack = ({ classes, title, link, history }) => (
