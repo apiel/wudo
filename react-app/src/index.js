@@ -4,6 +4,7 @@ import ApolloClient from 'apollo-boost';
 import { ApolloProvider } from 'react-apollo';
 import { createMuiTheme } from '@material-ui/core/styles';
 import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
+import { BrowserRouter } from 'react-router-dom';
 
 
 import './index.css';
@@ -35,7 +36,9 @@ const client = new ApolloClient({
 const AppApollo = () => (
     <ApolloProvider client={client}>
         <MuiThemeProvider theme={theme}>
-        <App />
+          <BrowserRouter>
+            <App />
+          </BrowserRouter>
         </MuiThemeProvider>
     </ApolloProvider>
   );

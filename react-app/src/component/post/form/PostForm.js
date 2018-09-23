@@ -10,6 +10,8 @@ import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
 import Icon from '@material-ui/core/Icon';
 import Button from '@material-ui/core/Button';
+// before https://github.com/TeamWertarbyte/material-ui-chip-input
+//
 // need ChipAutoSuggest -> https://material-ui.com/demos/autocomplete/ ->downshift or react-select see multi
 // https://www.npmjs.com/package/downshift
 // https://www.npmjs.com/package/react-select

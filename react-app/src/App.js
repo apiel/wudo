@@ -2,9 +2,8 @@ import React from 'react';
 import { Query } from 'react-apollo';
 import get from 'lodash/get';
 
-import Posts from './component/post/Posts';
+import Routes from './Routes';
 import Auth from './component/auth/Auth';
-import AppBar from './component/AppBar';
 import GET_ME from './gql/getMe';
 import { AuthConsumer, AuthProvider } from './context/Auth';
 
@@ -25,8 +24,7 @@ const App = () => (
             const profile = get(data, 'getMe');
             return (
               <div className="App">
-                <AppBar profile={profile} />
-                { profile ? (<Posts />) : <Auth setIsLoggedin={this.setIsLoggedin} /> }
+                { profile ? (<Routes />) : <Auth setIsLoggedin={this.setIsLoggedin} /> }
               </div>
             );
           }}

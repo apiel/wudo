@@ -6,6 +6,7 @@ import Grid from '@material-ui/core/Grid';
 import classNames from 'classnames';
 
 import AuthGoogleMutation from './AuthGoogleMutation';
+import AppBarGuest from '../appBar/AppBarGuest';
 
 const styles = theme => ({
   root: {
@@ -30,8 +31,12 @@ const styles = theme => ({
   github: {},
 });
 
+// https://www.npmjs.com/package/react-facebook-login
+
 const Auth = ({ classes }) => (
-  <Grid container justify="center" className={classes.root}>
+  <div>
+    <AppBarGuest />
+    <Grid container justify="center" className={classes.root}>
     <AuthGoogleMutation classes={classes} />
     <Button
       variant="contained"
@@ -46,6 +51,7 @@ const Auth = ({ classes }) => (
       /> Continue with Facebook
     </Button>
   </Grid>
+  </div>
 );
 
 Auth.propTypes = {
