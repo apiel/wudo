@@ -5,11 +5,17 @@ import Posts from './component/post/Posts';
 import Follow from './component/follow/Follow';
 import Follower from './component/follower/Follower';
 
+export const urls = {
+	follow: '/follow',
+	follower: '/follower',
+	home: '/',
+}
+
 const UserRoutes = () => (
 	<Switch>
-		<Route path="/follow" component={Follow} />
-		<Route path="/follower" component={Follower} />
-		<Route path="/" component={Posts} />
+		<Route path={urls.follow} component={Follow} />
+		<Route path={urls.follower} component={Follower} />
+		<Route path={urls.home} component={Posts} />
 	</Switch>
 );
 

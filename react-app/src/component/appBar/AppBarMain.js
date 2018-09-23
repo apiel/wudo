@@ -12,6 +12,7 @@ import PeopleIcon from '@material-ui/icons/People';
 import AppBarProfile from './AppBarProfile';
 import AppTitle from './AppBarTitle';
 import styles from './AppBarStyle';
+import { urls } from '../../Routes';
 
 const PrimarySearchAppBar = ({ classes }) => (
   <div className={classes.root}>
@@ -20,12 +21,12 @@ const PrimarySearchAppBar = ({ classes }) => (
         <AppTitle classes={classes} />
         <div className={classes.grow} />
         <div className={classes.menuButtons}>
-          <Link to="/follow" className={classes.link} title="Search for some contacts and tags">
+          <Link to={urls.follow} className={classes.link} title="Search for some contacts and tags">
             <IconButton color="inherit">
               <SearchIcon />
             </IconButton>
           </Link>
-          <Link to="/follower" className={classes.link} title="See who is following you">
+          <Link to={urls.follower} className={classes.link} title="See who is following you">
             <IconButton color="inherit">
               <Badge className={classes.margin} badgeContent={4} color="secondary">
                 <PeopleIcon />
