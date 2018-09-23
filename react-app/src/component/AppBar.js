@@ -31,37 +31,31 @@ const styles = theme => ({
   },
 });
 
-class PrimarySearchAppBar extends React.Component {
-  render() {
-    const { classes, profile } = this.props;
-
-    return (
-      <div className={classes.root}>
-        <AppBar position="static">
-          <Toolbar>
-            <Typography className={classes.title} variant="title" color="inherit" noWrap>
-              WUDo
-            </Typography>
-            <div className={classes.grow} />
-            <div>
-              <IconButton color="inherit">
-                <Badge className={classes.margin} badgeContent={4} color="secondary">
-                  <MailIcon />
-                </Badge>
-              </IconButton>
-              <IconButton color="inherit">
-                <Badge className={classes.margin} badgeContent={17} color="secondary">
-                  <NotificationsIcon />
-                </Badge>
-              </IconButton>
-            </div>
-            {profile && <Avatar user={profile} useHashColor={false} />}
-          </Toolbar>
-        </AppBar>
-      </div>
-    );
-  }
-}
+const PrimarySearchAppBar = ({ classes, profile }) => (
+  <div className={classes.root}>
+    <AppBar position="static">
+      <Toolbar>
+        <Typography className={classes.title} variant="title" color="inherit" noWrap>
+          WUDo
+        </Typography>
+        <div className={classes.grow} />
+        <div>
+          <IconButton color="inherit">
+            <Badge className={classes.margin} badgeContent={4} color="secondary">
+              <MailIcon />
+            </Badge>
+          </IconButton>
+          <IconButton color="inherit">
+            <Badge className={classes.margin} badgeContent={17} color="secondary">
+              <NotificationsIcon />
+            </Badge>
+          </IconButton>
+        </div>
+        {profile && <Avatar user={profile} useHashColor={false} />}
+      </Toolbar>
+    </AppBar>
+  </div>
+);
 
 PrimarySearchAppBar.propTypes = {
   classes: PropTypes.object.isRequired,

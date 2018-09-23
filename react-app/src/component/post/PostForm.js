@@ -1,5 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Query } from 'react-apollo';
+import merge from 'lodash/merge';
+import moment from 'moment';
 import { withStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
@@ -7,8 +10,6 @@ import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
 import Icon from '@material-ui/core/Icon';
 import Button from '@material-ui/core/Button';
-import merge from 'lodash/merge';
-import moment from 'moment';
 // need ChipAutoSuggest -> https://material-ui.com/demos/autocomplete/ ->downshift or react-select see multi
 
 import PostOgpQuery from './PostOgpQuery';
@@ -18,6 +19,7 @@ import Avatar from '../Avatar';
 import PostItemTags from './PostItemTags';
 
 import GET_POSTS from '../../gql/getPosts';
+import GET_ME from '../../gql/getMe';
 
 const styles = theme => merge(postCardStyles(theme), {
   card: {
@@ -74,22 +76,20 @@ class PostForm extends React.Component {
   render() {
     const { classes } = this.props;
 
-    const user = {
-        name: 'Alexandre Piel'
-    }
-
     const error = this.props.result.error ?
       'Something went wrong while sending your post, please try again. If the problem persist, don\'t hesitate to contact us.'
       : this.state.error;
 
     return (
+      <Query query={GET_ME}>
+        {({ data: { getMe } }) => (
           <form onSubmit={this.onSubmit}>
             <Card className={classes.card}>
               <CardHeader
                 avatar={
-                  <Avatar user={user} />
+                  <Avatar user={getMe} />
                 }
-                title={user.name}
+                title={getMe.name}
                 subheader={moment().calendar()} // LLLL
               />
               { this.state.tags &&
@@ -123,6 +123,8 @@ class PostForm extends React.Component {
               </CardActions>
             </Card>
           </form>
+        )}
+      </Query>
     );
   }
 }
