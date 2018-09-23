@@ -42,12 +42,14 @@ const styles = theme => merge(postCardStyles(theme), {
   },
 });
 
+const initialState = {
+  error: null,
+  url: null,
+  tags: [],
+}
+
 class PostForm extends React.Component {
-  state = {
-    error: null,
-    url: null,
-    tags: [],
-  };
+  state = initialState;
 
   setUrl = url => this.setState({ url });
   setHashTags = tags => this.setState({ tags });
@@ -72,7 +74,7 @@ class PostForm extends React.Component {
             data.getPosts.unshift(addPostAndTag);
             proxy.writeQuery({ query, data });
             this.text.setState({value: ''});
-            this.setState({tags: [], error: null});
+            this.setState(initialState);
           },
         });
       }

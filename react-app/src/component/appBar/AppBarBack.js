@@ -10,7 +10,7 @@ import Typography from '@material-ui/core/Typography';
 
 import styles from './AppBarStyle';
 
-const AppBarBack = ({ classes, title, link, history }) => (
+const AppBarBack = ({ classes, title, history }) => (
   <div className={classes.root}>
     <AppBar position="static">
       <Toolbar className={classes.toolbar}>
@@ -28,7 +28,6 @@ const AppBarBack = ({ classes, title, link, history }) => (
 AppBarBack.propTypes = {
   classes: PropTypes.object.isRequired,
   title: PropTypes.string.isRequired,
-  link: PropTypes.string.isRequired,
 };
 
 export default withStyles(styles)(withRouter(AppBarBack));
