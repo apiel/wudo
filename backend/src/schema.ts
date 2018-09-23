@@ -1,5 +1,7 @@
 import { buildSchemaSync } from 'type-graphql';
 
+import authChecker from './authChecker';
+
 import PostResolver from './resolver/post';
 import UserResolver from './resolver/user';
 import TagResolver from './resolver/tag';
@@ -18,6 +20,7 @@ const schema = buildSchemaSync({
     AuthResolver,
   ],
   globalMiddlewares: [test],
+  authChecker,
 });
 
 export default schema;

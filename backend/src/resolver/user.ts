@@ -6,6 +6,7 @@ import {
     Ctx,
     Arg,
     Root,
+    Authorized
 } from 'type-graphql';
 import UserEntity from '../entity/user';
 
@@ -13,6 +14,7 @@ import TagEntity from '../entity/tag';
 
 @Resolver(UserEntity)
 export default class UserResolver {
+    @Authorized()
     @Query(returns => UserEntity)
     async getUser(@Arg('id') id: number, @Ctx() ctx) {
         const z = await ctx.db.getRepository(UserEntity).findOne(id);
@@ -20,6 +22,7 @@ export default class UserResolver {
         return z;
     }
 
+    @Authorized()
     @Query(returns => UserEntity)
     getMe(@Ctx() ctx) {
         // console.log('getMe query', ctx.user);

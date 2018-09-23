@@ -6,6 +6,7 @@ import {
     Ctx,
     Mutation,
     Arg,
+    Authorized,
 } from 'type-graphql';
 import { difference, uniq } from 'lodash';
 
@@ -16,6 +17,7 @@ import PostTagInput from './type/postTagInput';
 
 @Resolver(PostEntity)
 export default class PostResolver {
+    @Authorized()
     @Query(returns => [PostEntity])
     getPosts(@Ctx() ctx) {
         return ctx.db.getRepository(PostEntity).find({
@@ -35,6 +37,7 @@ export default class PostResolver {
         return post;
     }
 
+    @Authorized()
     @Mutation(returns => PostEntity)
     async addPost(@Arg('post') postInput: PostInput, @Ctx() ctx) {
         // we should start a transaction
@@ -59,6 +62,7 @@ export default class PostResolver {
         return newTags;
     }
 
+    @Authorized()
     @Mutation(returns => PostEntity)
     async addPostAndTag(@Arg('post') postTagInput: PostTagInput, @Ctx() ctx) {
         // we should start a transaction
