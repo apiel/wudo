@@ -18,6 +18,7 @@ class AuthGoogleBtn extends React.Component {
       variables: { tokenId },
       update: (proxy, { data: { googleAuth }}) => {
         localStorage.setItem('token', googleAuth.jwt);
+        this.props.setIsLoggedin(true);
 
         const query = GET_ME;
         const getMe = googleAuth.user;
@@ -59,6 +60,7 @@ AuthGoogleBtn.propTypes = {
   classes: PropTypes.object.isRequired,
   googleAuth: PropTypes.func.isRequired,
   result: PropTypes.object.isRequired, // mutation result
+  setIsLoggedin: PropTypes.func.isRequired,
 };
 
 export default AuthGoogleBtn;

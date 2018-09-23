@@ -30,9 +30,9 @@ const styles = theme => ({
   github: {},
 });
 
-const Auth = ({ classes }) => (
+const Auth = ({ classes, setIsLoggedin }) => (
   <Grid container justify="center" className={classes.root}>
-    <AuthGoogleMutation classes={classes} />
+    <AuthGoogleMutation classes={classes} setIsLoggedin={setIsLoggedin} />
     <Button
       variant="contained"
       className={classNames(classes.button, classes.fb)}
@@ -50,6 +50,7 @@ const Auth = ({ classes }) => (
 
 Auth.propTypes = {
   classes: PropTypes.object.isRequired,
+  setIsLoggedin: PropTypes.func.isRequired,
 };
 
 export default withStyles(styles)(Auth);
