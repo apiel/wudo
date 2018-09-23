@@ -11,6 +11,13 @@ import CardActions from '@material-ui/core/CardActions';
 import Icon from '@material-ui/core/Icon';
 import Button from '@material-ui/core/Button';
 // need ChipAutoSuggest -> https://material-ui.com/demos/autocomplete/ ->downshift or react-select see multi
+// https://www.npmjs.com/package/downshift
+// https://www.npmjs.com/package/react-select
+// or may be use mention system directly in text edit
+// like https://ant.design/components/mention/
+// maybe this https://www.npmjs.com/package/react-mentions
+//
+// or use both mention in textfield + autocomplete tags
 
 import PostOgpQuery from './PostOgpQuery';
 import postCardStyles from '../PostCard.style';
