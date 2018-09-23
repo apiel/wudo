@@ -13,13 +13,13 @@ import Button from '@material-ui/core/Button';
 // need ChipAutoSuggest -> https://material-ui.com/demos/autocomplete/ ->downshift or react-select see multi
 
 import PostOgpQuery from './PostOgpQuery';
-import postCardStyles from './PostCard.style';
+import postCardStyles from '../PostCard.style';
 import PostInputText from './PostInputText';
-import Avatar from '../Avatar';
-import PostItemTags from './PostItemTags';
+import Avatar from '../../Avatar';
+import PostItemTags from '../PostItemTags';
 
-import GET_POSTS from '../../gql/getPosts';
-import GET_ME from '../../gql/getMe';
+import GET_POSTS from '../../../gql/getPosts';
+import GET_ME from '../../../gql/getMe';
 
 const styles = theme => merge(postCardStyles(theme), {
   card: {

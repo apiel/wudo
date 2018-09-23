@@ -2,7 +2,7 @@ import React from 'react';
 import { Query } from 'react-apollo';
 
 import Post from './Post';
-import PostMutation from './PostMutation';
+import PostMutation from './form/PostMutation';
 import GET_POSTS from '../../gql/getPosts';
 
 

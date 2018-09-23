@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import TextField from '@material-ui/core/TextField';
 import urlRegex from 'url-regex';
 
-import findHashtags from '../../utils/hashtag';
+import findHashtags from '../../../utils/hashtag';
 
 class PostInputText extends React.Component {
   state = {

@@ -4,7 +4,7 @@ import gql from 'graphql-tag';
 import get from 'lodash/get';
 import LinearProgress from '@material-ui/core/LinearProgress';
 
-import PostOgp from './PostOgp';
+import PostOgp from '../PostOgp';
 
 const OGS = gql`
 query Ogs($url: String!) {
