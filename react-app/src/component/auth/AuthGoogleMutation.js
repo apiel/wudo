@@ -6,6 +6,7 @@ import AuthGoogleBtn from './AuthGoogleBtn';
 import GOOGLE_AUTH from '../../gql/googleAuth';
 import { AuthConsumer } from '../../context/Auth';
 
+// could use react-adopt
 const AuthGoogleMutation = ({ classes }) => (
   <AuthConsumer>
     {({ setIsLoggedin }) => (
