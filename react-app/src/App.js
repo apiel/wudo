@@ -13,7 +13,7 @@ const App = () => (
   <AuthProvider>
     <AuthConsumer>
     {({ isLoggedin }) => {
-      console.log('state isLoggedin', isLoggedin);
+      // console.log('state isLoggedin', isLoggedin);
       const skip = !isLoggedin;
       return (
         <Query query={GET_ME} skip={skip}>

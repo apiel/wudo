@@ -9,7 +9,7 @@ import { AuthConsumer } from '../../context/Auth';
 // could use react-adopt
 const AuthGoogleMutation = ({ classes }) => (
   <AuthConsumer>
-    {({ setIsLoggedin }) => (
+    {({ saveToken }) => (
       <Mutation
         mutation={GOOGLE_AUTH}
       >
@@ -18,7 +18,7 @@ const AuthGoogleMutation = ({ classes }) => (
             googleAuth={googleAuth}
             result={result}
             classes={classes}
-            setIsLoggedin={setIsLoggedin}
+            saveToken={saveToken}
           />
         )}
       </Mutation>
