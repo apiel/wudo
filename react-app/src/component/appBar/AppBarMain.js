@@ -26,7 +26,7 @@ const PrimarySearchAppBar = ({ classes }) => (
               <SearchIcon />
             </IconButton>
           </Link>
-          <Link to={urls.follower} className={classes.link} title="See who is following you">
+          <Link to={urls.followers} className={classes.link} title="See who is following you">
             <IconButton color="inherit">
               <Badge className={classes.margin} badgeContent={4} color="secondary">
                 <PeopleIcon />
