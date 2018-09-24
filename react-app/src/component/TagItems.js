@@ -17,12 +17,13 @@ class ChipsArray extends React.Component {
 
     return (
       <div className={classes.root}>
-        {tags.map(({ idTag, name }) => {
+        {tags.map(({ idTag, name, color = '' }) => {
           return (
             <Chip
               key={idTag}
               label={name}
               className={classes.chip}
+              color={color}
             />
           );
         })}

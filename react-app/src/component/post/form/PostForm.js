@@ -25,7 +25,7 @@ import PostOgpQuery from './PostOgpQuery';
 import postCardStyles from '../../../styles/card.style';
 import PostInputText from './PostInputText';
 import Avatar from '../../Avatar';
-import PostItemTags from '../PostItemTags';
+import TagItems from '../../TagItems';
 
 import GET_POSTS from '../../../gql/getPosts';
 import GET_ME from '../../../gql/getMe';
@@ -105,7 +105,7 @@ class PostForm extends React.Component {
               />
               { this.state.tags &&
                 <CardActions style={{ paddingTop: 0, paddingBottom: 0 }}>
-                  <PostItemTags tags={this.getTags()} />
+                  <TagItems tags={this.getTags()} />
                 </CardActions>
               }
               <CardContent>

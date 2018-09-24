@@ -13,7 +13,7 @@ import ShareIcon from '@material-ui/icons/Share';
 import moment from 'moment';
 
 import Avatar from '../Avatar';
-import PostItemTags from './PostItemTags';
+import TagItems from '../TagItems';
 import styles from '../../styles/card.style';
 
 class RecipeReviewCard extends React.Component {
@@ -31,7 +31,7 @@ class RecipeReviewCard extends React.Component {
           subheader={moment(post.creationDate).calendar(null, {sameElse : 'llll'})}
         />
         <CardActions style={{ paddingTop: 0, paddingBottom: 0 }}>
-          <PostItemTags tags={post.tags} />
+          <TagItems tags={post.tags} />
         </CardActions>
         { image && <CardMedia
           className={classes.media}

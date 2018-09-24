@@ -19,23 +19,24 @@ const Follow = () => (
 
                 const followUserTags = get(data, 'getFollowers.followUserTags', []);
                 const users = get(data, 'getFollowers.users', []);
-                const allTags = get(data, 'getFollowers.tags', []);
 
                 if (!followUserTags.length) return <p>You dont follow anyone</p>;
 
-                console.log('followUserTags', followUserTags, users, allTags);
                 return followUserTags.map(({ idUser, tags }) => {
                     const userIndex = users.findIndex(user => user.idUser === idUser);
                     const user = users[userIndex];
-                    const userTags = allTags.filter(
-                        allTag => tags.findIndex(tag => tag.id === allTag.idTag) !== -1
+                    user.tags.forEach(
+                        userTag => userTag.color =
+                            tags.findIndex(tag => tag.id === userTag.idTag) !== -1
+                            ? 'primary' : ''
                     );
                     return userIndex === -1 ? null : (
-                        <FollowItem key={idUser} user={user} tags={userTags} />
+                        <FollowItem key={idUser} user={user} />
                     );
                 });
             }}
         </Query>
+        <p>Need tooltip component: click tag to follow or unfollow</p>
     </div>
 );
 

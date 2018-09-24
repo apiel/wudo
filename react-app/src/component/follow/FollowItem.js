@@ -8,10 +8,11 @@ import CardContent from '@material-ui/core/CardContent';
 import Avatar from '../Avatar';
 import styles from '../../styles/card.style';
 
+import TagItems from '../TagItems';
+
 class FollowItem extends React.Component {
   render() {
-    const { classes, user, tags } = this.props;
-
+    const { classes, user } = this.props;
 
     return (
       <Card className={classes.card}>
@@ -22,7 +23,7 @@ class FollowItem extends React.Component {
           title={user.name}
         />
         <CardContent>
-          <p>Some tags</p>
+        <TagItems tags={user.tags} />
         </CardContent>
       </Card>
     );
