@@ -33,8 +33,8 @@ export class FollowUserTags {
 
 @ObjectType({ description: "Object representing follower and follwed users" })
 export default class UserTagEntity {
-  @Field(type => [TagEntity], { nullable: true })
-  tags: TagEntity[];
+  // @Field(type => [TagEntity], { nullable: true })
+  // tags: TagEntity[];
 
   @Field(type => [UserEntity], { nullable: true })
   users: UserEntity[];

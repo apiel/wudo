@@ -14,7 +14,7 @@ import moment from 'moment';
 
 import Avatar from '../Avatar';
 import PostItemTags from './PostItemTags';
-import styles from './PostCard.style';
+import styles from '../../styles/card.style';
 
 class RecipeReviewCard extends React.Component {
   render() {

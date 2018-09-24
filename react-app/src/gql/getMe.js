@@ -4,7 +4,7 @@ import selectUser from './select/selectUser';
 
 const template = gql`
 {
-    getMe ${selectUser}
+    getMe ${selectUser()}
 }
 `;
 

@@ -7,7 +7,7 @@ mutation googleAuth($tokenId: String!) {
   googleAuth(token: $tokenId) {
     jwt
     type
-    user ${selectUser}
+    user ${selectUser()}
   }
 }
 `; // need to use select from getMe

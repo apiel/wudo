@@ -1,21 +1,19 @@
 import gql from 'graphql-tag';
 
-export const select = `{
+import selectUser from './select/selectUser';
+import selectTag from './select/selectTag';
+
+export const select = () => `{
     idPost
     text
     creationDate
-    user {
-        name
-    }
-    tags {
-        name
-        idTag
-    }
+    user ${selectUser()}
+    tags ${selectTag()}
 }`;
 
 const template = gql`
 {
-    getPosts ${select}
+    getPosts ${select()}
 }
 `;
 

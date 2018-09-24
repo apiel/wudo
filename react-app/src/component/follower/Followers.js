@@ -20,7 +20,7 @@ const Followers = () => (
                 if (error) return <p>Error :(</p>;
 
                 const followers = get(data, 'getFollowers.tagsFollowedByUser', []);
-                if (!followers.length) return <p>Empty</p>;
+                if (!followers.length) return <p>Nobody follow this tag</p>;
 
                 return followers.map(({ idTag, users }) => (
                     <p key={idTag}>{JSON.stringify(users)}</p>

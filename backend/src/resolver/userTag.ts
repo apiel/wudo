@@ -78,11 +78,11 @@ export default class UserTagResolver {
         const users = await ctx.db.getRepository(UserEntity).find({
             where: { idUser: In(this.userIds) },
         });
-        const tags = await ctx.db.getRepository(TagEntity).find({
-            where: { idTag: In(this.tagIds) },
-        });
+        // const tags = await ctx.db.getRepository(TagEntity).find({
+        //     where: { idTag: In(this.tagIds) },
+        // });
         const userTags = {
-            tags,
+            // tags,
             users,
             tagsFollowedByUser: values(this.tagsFollowedByUser),
             followUserTags: values(this.followUserTags),

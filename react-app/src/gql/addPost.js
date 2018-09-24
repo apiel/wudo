@@ -9,7 +9,7 @@ mutation AddPost($text: String!, $tags: [String!]!) {
         text: $text
         tags: $tags
       }
-    ) ${select}
+    ) ${select()}
 }
 `;
 

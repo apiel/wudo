@@ -23,7 +23,7 @@ export default class UserEntity {
   @Field()
   name: string;
 
-  @Column()
+  @Column({ unique: true })
   // @Field({ nullable: true })
   email: string;
 

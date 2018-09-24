@@ -4,10 +4,9 @@ import selectUser from './select/selectUser';
 import selectTag from './select/selectTag';
 
 const template = gql`
-{
+  {
     getFollowers {
-      users ${selectUser}
-      tags ${selectTag}
+      users ${selectUser(`tags ${selectTag()}`)}
       tagsFollowedByUser {
         idTag
         users {

@@ -22,7 +22,7 @@ import Button from '@material-ui/core/Button';
 // or use both mention in textfield + autocomplete tags
 
 import PostOgpQuery from './PostOgpQuery';
-import postCardStyles from '../PostCard.style';
+import postCardStyles from '../../../styles/card.style';
 import PostInputText from './PostInputText';
 import Avatar from '../../Avatar';
 import PostItemTags from '../PostItemTags';
