@@ -10,3 +10,6 @@ post:
 
 profile:
 - fix profile image
+
+auth:
+- remove token from localStorage if error (jwt expired)

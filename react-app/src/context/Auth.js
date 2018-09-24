@@ -1,16 +1,17 @@
 import React, { Component } from 'react';
+import { getToken, setToken } from '../utils/storage';
 
 const AuthContext = React.createContext();
 
 export class AuthProvider extends Component {
     state = {
-        isLoggedin: !!localStorage.getItem('token'),
+        isLoggedin: !!getToken(),
     };
 
     setIsLoggedin = isLoggedin => this.setState({ isLoggedin });
 
     saveToken = token => {
-        localStorage.setItem('token', token);
+        setToken(token);
         this.setIsLoggedin(true);
     }
 

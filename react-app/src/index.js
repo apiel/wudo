@@ -12,6 +12,8 @@ import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 // import client from './apollo';
 
+import { getToken } from './utils/storage';
+
 const theme = createMuiTheme({
   palette: {
     primary: { main: '#2095ab' },
@@ -22,7 +24,7 @@ const theme = createMuiTheme({
 const client = new ApolloClient({
   uri: '/graphql',
   request: (operation) => {
-    const token = localStorage.getItem('token');
+    const token = getToken();
     if (token) {
       operation.setContext({
         headers: {
