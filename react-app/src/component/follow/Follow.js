@@ -5,7 +5,7 @@ import get from 'lodash/get';
 import GET_FOLLOWERS from '../../gql/getFollowers';
 
 import AppBarSearch from '../appBar/AppBarSearch';
-import FollowItem from './FollowItem';
+import FollowMutation from './FollowMutation';
 
 const Follow = () => (
     <div>
@@ -31,7 +31,7 @@ const Follow = () => (
                             tags.findIndex(tag => tag.active && tag.idItem === userTag.idTag) !== -1
                     );
                     return userIndex === -1 ? null : (
-                        <FollowItem key={idUser} user={user} />
+                        <FollowMutation key={idUser} user={user} />
                     );
                 });
             }}
