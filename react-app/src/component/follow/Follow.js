@@ -1,43 +1,33 @@
 import React from 'react';
-import { Query } from 'react-apollo';
-import get from 'lodash/get';
-
-import GET_FOLLOWERS from '../../gql/getFollowers';
 
 import AppBarSearch from '../appBar/AppBarSearch';
-import FollowMutation from './FollowMutation';
+import FollowQuery from './FollowQuery';
+import FollowSearch from './FollowSearch';
 
-const Follow = () => (
-    <div>
-        <AppBarSearch />
-        <Query
-            query={GET_FOLLOWERS}
-        >
-            {({ loading, error, data }) => {
-                if (loading) return <p>Loading...</p>;
-                if (error) return <p>Error :(</p>;
+export default class Follow extends React.Component {
+    state = {
+        search: '',
+    };
 
-                const followUserTags = get(data, 'getFollowers.followUserTags', []);
-                const users = get(data, 'getFollowers.users', []);
+    searchTimer = null;
 
-                if (!followUserTags.length) return <p>You dont follow anyone</p>;
+    onSearch = (e) => {
+        const search = e.target.value;
+        clearTimeout(this.searchTimer);
+        this.searchTimer = setTimeout(
+            () => this.setState({ search }),
+            500,
+        );
+    }
 
-                return followUserTags.map(({ idUser, tags }) => {
-                    const userIndex = users.findIndex(user => user.idUser === idUser);
-                    const user = users[userIndex];
-
-                    user.tags.forEach(
-                        userTag => userTag.active =
-                            tags.findIndex(tag => tag.active && tag.idItem === userTag.idTag) !== -1
-                    );
-                    return userIndex === -1 ? null : (
-                        <FollowMutation key={idUser} user={user} />
-                    );
-                });
-            }}
-        </Query>
-        <p>Need tooltip component: click tag to follow or unfollow</p>
-    </div>
-);
-
-export default Follow;
+    render() {
+        return (
+            <div>
+                <AppBarSearch onSearch={this.onSearch} />
+                <FollowQuery />
+                <FollowSearch search={this.state.search} />
+                <p>Need tooltip component: click tag to follow or unfollow</p>
+            </div>
+        );
+    }
+}

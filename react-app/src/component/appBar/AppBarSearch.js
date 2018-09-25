@@ -57,7 +57,7 @@ const styles = theme => merge(appBarStyle(theme), {
   },
 });
 
-const AppBarBack = ({ classes, history }) => (
+const AppBarSearch = ({ classes, history, onSearch }) => (
   <div className={classes.root}>
     <AppBar position="static">
       <Toolbar className={classes.toolbar}>
@@ -75,6 +75,7 @@ const AppBarBack = ({ classes, history }) => (
               root: classes.inputRoot,
               input: classes.inputInput,
             }}
+            onChange={onSearch}
           />
         </div>
       </Toolbar>
@@ -82,8 +83,9 @@ const AppBarBack = ({ classes, history }) => (
   </div>
 );
 
-AppBarBack.propTypes = {
+AppBarSearch.propTypes = {
   classes: PropTypes.object.isRequired,
+  onSearch: PropTypes.func.isRequired,
 };
 
-export default withStyles(styles)(withRouter(AppBarBack));
+export default withStyles(styles)(withRouter(AppBarSearch));
