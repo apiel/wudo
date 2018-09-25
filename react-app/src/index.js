@@ -5,14 +5,14 @@ import { ApolloProvider } from 'react-apollo';
 import { createMuiTheme } from '@material-ui/core/styles';
 import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
 import { BrowserRouter } from 'react-router-dom';
-
+import get from 'lodash/get';
 
 import './index.css';
 import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 // import client from './apollo';
 
-import { getToken } from './utils/storage';
+import { getToken, setToken } from './utils/storage';
 
 const theme = createMuiTheme({
   palette: {
@@ -23,6 +23,13 @@ const theme = createMuiTheme({
 
 const client = new ApolloClient({
   uri: '/graphql',
+  onError: error => {
+    const errorCode = get(error, 'networkError.result.error.code');
+    // console.log('errorCode', errorCode);
+    if (errorCode === 'invalid_token') {
+      setToken(''); // null does not work, we could also do localStorage.removeItem
+    }
+  },
   request: (operation) => {
     const token = getToken();
     if (token) {

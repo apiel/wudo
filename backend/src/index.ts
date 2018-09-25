@@ -19,6 +19,10 @@ const boot = async () => {
         credentialsRequired: false,
     })); //.unless({path: ['/token']}));
 
+    app.use((error, req, res, next) => {
+        res.status(error.status).json({ error });
+    });
+
     const mainMiddleware = (req, res, next) => {
         req.db = db;
         // req.user = user;

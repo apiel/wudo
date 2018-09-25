@@ -13,3 +13,6 @@ profile:
 
 auth:
 - remove token from localStorage if error (jwt expired)
+
+
+bad jwt eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZFVzZXIiOjQsImVtYWlsIjoiYWxleGFuZHJlLnBpZWxAZ21haWwuY29tIiwibmFtZSI6IkFsZXhhbmRyZSBQaWVsIiwiaWF0IjoxNTM3ODE0MzEwLCJleHAiOjE1Mzc4NTc1MTB9.rtd1RCHlrzauGuuu3ho587RcDnQ2b9bgVWrk5clVDxk
