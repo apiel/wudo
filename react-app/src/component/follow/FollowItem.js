@@ -19,27 +19,23 @@ class FollowItem extends React.Component {
     };
   }
 
-  onClick = (idTag) => () => {
+  onClick = (idTag) => async () => {
     const tags = this.state.tags;
     const tagIndex = tags.findIndex(tag => tag.idTag === idTag);
     // const tag = tags[tagIndex];
     const active = !tags[tagIndex].active;
     tags[tagIndex].active = active;
     this.setState({ tags });
-    // console.log('this.state.tags', this.state.tags);
-    // console.log('tag clicked', idTag, this.props.user);
-    // $idTag: number, $idUser: number, $active
-    this.props.followUserTag({
-      variables: { input: { idTag, active, idUser: this.props.user.idUser }},
-      // update: (proxy, { data: { addPostAndTag } }) => {
-      //   const query = GET_POSTS;
-      //   const data = proxy.readQuery({ query });
-      //   data.getPosts.unshift(addPostAndTag);
-      //   proxy.writeQuery({ query, data });
-      //   this.text.setState({value: ''});
-      //   this.setState(initialState);
-      // },
-    });
+    try {
+      await this.props.followUserTag({
+        variables: { input: { idTag, active, idUser: this.props.user.idUser }},
+      });
+    } catch (error) {
+      tags[tagIndex].active = !active;
+      this.setState({ tags });
+      // we could show a snackbars message
+      // we should then forward the error
+    }
   }
 
   render() {
