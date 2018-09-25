@@ -8,8 +8,9 @@ import {
     Root,
     Authorized
 } from 'type-graphql';
-import UserEntity from '../entity/user';
+import { Like } from 'typeorm';
 
+import UserEntity from '../entity/user';
 import TagEntity from '../entity/tag';
 
 @Resolver(UserEntity)
@@ -39,8 +40,12 @@ export default class UserResolver {
             .getMany();
     }
 
-    // @FieldResolver()
-    // email(@Root() user: UserEntity, @Ctx() ctx) {
-    //     return ctx.user.idUser === user.idUser ? user.email : null;
-    // }
+    @Authorized()
+    @Query(returns => [UserEntity])
+    findUsers(@Arg('search') search: string, @Ctx() ctx) {
+        const where = {
+            name: Like(search)
+        }
+        return ctx.db.getRepository(UserEntity).find({ where });
+    }
 }

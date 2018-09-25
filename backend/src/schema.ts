@@ -191,4 +191,10 @@ mutation {
   }
 }
 
+{
+  findUsers (search: "%M%") {
+    name
+    idUser
+  }
+}
 */
