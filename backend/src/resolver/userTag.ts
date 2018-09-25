@@ -1,12 +1,20 @@
 import 'reflect-metadata';
-import { Resolver, Query, Ctx } from 'type-graphql';
+import {
+    Resolver,
+    Query,
+    Ctx,
+    Authorized,
+    Mutation,
+    Arg
+} from 'type-graphql';
 import { In } from 'typeorm';
 import { values } from 'lodash';
 
-import UserTagType, { TagsFollowedByUser, FollowUserTags } from './type/userTag';
+import UserTagType, { TagsFollowedByUser, FollowUserTags, UserTagItem } from './type/userTag';
 import UserTagEntity from '../entity/userTag';
 import TagEntity from '../entity/tag';
 import UserEntity from '../entity/user';
+import FollowUserTagInput from './type/followUserTagInput';
 
 @Resolver(UserTagType)
 export default class UserTagResolver {
@@ -73,6 +81,7 @@ export default class UserTagResolver {
         });
     }
 
+    @Authorized()
     @Query(returns => UserTagType)
     async getFollowers(@Ctx() ctx) {
         this.init();
@@ -98,4 +107,24 @@ export default class UserTagResolver {
 
     // mutation follow
     // mutation accept
+
+    @Authorized()
+    @Mutation(returns => UserTagItem)
+    async followUserTag(@Arg('userTag') input: FollowUserTagInput, @Ctx() ctx) {
+        const where = {
+            follower: ctx.user,
+            followed: await ctx.db.getRepository(UserEntity).findOne(input.idUser),
+            tag: await ctx.db.getRepository(TagEntity).findOne(input.idTag),
+        };
+        const userTag = await ctx.db.getRepository(UserTagEntity).findOne({ where });
+        const params = { active: input.active ? new Date : null };
+
+        if (userTag) {
+            await ctx.db.getRepository(UserTagEntity).update(where, params);
+        } else {
+            await ctx.db.getRepository(UserTagEntity).insert({...where, ...params})
+        }
+
+        return ctx.db.getRepository(UserTagEntity).findOne({ where });
+    }
 }

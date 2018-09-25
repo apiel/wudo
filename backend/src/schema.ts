@@ -179,5 +179,16 @@ mutation {
   }
 }
 
+mutation {
+  followUserTag(userTag: {
+    idTag: 86
+    idUser: 2
+    active: true
+  }) {
+    accepted
+    viewed
+    active
+  }
+}
 
 */

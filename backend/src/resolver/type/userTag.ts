@@ -2,10 +2,10 @@ import 'reflect-metadata';
 import { ObjectType, Field } from 'type-graphql';
 
 import UserEntity from '../../entity/user';
-import TagEntity from '../../entity/tag';
+// import TagEntity from '../../entity/tag';
 
 @ObjectType()
-class UserTagItem {
+export class UserTagItem {
   @Field()
   idItem: number;
 

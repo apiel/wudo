@@ -17,7 +17,6 @@ const Follow = () => (
                 if (loading) return <p>Loading...</p>;
                 if (error) return <p>Error :(</p>;
 
-                    console.log('dataaaaaaaaa', data);
                 const followUserTags = get(data, 'getFollowers.followUserTags', []);
                 const users = get(data, 'getFollowers.users', []);
 
@@ -26,7 +25,7 @@ const Follow = () => (
                 return followUserTags.map(({ idUser, tags }) => {
                     const userIndex = users.findIndex(user => user.idUser === idUser);
                     const user = users[userIndex];
-                    console.log('uiiiiii', user, tags);
+
                     user.tags.forEach(
                         userTag => userTag.active =
                             tags.findIndex(tag => tag.active && tag.idItem === userTag.idTag) !== -1
