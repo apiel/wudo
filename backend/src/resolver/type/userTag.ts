@@ -7,10 +7,16 @@ import TagEntity from '../../entity/tag';
 @ObjectType()
 class UserTagItem {
   @Field()
-  id: number;
+  idItem: number;
 
   @Field({ nullable: true })
   accepted: Date;
+
+  @Field({ nullable: true })
+  viewed: Date;
+
+  @Field({ nullable: true })
+  active: Date;
 }
 
 @ObjectType()

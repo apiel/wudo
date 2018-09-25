@@ -38,8 +38,10 @@ export default class UserTagResolver {
         }
         this.tagsFollowedByUser[row.ut_tagIdTag]
             .users.push({
-                id: row.ut_followerIdUser,
+                idItem: row.ut_followerIdUser,
                 accepted: row.ut_accepted,
+                viewed: row.ut_viewed,
+                active: row.ut_active,
             });
     }
 
@@ -53,8 +55,10 @@ export default class UserTagResolver {
         }
         this.followUserTags[row.ut_followedIdUser]
             .tags.push({
-                id: row.ut_tagIdTag,
+                idItem: row.ut_tagIdTag,
                 accepted: row.ut_accepted,
+                viewed: row.ut_viewed,
+                active: row.ut_active,
             });
     }
 

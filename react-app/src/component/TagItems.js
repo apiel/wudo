@@ -13,17 +13,19 @@ const styles = theme => ({
 
 class ChipsArray extends React.Component {
   render() {
-    const { classes, tags } = this.props;
+    const { classes, tags, onClick = () => () => {} } = this.props;
 
     return (
       <div className={classes.root}>
-        {tags.map(({ idTag, name, color = '' }) => {
+        {tags.map(({ idTag, name, active = false }) => {
+          const color = active ? 'primary' : 'default';
           return (
             <Chip
               key={idTag}
               label={name}
               className={classes.chip}
               color={color}
+              onClick={onClick(idTag)}
             />
           );
         })}
@@ -35,6 +37,7 @@ class ChipsArray extends React.Component {
 ChipsArray.propTypes = {
   classes: PropTypes.object.isRequired,
   tags: PropTypes.array.isRequired,
+  onClick: PropTypes.func,
 };
 
 export default withStyles(styles)(ChipsArray);
