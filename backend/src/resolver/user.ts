@@ -43,9 +43,10 @@ export default class UserResolver {
     @Authorized()
     @Query(returns => [UserEntity])
     findUsers(@Arg('search') search: string, @Ctx() ctx) {
-        const where = {
-            name: Like(search)
-        }
-        return ctx.db.getRepository(UserEntity).find({ where });
+        console.log('search', search);
+        return ctx.db.getRepository(UserEntity)
+                    .createQueryBuilder('user')
+                    .where('LOWER(user.name) LIKE LOWER(:search)', { search })
+                    .getMany();
     }
 }
