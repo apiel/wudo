@@ -2,6 +2,8 @@ follower:
 - see follower / allow them to follow tag
 - search for people and follow their tags
 
+--> should accept by default
+
 post:
 -> need to filter post that i am only allow to see
 - save ogp
