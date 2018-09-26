@@ -12,6 +12,7 @@ import { Like } from 'typeorm';
 
 import UserEntity from '../entity/user';
 import TagEntity from '../entity/tag';
+import UserTagEntity from '../entity/userTag';
 
 @Resolver(UserEntity)
 export default class UserResolver {
@@ -42,11 +43,20 @@ export default class UserResolver {
 
     @Authorized()
     @Query(returns => [UserEntity])
-    findUsers(@Arg('search') search: string, @Ctx() ctx) {
-        console.log('search', search);
+    async findUsers(@Arg('search') search: string, @Ctx() ctx) {
+        const userTagRaw = await ctx.db.getRepository(UserTagEntity)
+                            .createQueryBuilder('ut')
+                            .where('ut.follower = :idUser', { idUser: ctx.user.idUser })
+                            .getRawMany();
+        const ids = userTagRaw.map(user => user.ut_followedIdUser);
+
+        // we could use join instead of previous query
+        // we should also not return user that dont have tags
         return ctx.db.getRepository(UserEntity)
                     .createQueryBuilder('user')
                     .where('LOWER(user.name) LIKE LOWER(:search)', { search })
+                    .andWhere('user.idUser NOT IN (:...ids)', { ids })
+                    .limit(30)
                     .getMany();
     }
 }

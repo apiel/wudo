@@ -24,6 +24,7 @@ export default class PostResolver {
             order: {
                 creationDate: 'DESC',
             },
+            limit: 30,
         });
     }
 

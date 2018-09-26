@@ -1,6 +1,5 @@
 import React from 'react';
 import { Query } from 'react-apollo';
-import get from 'lodash/get';
 
 import FIND_USERS from '../../gql/findUsers';
 import FollowMutation from './FollowMutation';
@@ -15,7 +14,8 @@ const FollowSearch = ({ search }) => !search ? null :(
             if (error) return <p>Error :(</p>;
 
             // console.log('findUsers', findUsers);
-            return findUsers.map(user => <FollowMutation key={user.idUser} user={user} />);
+            return findUsers.length ? findUsers.map(user => <FollowMutation key={user.idUser} user={user} />)
+                    : (<p>No result found, need tooltip</p>)
         }}
     </Query>
 );
