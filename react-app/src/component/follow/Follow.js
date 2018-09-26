@@ -24,7 +24,7 @@ export default class Follow extends React.Component {
         return (
             <div>
                 <AppBarSearch onSearch={this.onSearch} />
-                <FollowQuery />
+                <FollowQuery search={this.state.search} />
                 <FollowSearch search={this.state.search} />
                 <p>Need tooltip component: click tag to follow or unfollow</p>
             </div>

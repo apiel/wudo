@@ -14,7 +14,7 @@ const FollowSearch = ({ search }) => !search ? null :(
             if (loading) return <p>Loading...</p>;
             if (error) return <p>Error :(</p>;
 
-            console.log('findUsers', findUsers);
+            // console.log('findUsers', findUsers);
             return findUsers.map(user => <FollowMutation key={user.idUser} user={user} />);
         }}
     </Query>

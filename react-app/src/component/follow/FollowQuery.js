@@ -6,7 +6,7 @@ import GET_FOLLOWERS from '../../gql/getFollowers';
 
 import FollowMutation from './FollowMutation';
 
-const FollowQuery = () => (
+const FollowQuery = ({ search }) => (
     <Query
         query={GET_FOLLOWERS}
     >
@@ -15,19 +15,28 @@ const FollowQuery = () => (
             if (error) return <p>Error :(</p>;
 
             const followUserTags = get(data, 'getFollowers.followUserTags', []);
-            const users = get(data, 'getFollowers.users', []);
+            let users = get(data, 'getFollowers.users', []);
+
+            if (search) {
+                users = users.filter(
+                    user => user.name.toLowerCase().indexOf(search.toLowerCase()) !== -1
+                );
+            }
 
             if (!followUserTags.length) return <p>You dont follow anyone</p>;
 
             return followUserTags.map(({ idUser, tags }) => {
                 const userIndex = users.findIndex(user => user.idUser === idUser);
+                if (userIndex === -1) {
+                    return null
+                }
                 const user = users[userIndex];
 
                 user.tags.forEach(
                     userTag => userTag.active =
                         tags.findIndex(tag => tag.active && tag.idItem === userTag.idTag) !== -1
                 );
-                return userIndex === -1 ? null : (
+                return (
                     <FollowMutation key={idUser} user={user} />
                 );
             });
