@@ -1,6 +1,6 @@
 import gql from 'graphql-tag';
 
-import { select } from './getPosts';
+import { select } from '../query/getPosts';
 
 const template = gql`
 mutation AddPost($text: String!, $tags: [String!]!) {

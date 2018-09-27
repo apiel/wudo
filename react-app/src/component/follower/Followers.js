@@ -2,8 +2,8 @@ import React from 'react';
 import { Query } from 'react-apollo';
 import get from 'lodash/get';
 
-import GET_FOLLOWERS from '../../gql/getFollowers';
-import GET_ME from '../../gql/getMe';
+import GET_FOLLOWERS from '../../gql/query/getFollowers';
+import GET_ME from '../../gql/query/getMe';
 
 import AppBarBack from '../appBar/AppBarBack';
 import FollowerItem from './FollowerItem';

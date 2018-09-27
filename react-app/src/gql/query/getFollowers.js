@@ -1,7 +1,7 @@
 import gql from 'graphql-tag';
 
-import selectUser from './select/selectUser';
-import selectTag from './select/selectTag';
+import selectUser from '../select/selectUser';
+import selectTag from '../select/selectTag';
 
 const select = `
   {

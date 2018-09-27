@@ -4,7 +4,7 @@ import get from 'lodash/get';
 
 import Routes from './Routes';
 import Auth from './component/auth/Auth';
-import GET_ME from './gql/getMe';
+import GET_ME from './gql/query/getMe';
 import { AuthConsumer, AuthProvider } from './context/Auth';
 
 

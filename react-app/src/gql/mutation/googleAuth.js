@@ -1,6 +1,6 @@
 import gql from 'graphql-tag';
 
-import selectUser from './select/selectUser';
+import selectUser from '../select/selectUser';
 
 const template = gql`
 mutation googleAuth($tokenId: String!) {

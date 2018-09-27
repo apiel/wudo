@@ -27,8 +27,8 @@ import PostInputText from './PostInputText';
 import Avatar from '../../Avatar';
 import TagItems from '../../TagItems';
 
-import GET_POSTS from '../../../gql/getPosts';
-import GET_ME from '../../../gql/getMe';
+import GET_POSTS from '../../../gql/query/getPosts';
+import GET_ME from '../../../gql/query/getMe';
 
 const styles = theme => merge(postCardStyles(theme), {
   card: {

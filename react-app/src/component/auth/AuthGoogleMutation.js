@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Mutation } from 'react-apollo';
 
 import AuthGoogleBtn from './AuthGoogleBtn';
-import GOOGLE_AUTH from '../../gql/googleAuth';
+import GOOGLE_AUTH from '../../gql/mutation/googleAuth';
 import { AuthConsumer } from '../../context/Auth';
 
 // could use react-adopt

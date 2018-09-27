@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Mutation } from 'react-apollo';
 
 import FollowItem from './FollowItem';
-import FOLLOW_USER_TAG from '../../gql/followUserTag';
+import FOLLOW_USER_TAG from '../../gql/mutation/followUserTag';
 
 const FollowMutation = ({user}) => (
   <Mutation

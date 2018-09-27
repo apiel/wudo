@@ -1,7 +1,7 @@
 import React from 'react';
 import { Query } from 'react-apollo';
 
-import FIND_USERS from '../../gql/findUsers';
+import FIND_USERS from '../../gql/query/findUsers';
 import FollowMutation from './FollowMutation';
 
 const FollowSearch = ({ search }) => !search ? null :(

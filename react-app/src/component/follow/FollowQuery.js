@@ -2,7 +2,7 @@ import React from 'react';
 import { Query } from 'react-apollo';
 import get from 'lodash/get';
 
-import GET_FOLLOWERS from '../../gql/getFollowers';
+import GET_FOLLOWERS from '../../gql/query/getFollowers';
 
 import FollowMutation from './FollowMutation';
 

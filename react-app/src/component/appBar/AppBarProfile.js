@@ -1,7 +1,7 @@
 import React from 'react';
 import { Query } from 'react-apollo';
 
-import GET_ME from '../../gql/getMe';
+import GET_ME from '../../gql/query/getMe';
 import Avatar from '../Avatar';
 
 const AppBarProfile = () => (
