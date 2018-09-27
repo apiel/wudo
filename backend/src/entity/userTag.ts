@@ -24,7 +24,7 @@ export default class UserTagEntity {
   @Column({ default: () => 'CURRENT_TIMESTAMP' })
   creationDate: Date;
 
-  @Column({ nullable: true })
+  @Column({ nullable: true, default: () => 'CURRENT_TIMESTAMP' })
   accepted: Date;
 
   @Column({ nullable: true, default: () => 'CURRENT_TIMESTAMP' })
