@@ -15,6 +15,7 @@ import UserTagEntity from '../entity/userTag';
 import TagEntity from '../entity/tag';
 import UserEntity from '../entity/user';
 import FollowUserTagInput from './type/followUserTagInput';
+import AllowFollowerInput from './type/allowFollowerInput';
 
 @Resolver(UserTagType)
 export default class UserTagResolver {
@@ -105,9 +106,6 @@ export default class UserTagResolver {
         return userTags;
     }
 
-    // mutation follow
-    // mutation accept
-
     @Authorized()
     @Mutation(returns => UserTagItem)
     async followUserTag(@Arg('userTag') input: FollowUserTagInput, @Ctx() ctx) {
@@ -124,6 +122,20 @@ export default class UserTagResolver {
         } else {
             await ctx.db.getRepository(UserTagEntity).insert({...where, ...params})
         }
+
+        return ctx.db.getRepository(UserTagEntity).findOne({ where });
+    }
+
+    @Authorized()
+    @Mutation(returns => UserTagItem)
+    async allowFollower(@Arg('userTag') input: AllowFollowerInput, @Ctx() ctx) {
+        const where = {
+            followed: ctx.user,
+            follower: await ctx.db.getRepository(UserEntity).findOne(input.idUser),
+            tag: await ctx.db.getRepository(TagEntity).findOne(input.idTag),
+        };
+        const params = { accepted: input.allow ? new Date : null };
+        await ctx.db.getRepository(UserTagEntity).update(where, params);
 
         return ctx.db.getRepository(UserTagEntity).findOne({ where });
     }

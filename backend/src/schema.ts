@@ -191,6 +191,18 @@ mutation {
   }
 }
 
+mutation {
+  allowFollower(userTag: {
+    idTag: 82
+    idUser: 1
+    allow: true
+  }) {
+    accepted
+    viewed
+    active
+  }
+}
+
 {
   findUsers (search: "%M%") {
     name
