@@ -12,20 +12,20 @@ const select = `
   }
 `;
 
-const template = gql`
-  {
-    getFollowers {
-      users ${selectUser(`tags ${selectTag()}`)}
-      tagsFollowedByUser {
-        idTag
-        users ${select}
-      }
-      followUserTags {
-        idUser
-        tags ${select}
-      }
+export const query = `
+  getFollowers {
+    users ${selectUser(`tags ${selectTag()}`)}
+    tagsFollowedByUser {
+      idTag
+      users ${select}
+    }
+    followUserTags {
+      idUser
+      tags ${select}
     }
   }
 `;
+
+const template = gql`{ ${query} }`;
 
 export default template;
