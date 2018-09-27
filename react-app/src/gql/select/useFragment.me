@@ -1,0 +1,33 @@
+https://www.apollographql.com/docs/react/advanced/fragments.html
+
+should use fragment
+
+
+```
+import gql from 'graphql-tag';
+
+CommentsPage.fragments = {
+  comment: gql`
+    fragment CommentsPageComment on Comment {
+      id
+      postedBy {
+        login
+        html_url
+      }
+      createdAt
+      content
+    }
+  `,
+};
+
+const SUBMIT_COMMENT_MUTATION = gql`
+  mutation SubmitComment($repoFullName: String!, $commentContent: String!) {
+    submitComment(repoFullName: $repoFullName, commentContent: $commentContent) {
+      ...CommentsPageComment
+    }
+  }
+  ${CommentsPage.fragments.comment}
+`;
+```
+
+
