@@ -1,23 +1,16 @@
 import * as express from 'express';
-import * as jwt from 'express-jwt';
 import * as graphqlHTTP from 'express-graphql';
-import { createConnection } from 'typeorm';
+import { createConnection, In } from 'typeorm';
+import * as DataLoader from 'dataloader';
 
 import schema from './schema';
 import UserEntity from './entity/user';
-import { getPrivateKey } from './lib/auth';
 
 const app = express();
 
 const boot = async () => {
     const db = await createConnection();
-    // const user = await db.getRepository(UserEntity).findOne(2);
-
-    const secret = await getPrivateKey();
-    app.use(jwt({
-        secret,
-        credentialsRequired: false,
-    })); //.unless({path: ['/token']}));
+    const user = await db.getRepository(UserEntity).findOne(1);
 
     app.use((error, req, res, next) => {
         res.status(error.status).json({ error });
@@ -25,11 +18,20 @@ const boot = async () => {
 
     const mainMiddleware = (req, res, next) => {
         req.db = db;
-        // req.user = user;
+        req.user = user;
         next();
     }
 
-    app.use(mainMiddleware);
+    const loaderMiddleware = (req, res, next) => {
+        req.loader = new DataLoader((ids: string[]) => {
+            return db.getRepository(UserEntity).find({
+                where: { breederId: In(ids) },
+            });
+        });
+        next();
+    }
+
+    app.use(mainMiddleware, loaderMiddleware);
 
     app.get('/', (req, res) => {
         res.send(`Hello ${req.user.name}`);

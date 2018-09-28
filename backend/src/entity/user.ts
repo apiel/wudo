@@ -9,8 +9,6 @@ import {
 } from 'typeorm';
 
 import PostEntity from './post';
-import TagEntity from './tag';
-import FollowUserTagEntity from './userTag';
 
 @Entity('user')
 @ObjectType({ description: "Object representing the user" })
@@ -41,15 +39,4 @@ export default class UserEntity {
   @OneToMany(type => PostEntity, post => post.user)
   @Field(type => [PostEntity])
   posts: Promise<PostEntity[]>;
-
-  @Field(type => [TagEntity], { nullable: true })
-  tags: TagEntity[];
-
-  @OneToMany(type => FollowUserTagEntity, userTag => userTag.followed)
-  // @Field(type => [FollowUserTagEntity]) // Maximum call stack size exceeded
-  tagsFollowedByUser: Promise<FollowUserTagEntity[]>;
-
-  @OneToMany(type => FollowUserTagEntity, userTag => userTag.follower)
-  // @Field(type => [FollowUserTagEntity]) // Maximum call stack size exceeded
-  followUserTags: Promise<FollowUserTagEntity[]>;
 }
