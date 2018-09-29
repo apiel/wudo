@@ -28,6 +28,7 @@ const PostOgpQuery = ({ url, setOgp }) => (
         variables={{url}}
     >
         {({ loading, error, data }) => {
+            setOgp(null);
             if (loading) return (<LinearProgress />);
             if (error) return null;
             return get(data, 'ogs.title') ? (

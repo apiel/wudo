@@ -63,9 +63,7 @@ class PostForm extends React.Component {
       const text = this.text.state.value;
       const tags = this.state.tags;
 
-      // console.log('yoyoyo', this.props.result.client);
-      // console.log('yoyoyo', this.state.openGraph);
-      console.log('yoyoyo', this.ogp.state);
+      if (this.ogp) console.log('yoyoyo', this.ogp.state);
       if (!tags.length) {
         this.setState({
           error: 'Please specify at least one #tag. A tag should start by the character "#" for example #hello-world',
