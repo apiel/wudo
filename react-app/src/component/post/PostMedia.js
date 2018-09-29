@@ -38,11 +38,14 @@ class PostMedia extends React.Component {
     }
     setMedia(this);
   }
+
+  onClick = () => window.open(this.state.url, '_blank');
+
   render() {
     const { classes } = this.props;
     const { title, description, image } = this.state;
     return (
-        <div className={classes.card}>
+        <div className={classes.card} onClick={this.onClick}>
             { image && <CardMedia
                 className={classes.cover}
                 image={image}
