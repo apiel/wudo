@@ -26,17 +26,18 @@ const styles = theme => ({
   },
 });
 
-class MediaControlCard extends React.Component {
+class PostMedia extends React.Component {
   constructor(props) {
     super(props);
-    const { ogp } = props;
+    const { og, url, setMedia } = props;
     this.state = {
-      title: ogp.title,
-      description: ogp.description,
-      image: get(ogp, 'image.url', ''),
-      video: get(ogp, 'video.url', ''),
+      url,
+      title: og.title,
+      description: og.description,
+      image: get(og, 'image.url', ''),
+      video: get(og, 'video.url', ''),
     }
-    this.props.setOgp(this);
+    setMedia(this);
   }
   render() {
     const { classes } = this.props;
@@ -61,11 +62,12 @@ class MediaControlCard extends React.Component {
   }
 }
 
-MediaControlCard.propTypes = {
+PostMedia.propTypes = {
   classes: PropTypes.object.isRequired,
   theme: PropTypes.object.isRequired,
   url: PropTypes.string.isRequired,
-  ogp: PropTypes.object.isRequired,
+  og: PropTypes.object.isRequired,
+  setMedia: PropTypes.func.isRequired,
 };
 
-export default withStyles(styles, { withTheme: true })(MediaControlCard);
+export default withStyles(styles, { withTheme: true })(PostMedia);

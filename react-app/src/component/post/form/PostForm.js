@@ -21,7 +21,7 @@ import Button from '@material-ui/core/Button';
 //
 // or use both mention in textfield + autocomplete tags
 
-import PostOgpQuery from './PostOgpQuery';
+import PostMediaQuery from './PostMediaQuery';
 import postCardStyles from '../../../styles/card.style';
 import PostInputText from './PostInputText';
 import Avatar from '../../Avatar';
@@ -56,14 +56,16 @@ class PostForm extends React.Component {
   setHashTags = tags => this.setState({ tags });
 
   text = null;
-  ogp = null;
+  media = null;
+
+  setMedia = (media) => this.media = media;
 
   onSubmit = event => {
       event.preventDefault();
       const text = this.text.state.value;
       const tags = this.state.tags;
 
-      if (this.ogp) console.log('yoyoyo', this.ogp.state);
+      if (this.media) console.log('media', this.media.state);
       if (!tags.length) {
         this.setState({
           error: 'Please specify at least one #tag. A tag should start by the character "#" for example #hello-world',
@@ -121,9 +123,9 @@ class PostForm extends React.Component {
                 />
               </CardContent>
               { this.state.url &&
-                <PostOgpQuery
+                <PostMediaQuery
                   url={this.state.url}
-                  setOgp={(ogp) => this.ogp = ogp }
+                  setMedia={this.setMedia}
                 />
               }
               <CardActions className={classes.actions} disableActionSpacing>

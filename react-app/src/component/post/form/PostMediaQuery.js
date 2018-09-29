@@ -4,7 +4,7 @@ import gql from 'graphql-tag';
 import get from 'lodash/get';
 import LinearProgress from '@material-ui/core/LinearProgress';
 
-import PostOgp from '../PostOgp';
+import PostMedia from '../PostMedia';
 
 const OGS = gql`
 query Ogs($url: String!) {
@@ -22,20 +22,20 @@ query Ogs($url: String!) {
   }
 `;
 
-const PostOgpQuery = ({ url, setOgp }) => (
+const PostMediaQuery = ({ url, setMedia }) => (
     <Query
         query={OGS}
         variables={{url}}
     >
         {({ loading, error, data }) => {
-            setOgp(null);
+            setMedia(null);
             if (loading) return (<LinearProgress />);
             if (error) return null;
             return get(data, 'ogs.title') ? (
-                <PostOgp url="yo" ogp={data.ogs} setOgp={setOgp} />
+                <PostMedia url={url} og={data.ogs} setMedia={setMedia} />
             ) : null;
         }}
     </Query>
 );
 
-export default PostOgpQuery;
+export default PostMediaQuery;
