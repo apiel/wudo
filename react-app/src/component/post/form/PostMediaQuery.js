@@ -5,22 +5,11 @@ import get from 'lodash/get';
 import LinearProgress from '@material-ui/core/LinearProgress';
 
 import PostMedia from '../PostMedia';
-
-const OGS = gql`
-query Ogs($url: String!) {
-    ogs(url: $url) {
-      error
-      title
-      description
-      image
-      video
-    }
-  }
-`;
+import GET_MEDIA from '../../../gql/query/getMedia';
 
 const PostMediaQuery = ({ url, setMedia }) => (
     <Query
-        query={OGS}
+        query={GET_MEDIA}
         variables={{url}}
     >
         {({ loading, error, data }) => {
