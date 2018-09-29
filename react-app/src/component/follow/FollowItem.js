@@ -50,7 +50,12 @@ class FollowItem extends React.Component {
           title={user.name}
         />
         <CardContent>
-        <TagItems tags={this.state.tags} onClick={this.onClick} />
+        <TagItems
+          tags={this.state.tags}
+          onClick={this.onClick}
+          activeTitle="You are following this tag"
+          inactiveTitle="Click to follow this tag"
+        />
         </CardContent>
       </Card>
     );

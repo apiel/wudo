@@ -46,6 +46,7 @@ const Followers = () => (
                 });
             }}
         </Composed>
+        <p>Tooltip help: here is followers... click on name to allow or forbid them to follow your tags.</p>
     </div>
 );
 
