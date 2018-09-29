@@ -11,6 +11,7 @@ import Typography from '@material-ui/core/Typography';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import ShareIcon from '@material-ui/icons/Share';
 import moment from 'moment';
+import Linkify from 'react-linkify';
 
 import Avatar from '../Avatar';
 import TagItems from '../TagItems';
@@ -41,7 +42,7 @@ class RecipeReviewCard extends React.Component {
         /> }
         <CardContent>
           <Typography component="p">
-            {post.text}
+            <Linkify properties={{ target: '_blank' }}>{post.text}</Linkify>
           </Typography>
         </CardContent>
         {post.openGraph && <PostMedia url={post.openGraph.url} og={post.openGraph} />}
