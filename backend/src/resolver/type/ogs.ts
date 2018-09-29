@@ -24,11 +24,11 @@ export default class OgsEntity {
   @Field({ nullable: true })
   description?: string;
 
-  @Field(type => OgsMediaEntity, { nullable: true })
-  video?: OgsMediaEntity;
+  @Field({ nullable: true })
+  video?: string;
 
-  @Field(type => OgsMediaEntity, { nullable: true })
-  image?: OgsMediaEntity;
+  @Field({ nullable: true })
+  image?: string;
 
   @Field({ nullable: true })
   error?: string;

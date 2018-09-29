@@ -4,7 +4,6 @@ import { withStyles } from '@material-ui/core/styles';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
-import get from 'lodash/get';
 
 const styles = theme => ({
   card: {
@@ -29,13 +28,13 @@ const styles = theme => ({
 class PostMedia extends React.Component {
   constructor(props) {
     super(props);
-    const { og, url, setMedia } = props;
+    const { og, url, setMedia = () => {} } = props;
     this.state = {
       url,
       title: og.title,
       description: og.description,
-      image: get(og, 'image.url', ''),
-      video: get(og, 'video.url', ''),
+      image: og.image,
+      video: og.video,
     }
     setMedia(this);
   }
@@ -67,7 +66,7 @@ PostMedia.propTypes = {
   theme: PropTypes.object.isRequired,
   url: PropTypes.string.isRequired,
   og: PropTypes.object.isRequired,
-  setMedia: PropTypes.func.isRequired,
+  setMedia: PropTypes.func,
 };
 
 export default withStyles(styles, { withTheme: true })(PostMedia);

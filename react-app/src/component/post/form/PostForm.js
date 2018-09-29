@@ -65,15 +65,15 @@ class PostForm extends React.Component {
       const text = this.text.state.value;
       const tags = this.state.tags;
 
-      if (this.media) console.log('media', this.media.state);
       if (!tags.length) {
         this.setState({
           error: 'Please specify at least one #tag. A tag should start by the character "#" for example #hello-world',
         });
       } else {
         this.setState({error: null});
+        const openGraph = this.media ? this.media.state : null;
         this.props.addPost({
-          variables: { text, tags },
+          variables: { text, tags, openGraph },
           update: (proxy, { data: { addPostAndTag } }) => {
             const query = GET_POSTS;
             const data = proxy.readQuery({ query });

@@ -12,12 +12,8 @@ query Ogs($url: String!) {
       error
       title
       description
-      image {
-        url
-      }
-      video {
-        url
-      }
+      image
+      video
     }
   }
 `;

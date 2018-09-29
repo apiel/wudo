@@ -19,10 +19,10 @@ export default class OgsResolver {
                 // console.log('results', results);
                 const data: OgsEntity = {
                     error: error ? results.error : null,
-                    title: get(results, 'data.ogTitle'),
-                    description: get(results, 'data.ogDescription'),
-                    video: get(results, 'data.ogVideo'),
-                    image: get(results, 'data.ogImage'),
+                    title: get(results, 'data.ogTitle', ''),
+                    description: get(results, 'data.ogDescription', ''),
+                    video: get(results, 'data.ogVideo.url', ''),
+                    image: get(results, 'data.ogImage.url', ''),
                 }
                 resolve(data);
             });

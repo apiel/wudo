@@ -15,6 +15,7 @@ import moment from 'moment';
 import Avatar from '../Avatar';
 import TagItems from '../TagItems';
 import styles from '../../styles/card.style';
+import PostMedia from './PostMedia';
 
 class RecipeReviewCard extends React.Component {
   render() {
@@ -43,6 +44,7 @@ class RecipeReviewCard extends React.Component {
             {post.text}
           </Typography>
         </CardContent>
+        {post.openGraph && <PostMedia url={post.openGraph.url} og={post.openGraph} />}
         <CardActions className={classes.actions} disableActionSpacing>
           <IconButton aria-label="Add to favorites">
             <FavoriteIcon />

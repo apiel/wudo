@@ -66,14 +66,16 @@ export default class PostResolver {
     }
 
     async insertOpenGraph(openGraph: OpenGraphInput, ctx) {
-        const og = new OpenGraphEntity;
-        og.url = openGraph.url;
-        og.title = openGraph.title;
-        og.description = openGraph.description;
-        og.image = openGraph.image;
-        og.video = openGraph.video;
-        await ctx.db.getRepository(OpenGraphEntity).save(og);
-        return og;
+        const og = await ctx.db.getRepository(OpenGraphEntity).findOne({
+            where: openGraph,
+        });
+        if (og) {
+            console.log('og', og);
+            return og;
+        }
+        console.log('save openGraph', openGraph);
+        await ctx.db.getRepository(OpenGraphEntity).save(openGraph);
+        return openGraph;
     }
 
     async processTags(postTagInput: PostTagInput, ctx) {
@@ -100,6 +102,8 @@ export default class PostResolver {
 
         if (postTagInput.openGraph) {
             post.openGraph = this.insertOpenGraph(postTagInput.openGraph, ctx);
+
+            console.log('post.openGraph', post.openGraph);
         }
 
         const tags = await this.processTags(postTagInput, ctx);
