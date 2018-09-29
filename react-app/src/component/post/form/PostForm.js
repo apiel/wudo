@@ -46,6 +46,7 @@ const initialState = {
   error: null,
   url: null,
   tags: [],
+  openGraph: null,
 }
 
 class PostForm extends React.Component {
@@ -55,11 +56,16 @@ class PostForm extends React.Component {
   setHashTags = tags => this.setState({ tags });
 
   text = null;
+  ogp = null;
 
   onSubmit = event => {
       event.preventDefault();
       const text = this.text.state.value;
       const tags = this.state.tags;
+
+      // console.log('yoyoyo', this.props.result.client);
+      // console.log('yoyoyo', this.state.openGraph);
+      console.log('yoyoyo', this.ogp.state);
       if (!tags.length) {
         this.setState({
           error: 'Please specify at least one #tag. A tag should start by the character "#" for example #hello-world',
@@ -116,7 +122,12 @@ class PostForm extends React.Component {
                   ref={node => { this.text = node; }}
                 />
               </CardContent>
-              { this.state.url && <PostOgpQuery url={this.state.url} /> }
+              { this.state.url &&
+                <PostOgpQuery
+                  url={this.state.url}
+                  setOgp={(ogp) => this.ogp = ogp }
+                />
+              }
               <CardActions className={classes.actions} disableActionSpacing>
                   <Button
                     variant="contained"

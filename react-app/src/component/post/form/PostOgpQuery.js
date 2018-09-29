@@ -22,7 +22,7 @@ query Ogs($url: String!) {
   }
 `;
 
-const PostOgpQuery = ({ url }) => (
+const PostOgpQuery = ({ url, setOgp }) => (
     <Query
         query={OGS}
         variables={{url}}
@@ -31,7 +31,7 @@ const PostOgpQuery = ({ url }) => (
             if (loading) return (<LinearProgress />);
             if (error) return null;
             return get(data, 'ogs.title') ? (
-                <PostOgp url="yo" ogp={data.ogs} />
+                <PostOgp url="yo" ogp={data.ogs} setOgp={setOgp} />
             ) : null;
         }}
     </Query>
