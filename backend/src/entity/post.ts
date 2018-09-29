@@ -12,6 +12,7 @@ import {
 
 import UserEntity from './user';
 import TagEntity from './tag';
+import OpenGraphEntity from './openGraph';
 
 @Entity({name: 'post'})
 @ObjectType({ description: "Object representing user post" })
@@ -33,12 +34,17 @@ export default class PostEntity {
   @Field()
   creationDate: Date;
 
-  // @Column()
-  // // @Field()
-  // idUser: string;
-
   @Field(type => UserEntity)
   @ManyToOne(type => UserEntity, user => user.posts)
   @JoinColumn({ name: 'idUser' })
   user: Promise<UserEntity>; // | UserEntity;
+
+  // @Field()
+  // @Column()
+  // idUser: number;
+
+  @Field(type => OpenGraphEntity, { nullable: true })
+  @ManyToOne(type => OpenGraphEntity, og => og.posts)
+  @JoinColumn({ name: 'idOg' })
+  openGraph: Promise<OpenGraphEntity>;
 }

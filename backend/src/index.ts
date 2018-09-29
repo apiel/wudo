@@ -1,6 +1,7 @@
 import * as express from 'express';
 import * as jwt from 'express-jwt';
 import * as graphqlHTTP from 'express-graphql';
+import * as compression from 'compression';
 import { createConnection } from 'typeorm';
 
 import schema from './schema';
@@ -18,6 +19,8 @@ const boot = async () => {
         secret,
         credentialsRequired: false,
     })); //.unless({path: ['/token']}));
+
+    app.use(compression());
 
     app.use((error, req, res, next) => {
         res.status(error.status).json({ error });

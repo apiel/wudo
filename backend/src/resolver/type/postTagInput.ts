@@ -3,6 +3,8 @@ import {
     InputType,
 } from 'type-graphql';
 
+import OpenGraphInput from './openGraphInput';
+
 @InputType()
 export default class PostTagInput {
   @Field()
@@ -10,4 +12,7 @@ export default class PostTagInput {
 
   @Field(type => [String])
   tags: string[];
+
+  @Field(type => OpenGraphInput, { nullable: true })
+  openGraph: OpenGraphInput;
 }
