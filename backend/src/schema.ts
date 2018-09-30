@@ -227,4 +227,72 @@ mutation {
     }
   }
 }
+
+{
+  getMe {
+    name
+    tagsFollowedByUser {
+      follower {
+        name
+      }
+      followed {
+        name
+      }
+      tag {
+        name
+      }
+      accepted
+      active
+      viewed
+    }
+    followUserTags {
+      follower {
+        name
+      }
+      followed {
+        name
+      }
+      tag {
+        name
+      }
+      accepted
+      active
+      viewed 
+    }
+  }
+}
+
+{
+  getFollowers {
+      follower {
+        name
+      }
+      followed {
+        name
+      }
+      tag {
+        name
+      }
+      accepted
+      active
+      viewed
+  }
+}
+
+{
+  getTagsFollowed {
+      follower {
+        name
+      }
+      followed {
+        name
+      }
+      tag {
+        name
+      }
+      accepted
+      active
+      viewed
+  }
+}
 */
