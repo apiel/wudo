@@ -46,10 +46,10 @@ export default class UserEntity {
   tags: TagEntity[];
 
   @OneToMany(type => FollowUserTagEntity, userTag => userTag.followed)
-  // @Field(type => [FollowUserTagEntity]) // Maximum call stack size exceeded
+  @Field(type => [FollowUserTagEntity]) // Maximum call stack size exceeded
   tagsFollowedByUser: Promise<FollowUserTagEntity[]>;
 
   @OneToMany(type => FollowUserTagEntity, userTag => userTag.follower)
-  // @Field(type => [FollowUserTagEntity]) // Maximum call stack size exceeded
+  @Field(type => [FollowUserTagEntity]) // Maximum call stack size exceeded
   followUserTags: Promise<FollowUserTagEntity[]>;
 }

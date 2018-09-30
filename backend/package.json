@@ -17,6 +17,7 @@
     "@types/sharp": "^0.17.10",
     "compression": "^1.7.3",
     "crypto": "^1.0.1",
+    "dataloader": "^1.4.0",
     "express": "^4.16.3",
     "express-graphql": "^0.6.12",
     "express-jwt": "^5.3.1",

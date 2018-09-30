@@ -209,4 +209,22 @@ mutation {
     idUser
   }
 }
+
+
+
+{
+  getPosts {
+    idPost
+    text
+    creationDate
+    openGraph {
+      idOg
+      url
+      title
+      description
+      image
+      video
+    }
+  }
+}
 */

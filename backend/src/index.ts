@@ -2,7 +2,8 @@ import * as express from 'express';
 import * as jwt from 'express-jwt';
 import * as graphqlHTTP from 'express-graphql';
 import * as compression from 'compression';
-import { createConnection } from 'typeorm';
+import { createConnection, In } from 'typeorm';
+import * as DataLoader from 'dataloader';
 
 import schema from './schema';
 import UserEntity from './entity/user';
@@ -32,7 +33,16 @@ const boot = async () => {
         next();
     }
 
-    app.use(mainMiddleware);
+    const loaderMiddleware = (req, res, next) => {
+        req.loader = new DataLoader(async (ids: string[]) => {
+            return db.getRepository(UserEntity).find({
+                where: { idUser: In(ids) },
+            });
+        });
+        next();
+    }
+
+    app.use(mainMiddleware, loaderMiddleware);
 
     app.get('/', (req, res) => {
         res.send(`Hello ${req.user.name}`);
