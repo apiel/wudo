@@ -25,12 +25,12 @@ import AllowFollowerInput from './type/allowFollowerInput';
 export default class UserTagResolver {
     @FieldResolver()
     follower(@Root() userTag: UserTagEntity, @Ctx() ctx) {
-        return ctx.loader.user.load(userTag.followerIdUser);
+        return ctx.loader.follower.load(userTag.followerIdUser);
     }
 
     @FieldResolver()
     followed(@Root() userTag: UserTagEntity, @Ctx() ctx) {
-        return ctx.loader.user.load(userTag.followedIdUser);
+        return ctx.loader.followed.load(userTag.followedIdUser);
     }
 
     @FieldResolver()

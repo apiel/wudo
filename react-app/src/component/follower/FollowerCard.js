@@ -11,16 +11,15 @@ import FollowerChip from './FollowerChip';
 
 const styles = theme => cardStyles(theme);
 
-const FollowerCard = ({ classes, users, name, followers, idTag }) => (
+const FollowerCard = ({ classes, name, tagFollowers, idTag }) => (
   <Card className={classes.card}>
     <CardHeader
       title={name}
-      subheader={pluralize(`${followers.length} follower`, followers.length)}
+      subheader={pluralize(`${tagFollowers.length} follower`, tagFollowers.length)}
     />
-    { followers.length > 0 && <CardContent>
-      { followers.map(follower => {
-          const index = users.findIndex(user => user.idUser === follower.idItem);
-          const user = users[index];
+    { tagFollowers.length > 0 && <CardContent>
+      { tagFollowers.map(follower => {
+          const user = follower.follower;
           return (
             <FollowerChip
               key={`${name}-${user.idUser}`}
@@ -37,8 +36,7 @@ const FollowerCard = ({ classes, users, name, followers, idTag }) => (
 
 FollowerCard.propTypes = {
   classes: PropTypes.object.isRequired,
-  users: PropTypes.array.isRequired,
-  followers: PropTypes.array.isRequired,
+  tagFollowers: PropTypes.array.isRequired,
   name: PropTypes.string.isRequired,
   idTag: PropTypes.number.isRequired,
 };

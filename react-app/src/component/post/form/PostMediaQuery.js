@@ -1,6 +1,5 @@
 import React from 'react';
 import { Query } from 'react-apollo';
-import gql from 'graphql-tag';
 import get from 'lodash/get';
 import LinearProgress from '@material-ui/core/LinearProgress';
 

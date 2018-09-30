@@ -1,6 +1,6 @@
 import React from 'react';
 import { Query } from 'react-apollo';
-import get from 'lodash/get';
+import groupBy from 'lodash/groupBy';
 import { adopt } from 'react-adopt';
 
 import GET_FOLLOWERS from '../../gql/query/getFollowers';
@@ -25,22 +25,16 @@ const Followers = () => (
                 const { data: { getFollowers } } = followers;
                 const { data: { getMe: { tags } } } = me;
 
-                const tagsFollowedByUser = get(getFollowers, 'tagsFollowedByUser', []);
-                const users = get(getFollowers, 'users', []);
-                // console.log('getFollowers', getFollowers);
+                const followersByTag = groupBy(getFollowers, item => item.tag.idTag);
 
                 return tags.map(({ idTag, name }) => {
-                    // console.log('tag', idTag, name);
-                    const index = tagsFollowedByUser.findIndex(follower => follower.idTag === idTag);
-                    const followers = index === -1 ? [] : tagsFollowedByUser[index].users;
-                    // console.log('followers', followers);
+                    const tagFollowers = followersByTag[idTag];
                     return (
                         <FollowerCard
                             key={idTag}
                             idTag={idTag}
                             name={name}
-                            users={users}
-                            followers={followers}
+                            tagFollowers={tagFollowers}
                         />
                     );
                 });
