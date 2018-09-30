@@ -25,17 +25,18 @@ import AllowFollowerInput from './type/allowFollowerInput';
 export default class UserTagResolver {
     @FieldResolver()
     follower(@Root() userTag: UserTagEntity, @Ctx() ctx) {
-        // console.log('userTag', userTag);
-        // console.log('userTag.followerIdUser', userTag.followerIdUser);
-        return ctx.loader.load(userTag.followerIdUser);
+        return ctx.loader.user.load(userTag.followerIdUser);
     }
 
     @FieldResolver()
     followed(@Root() userTag: UserTagEntity, @Ctx() ctx) {
-        // console.log('userTag', userTag);
-        // console.log('userTag.followedIdUser', userTag.followedIdUser);
-        return ctx.loader.load(userTag.followedIdUser);
+        return ctx.loader.user.load(userTag.followedIdUser);
     }
+
+    // @FieldResolver()
+    // tag(@Root() userTag: UserTagEntity, @Ctx() ctx) {
+    //     return ctx.loader.tag.load(userTag.tagIdTag);
+    // }
 
     // userIds: number[];
     // tagIds: number[];

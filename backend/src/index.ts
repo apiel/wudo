@@ -2,12 +2,12 @@ import * as express from 'express';
 import * as jwt from 'express-jwt';
 import * as graphqlHTTP from 'express-graphql';
 import * as compression from 'compression';
-import { createConnection, In } from 'typeorm';
-import * as DataLoader from 'dataloader';
+import { createConnection } from 'typeorm';
 
 import schema from './schema';
-import UserEntity from './entity/user';
+// import UserEntity from './entity/user';
 import { getPrivateKey } from './lib/auth';
+import loaderMiddleware from './dataloader';
 
 const app = express();
 
@@ -30,15 +30,6 @@ const boot = async () => {
     const mainMiddleware = (req, res, next) => {
         req.db = db;
         // req.user = user;
-        next();
-    }
-
-    const loaderMiddleware = (req, res, next) => {
-        req.loader = new DataLoader(async (ids: string[]) => {
-            return db.getRepository(UserEntity).find({
-                where: { idUser: In(ids) },
-            });
-        });
         next();
     }
 

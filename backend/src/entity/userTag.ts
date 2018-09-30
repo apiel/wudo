@@ -24,19 +24,22 @@ export default class UserTagEntity {
   @ManyToOne(type => UserEntity, user => user.followUserTags, { primary: true })
   follower: Promise<UserEntity>;
 
-  @Column() // synchronization doesnt work
+  @Column({ primary: true }) // synchronization doesnt work
   followerIdUser: number;
 
   @Field(type => UserEntity)
   @ManyToOne(type => UserEntity, user => user.tagsFollowedByUser, { primary: true })
   followed: Promise<UserEntity>;
 
-  @Column()
+  @Column({ primary: true })
   followedIdUser: number;
 
   @Field(type => TagEntity)
   @ManyToOne(type => TagEntity, tag => tag.users, { primary: true })
   tag: Promise<TagEntity>;
+
+  @Column({ primary: true })
+  tagIdTag: number;
 
   @Field()
   @Column({ default: () => 'CURRENT_TIMESTAMP' })
