@@ -59,12 +59,12 @@ export default class UserTagResolver {
     }
 
     @Authorized()
-    @Mutation(returns => UserTagItem)
+    @Mutation(returns => UserTagEntity)
     async followUserTag(@Arg('userTag') input: FollowUserTagInput, @Ctx() ctx) {
         const where = {
-            follower: ctx.user,
-            followed: await ctx.db.getRepository(UserEntity).findOne(input.idUser),
-            tag: await ctx.db.getRepository(TagEntity).findOne(input.idTag),
+            followerIdUser: ctx.user.idUser,
+            followedIdUser: input.idUser,
+            tagIdTag: input.idTag,
         };
         const userTag = await ctx.db.getRepository(UserTagEntity).findOne({ where });
         const params = { active: input.active ? new Date : null };
@@ -79,12 +79,12 @@ export default class UserTagResolver {
     }
 
     @Authorized()
-    @Mutation(returns => UserTagItem)
+    @Mutation(returns => UserTagEntity)
     async allowFollower(@Arg('userTag') input: AllowFollowerInput, @Ctx() ctx) {
         const where = {
-            followed: ctx.user,
-            follower: await ctx.db.getRepository(UserEntity).findOne(input.idUser),
-            tag: await ctx.db.getRepository(TagEntity).findOne(input.idTag),
+            followerIdUser: input.idUser,
+            followedIdUser: ctx.user.idUser,
+            tagIdTag: input.idTag,
         };
         const params = { accepted: input.allow ? new Date : null };
         await ctx.db.getRepository(UserTagEntity).update(where, params);
