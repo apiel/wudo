@@ -11,6 +11,18 @@ const loaderMiddleware = (req, res, next) => {
         });
     });
 
+    const follower = new DataLoader(async (ids: string[]) => {
+        return req.db.getRepository(UserEntity).find({
+            where: { idUser: In(ids) },
+        });
+    });
+
+    const followed = new DataLoader(async (ids: string[]) => {
+        return req.db.getRepository(UserEntity).find({
+            where: { idUser: In(ids) },
+        });
+    });
+
     const tag = new DataLoader(async (ids: string[]) => {
         return req.db.getRepository(TagEntity).find({
             where: { idTag: In(ids) },
@@ -20,6 +32,8 @@ const loaderMiddleware = (req, res, next) => {
     req.loader = {
         user,
         tag,
+        follower,
+        followed,
     };
 
     next();
