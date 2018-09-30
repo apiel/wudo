@@ -1,9 +1,10 @@
 import gql from 'graphql-tag';
 
 import select from '../select/selectUserTag';
+import selectTag from '../select/selectTag';
 
 export const query = `
-  getFollowers ${select()}
+  getTagsFollowed ${select({ followedParams: `tags ${selectTag()}` })}
 `;
 
 const template = gql`{ ${query} }`;

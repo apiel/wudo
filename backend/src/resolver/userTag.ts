@@ -9,14 +9,14 @@ import {
     FieldResolver,
     Root,
 } from 'type-graphql';
-import { In } from 'typeorm';
-import { values } from 'lodash';
+// import { In } from 'typeorm';
+// import { values } from 'lodash';
 
 // import UserTagType, { TagsFollowedByUser, FollowUserTags, UserTagItem } from './type/userTag';
-import { UserTagItem } from './type/userTag';
+// import { UserTagItem } from './type/userTag';
 import UserTagEntity from '../entity/userTag';
-import TagEntity from '../entity/tag';
-import UserEntity from '../entity/user';
+// import TagEntity from '../entity/tag';
+// import UserEntity from '../entity/user';
 import FollowUserTagInput from './type/followUserTagInput';
 import AllowFollowerInput from './type/allowFollowerInput';
 

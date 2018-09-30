@@ -1,43 +1,39 @@
 import React from 'react';
 import { Query } from 'react-apollo';
-import get from 'lodash/get';
+import groupBy from 'lodash/groupBy';
 
-import GET_FOLLOWERS from '../../gql/query/getFollowers';
+import GET_TAGS_FOLLOWED from '../../gql/query/getTagsFollowed';
 
 import FollowMutation from './FollowMutation';
 
 const FollowQuery = ({ search }) => (
     <Query
-        query={GET_FOLLOWERS}
+        query={GET_TAGS_FOLLOWED}
     >
-        {({ loading, error, data }) => {
+        {({ loading, error, data: { getTagsFollowed } }) => {
             if (loading) return <p>Loading...</p>;
             if (error) return <p>Error :(</p>;
 
-            const followUserTags = get(data, 'getFollowers.followUserTags', []);
-            let users = get(data, 'getFollowers.users', []);
+            if (!getTagsFollowed.length) return <p>You dont follow anyone</p>;
 
             if (search) {
-                users = users.filter(
-                    user => user.name.toLowerCase().indexOf(search.toLowerCase()) !== -1
+                getTagsFollowed = getTagsFollowed.filter(
+                    item => item.followed.name.toLowerCase().indexOf(search.toLowerCase()) !== -1
                 );
             }
 
-            if (!followUserTags.length) return <p>You dont follow anyone</p>;
+            const followedByUser = groupBy(getTagsFollowed, item => item.followed.idUser);
 
-            return followUserTags.map(({ idUser, tags }) => {
-                const userIndex = users.findIndex(user => user.idUser === idUser);
-                if (userIndex === -1) {
-                    return null
-                }
-                const user = users[userIndex];
-
+            return Object.values(followedByUser).map(userTags => {
+                const user = userTags[0].followed;
                 user.tags.forEach(
-                    userTag => userTag.active =
-                        tags.findIndex(tag => tag.active && tag.idItem === userTag.idTag) !== -1
+                    tag => tag.active =
+                        userTags.findIndex(
+                            userTag => userTag.active && userTag.tag.idTag === tag.idTag
+                        ) !== -1
                 );
                 return (
-                    <FollowMutation key={idUser} user={user} />
+                    <FollowMutation key={user.idUser} user={user} />
                 );
             });
         }}
