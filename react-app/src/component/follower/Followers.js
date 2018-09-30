@@ -9,6 +9,26 @@ import GET_ME from '../../gql/query/getMe';
 import AppBarBack from '../appBar/AppBarBack';
 import FollowerCard from './FollowerCard';
 
+
+// const reactApolloCompose = (queries) => {
+//     const compose = {};
+//     Object.keys(queries).forEach(key => {
+//         const { definitions } = queries[key];
+//         const { operation } = definitions[0];
+//         if (operation === 'query') {
+//             compose[key] = ({ render }) => <Query query={queries[key]}>{render}</Query>;
+//         } else if (operation === 'mutation') {
+//             compose[key] = ({ render }) => <Mutation mutation={queries[key]}>{(mutation, result) => render({ mutation, result })}</Mutation>
+//         }
+//     });
+//     return adopt(compose);
+// }
+
+// const Composed = reactApolloCompose({
+//     me: GET_ME,
+//     followers: GET_FOLLOWERS,
+// });
+
 const Composed = adopt({
     me: ({ render }) => <Query query={GET_ME}>{render}</Query>,
     followers: ({ render }) => <Query query={GET_FOLLOWERS}>{render}</Query>,
