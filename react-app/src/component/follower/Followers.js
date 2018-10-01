@@ -1,7 +1,5 @@
 import React from 'react';
-import { Query } from 'react-apollo';
 import groupBy from 'lodash/groupBy';
-import { adopt } from 'react-adopt';
 
 import GET_FOLLOWERS from '../../gql/query/getFollowers';
 import GET_ME from '../../gql/query/getMe';
@@ -9,38 +7,15 @@ import GET_ME from '../../gql/query/getMe';
 import AppBarBack from '../appBar/AppBarBack';
 import FollowerCard from './FollowerCard';
 
-
-// const reactApolloCompose = (queries) => {
-//     const compose = {};
-//     Object.keys(queries).forEach(key => {
-//         const { definitions } = queries[key];
-//         const { operation } = definitions[0];
-//         if (operation === 'query') {
-//             compose[key] = ({ render }) => <Query query={queries[key]}>{render}</Query>;
-//         } else if (operation === 'mutation') {
-//             compose[key] = ({ render }) => <Mutation mutation={queries[key]}>{(mutation, result) => render({ mutation, result })}</Mutation>
-//         }
-//     });
-//     return adopt(compose);
-// }
-
-// const Composed = reactApolloCompose({
-//     me: GET_ME,
-//     followers: GET_FOLLOWERS,
-// });
-
-const Composed = adopt({
-    me: ({ render }) => <Query query={GET_ME}>{render}</Query>,
-    followers: ({ render }) => <Query query={GET_FOLLOWERS}>{render}</Query>,
-});
+import Queries from '../../utils/ReactApolloCompose';
 
 const Followers = () => (
     <div>
         <AppBarBack title='Followers' />
-        <Composed>
-            {({ me, followers }) => {
-                if (me.loading || followers.loading) return <p>Loading...</p>;
-                if (me.error || followers.error) return <p>Error :(</p>;
+        <Queries queries={{ me: GET_ME, followers: GET_FOLLOWERS }}>
+            {({ me, followers, _loading, _hasError }) => {
+                if (_loading) return <p>Loading...</p>;
+                if (_hasError) return <p>Error :(</p>;
 
                 const { data: { getFollowers } } = followers;
                 const { data: { getMe: { tags } } } = me;
@@ -59,7 +34,7 @@ const Followers = () => (
                     );
                 });
             }}
-        </Composed>
+        </Queries>
         <p>Tooltip help: here is followers... click on name to allow or forbid them to follow your tags.</p>
     </div>
 );
