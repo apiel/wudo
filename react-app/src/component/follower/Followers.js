@@ -1,13 +1,12 @@
 import React from 'react';
 import groupBy from 'lodash/groupBy';
+import Queries from 'react-apollo-composer';
 
 import GET_FOLLOWERS from '../../gql/query/getFollowers';
 import GET_ME from '../../gql/query/getMe';
 
 import AppBarBack from '../appBar/AppBarBack';
 import FollowerCard from './FollowerCard';
-
-import Queries from '../../utils/ReactApolloCompose';
 
 const Followers = () => (
     <div>
