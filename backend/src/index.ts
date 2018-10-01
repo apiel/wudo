@@ -8,6 +8,7 @@ import schema from './schema';
 // import UserEntity from './entity/user';
 import { getPrivateKey } from './lib/auth';
 import loaderMiddleware from './dataloader';
+import api from './api';
 
 const app = express();
 
@@ -34,6 +35,8 @@ const boot = async () => {
     }
 
     app.use(mainMiddleware, loaderMiddleware);
+
+    app.use('/api', api);
 
     app.get('/', (req, res) => {
         res.send(`Hello ${req.user.name}`);

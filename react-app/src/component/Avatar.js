@@ -6,7 +6,10 @@ import ColorHash from 'color-hash';
 const ProfileAvatar = ({ user, useHashColor = true }) => {
   const backgroundColor = useHashColor && (new ColorHash()).hex(user.name);
   // const src = user.avatar;
-  const src = null;
+  // const src = null;
+  const src = user.avatarChecksum ?
+      `/api/avatar/${user.idUser}?${user.avatarChecksum}`
+      : null;
   return (
     <Avatar title={user.name} style={{ backgroundColor }} src={src}>
       {user.name[0]}

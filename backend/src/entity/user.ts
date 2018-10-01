@@ -35,6 +35,7 @@ export default class UserEntity {
   @Column('bytea', { nullable: true })
   avatar: Buffer;
 
+  @Field(type => String, { nullable: true })
   @Column({ nullable: true })
   avatarChecksum: string;
 

@@ -1,7 +1,7 @@
 const select = (params = '') => `{
     idUser
     name
-    avatar
+    avatarChecksum
     ${params}
 }`;
 export default select;
