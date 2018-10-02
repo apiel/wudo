@@ -2,13 +2,15 @@ import * as express from 'express';
 import * as jwt from 'express-jwt';
 import * as graphqlHTTP from 'express-graphql';
 import * as compression from 'compression';
-import { createConnection } from 'typeorm';
+import { createConnection, Not } from 'typeorm';
 
 import schema from './schema';
-// import UserEntity from './entity/user';
+import UserEntity from './entity/user';
 import { getPrivateKey } from './lib/auth';
 import loaderMiddleware from './dataloader';
 import api from './api';
+
+import PostEntity from './entity/post';
 
 const app = express();
 

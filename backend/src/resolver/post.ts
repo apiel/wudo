@@ -1,5 +1,5 @@
 import 'reflect-metadata';
-import { In } from 'typeorm';
+import { In, Not } from 'typeorm';
 import {
     Resolver,
     Query,
@@ -22,12 +22,17 @@ export default class PostResolver {
     @Authorized()
     @Query(returns => [PostEntity])
     getPosts(@Ctx() ctx) {
-        return ctx.db.getRepository(PostEntity).find({
-            order: {
-                creationDate: 'DESC',
-            },
-            limit: 30,
-        });
+        return ctx.db.getRepository(PostEntity)
+                    .createQueryBuilder('post')
+                    .leftJoin('post.tags', 'tag')
+                    .leftJoin('tag.users', 'user')
+                    .where('user.active IS NOT NULL')
+                    .andWhere('user.accepted IS NOT NULL')
+                    .andWhere('user.followerIdUser = :idUser', { idUser: ctx.user.idUser })
+                    .orWhere('post.user = :idUser', { idUser: ctx.user.idUser })
+                    .orderBy('post.creationDate', 'DESC')
+                    .limit(30)
+                    .getMany();
     }
 
     async insertPost(text: string, ctx) {
