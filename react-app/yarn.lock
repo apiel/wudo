@@ -5903,8 +5903,9 @@ react-apollo-compose@^0.1.4:
   dependencies:
     lodash "^4.17.4"
 
-"react-apollo-composer@file:../../../../node/ReactApolloCompose/react-apollo-compose":
-  version "1.0.1"
+react-apollo-composer@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/react-apollo-composer/-/react-apollo-composer-1.0.2.tgz#d073205ad93e03da1b79d079a5cba66cfa0d1ec4"
   dependencies:
     prop-types "^15.6.2"
     react-adopt "^0.6.0"

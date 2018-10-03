@@ -17,11 +17,12 @@
     "react-adopt": "^0.6.0",
     "react-apollo": "^2.1.11",
     "react-apollo-compose": "^0.1.4",
+    "react-apollo-composer": "^1.0.2",
     "react-dom": "^16.5.1",
     "react-google-login": "^3.2.1",
     "react-linkify": "^0.2.2",
     "react-router-dom": "^4.3.1",
-    "react-scripts": "1.1.5",
+    "react-scripts": "2.0.3",
     "url-regex": "^4.1.1"
   },
   "scripts": {

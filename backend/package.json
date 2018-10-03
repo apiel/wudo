@@ -45,6 +45,7 @@
     "dev-ts-node": "nodemon --config _nodemon.json",
     "build": "rm -fr dist && tsc",
     "build-watch": "yarn build -w",
+    "generate-private-key": "openssl rand -base64 512 > private.key",
     "fix-package": "rm -rf node_modules/@types/graphql && cp -r node_modules/@types/express-graphql/node_modules/@types/graphql node_modules/@types/.",
     "fix-watch": "sudo sysctl fs.inotify.max_user_watches=524288"
   }
