@@ -24,7 +24,7 @@ const App = () => (
             const profile = get(data, 'getMe');
             return (
               <div className="App">
-                { profile ? (<Routes />) : <Auth setIsLoggedin={this.setIsLoggedin} /> }
+                { profile ? (<Routes />) : <Auth /> }
               </div>
             );
           }}
