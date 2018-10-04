@@ -1,4 +1,6 @@
 
+TBD: readme coming soon :p
+
 - tag mention / autocomplete
 - maybe create @tag for user?
 - tag for location?
