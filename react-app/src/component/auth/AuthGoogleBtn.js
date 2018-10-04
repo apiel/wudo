@@ -8,8 +8,6 @@ import GET_ME from '../../gql/query/getMe';
 
 const googleWebClientId = process.env.REACT_APP_GOOGLE_WEB_CLIENT_ID;
 
-console.log('process.env', process.env);
-
 class AuthGoogleBtn extends React.Component {
 
   onFailure= data => console.error('google err', data); // we should show an error
