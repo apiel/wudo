@@ -6,7 +6,7 @@ import { GoogleLogin } from 'react-google-login';
 
 import GET_ME from '../../gql/query/getMe';
 
-const googleWebClientId = '746478807929-4hpugtvcq9ss69d31kg5dilif0dudktk.apps.googleusercontent.com';
+const googleWebClientId = process.env.REACT_APP_GOOGLE_WEB_CLIENT_ID;
 
 class AuthGoogleBtn extends React.Component {
 
