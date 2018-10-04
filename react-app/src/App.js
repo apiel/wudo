@@ -3,6 +3,7 @@ import { Query } from 'react-apollo';
 import get from 'lodash/get';
 
 import Routes from './Routes';
+import Footer from './Footer';
 import Auth from './component/auth/Auth';
 import GET_ME from './gql/query/getMe';
 import { AuthConsumer, AuthProvider } from './context/Auth';
@@ -25,6 +26,7 @@ const App = () => (
             return (
               <div className="App">
                 { profile ? (<Routes />) : <Auth /> }
+                <Footer />
               </div>
             );
           }}
