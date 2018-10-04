@@ -22,7 +22,7 @@ const Followers = () => (
                 const followersByTag = groupBy(getFollowers, item => item.tag.idTag);
 
                 return tags.map(({ idTag, name }) => {
-                    const tagFollowers = followersByTag[idTag];
+                    const tagFollowers = followersByTag[idTag] || [];
                     return (
                         <FollowerCard
                             key={idTag}

@@ -11,7 +11,7 @@ import FollowerChip from './FollowerChip';
 
 const styles = theme => cardStyles(theme);
 
-const FollowerCard = ({ classes, name, tagFollowers = [], idTag }) => (
+const FollowerCard = ({ classes, name, tagFollowers, idTag }) => (
   <Card className={classes.card}>
     <CardHeader
       title={name}
