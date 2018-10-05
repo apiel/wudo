@@ -17,11 +17,10 @@ class AuthGoogleBtn extends React.Component {
     this.props.googleAuth({
       variables: { tokenId },
       update: (proxy, { data: { googleAuth }}) => {
-        this.props.saveToken(googleAuth.jwt);
-
         const query = GET_ME;
         const getMe = googleAuth.user;
         const data = { getMe };
+        // console.log('write getMe', data);
         proxy.writeQuery({ query, data });
       },
     });
@@ -59,7 +58,6 @@ AuthGoogleBtn.propTypes = {
   classes: PropTypes.object.isRequired,
   googleAuth: PropTypes.func.isRequired,
   result: PropTypes.object.isRequired, // mutation result
-  saveToken: PropTypes.func.isRequired,
 };
 
 export default AuthGoogleBtn;

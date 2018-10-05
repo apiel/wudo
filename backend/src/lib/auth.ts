@@ -3,6 +3,8 @@ import { fs } from 'mz';
 
 import UserEntity from '../entity/user';
 
+export const expiresIn = 12*60*60; // 12h
+
 export type JsonWebToken = {
     idUser: number;
     email: string;
@@ -16,7 +18,7 @@ export async function generateToken(user: UserEntity): Promise<string> {
         email: user.email,
         name: user.name,
     };
-    return sign(jwt , secretkey, { expiresIn: '12h' });
+    return sign(jwt , secretkey, { expiresIn });
 }
 
 let privateKey: string;

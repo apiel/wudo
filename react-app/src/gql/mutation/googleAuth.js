@@ -6,7 +6,6 @@ import selectTag from '../select/selectTag';
 const template = gql`
 mutation googleAuth($tokenId: String!) {
   googleAuth(token: $tokenId) {
-    jwt
     type
     user ${selectUser(`tags ${selectTag()}`)}
   }
