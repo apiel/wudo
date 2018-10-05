@@ -1,7 +1,7 @@
 {
   "name": "wudo-backend",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "dist/index.js",
   "license": "MIT",
   "dependencies": {
     "@types/compression": "^0.0.36",

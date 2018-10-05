@@ -9,6 +9,7 @@ TBD: readme coming soon :p
 
 - like ... smiley
 - share?
+- #private tag?
 
 ```
 sudo apt-get install postgresql postgresql-contrib

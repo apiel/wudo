@@ -52,11 +52,15 @@ export default class UserResolver {
 
         // we could use join instead of previous query
         // we should also not return user that dont have tags
-        return ctx.db.getRepository(UserEntity)
+        const query = ctx.db.getRepository(UserEntity)
                     .createQueryBuilder('user')
                     .where('LOWER(user.name) LIKE LOWER(:search)', { search })
-                    .andWhere('user.idUser NOT IN (:...ids)', { ids })
-                    .limit(30)
-                    .getMany();
+                    .limit(30);
+
+        if (ids.length) {
+            query.andWhere('user.idUser NOT IN (:...ids)', { ids });
+        }
+
+        return query.getMany();
     }
 }
