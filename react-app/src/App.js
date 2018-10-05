@@ -9,14 +9,12 @@ import GET_ME from './gql/query/getMe';
 
 const App = () => (
   <Query query={GET_ME}>
-    {({ loading, error, data, client }) => {
+    {({ loading, error, data }) => {
       if (loading) return <p>Loading...</p>;
       // if (error) return <p>Error :(</p>; // we might have to check for proper error
       // eg if it s not 403/401 show an error
 
       const profile = get(data, 'getMe');
-      console.log('profile', data);
-      console.log('client', client);
       return (
         <div className="App">
           { profile ? (<Routes />) : <Auth /> }

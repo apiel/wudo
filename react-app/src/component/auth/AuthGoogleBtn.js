@@ -17,11 +17,13 @@ class AuthGoogleBtn extends React.Component {
     this.props.googleAuth({
       variables: { tokenId },
       update: (proxy, { data: { googleAuth }}) => {
+        // this.props.result.client.resetStore();
         const query = GET_ME;
         const getMe = googleAuth.user;
         const data = { getMe };
-        // console.log('write getMe', data);
+        data.getMe = getMe;
         proxy.writeQuery({ query, data });
+        this.props.result.client.reFetchObservableQueries();
       },
     });
   }
