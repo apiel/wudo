@@ -1,6 +1,9 @@
 
 TBD: readme coming soon :p
 
+- activate notification for specified tags
+- notification for new follower?
+
 - tag mention / autocomplete
 - maybe create @tag for user?
 - tag for location?
