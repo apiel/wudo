@@ -10,9 +10,16 @@ import get from 'lodash/get';
 import './index.css';
 import App from './App';
 import registerServiceWorker from './registerServiceWorker';
-// import client from './apollo';
 
-import { getToken, setToken } from './utils/storage';
+if (navigator.share) {
+  navigator.share({
+      title: 'WTF.youdo',
+      text: 'Share what you do!',
+      url: 'https://www.youdo.wtf/post',
+  })
+  .then(() => console.log('Successful share'))
+  .catch((error) => console.log('Error sharing', error));
+}
 
 const theme = createMuiTheme({
   palette: {
@@ -23,24 +30,6 @@ const theme = createMuiTheme({
 
 const client = new ApolloClient({
   uri: '/graphql',
-  onError: error => {
-    const errorCode = get(error, 'networkError.result.error.code');
-    // console.log('errorCode', errorCode);
-    if (errorCode === 'invalid_token') {
-      setToken(''); // null does not work, we could also do localStorage.removeItem
-    }
-  },
-  request: (operation) => {
-    const token = getToken();
-    if (token) {
-      // console.log('token', token);
-      operation.setContext({
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-    }
-  },
 })
 
 const AppApollo = () => (

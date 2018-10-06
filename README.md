@@ -1,6 +1,10 @@
 
 TBD: readme coming soon :p
 
+- fix og
+- private
+- share
+
 - activate notification for specified tags
 - notification for new follower?
 
