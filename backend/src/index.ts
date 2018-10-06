@@ -1,5 +1,6 @@
 import * as express from 'express';
 import * as jwt from 'express-jwt';
+import * as cookieParser from 'cookie-parser';
 import * as graphqlHTTP from 'express-graphql';
 import * as compression from 'compression';
 import { createConnection, Not } from 'typeorm';
@@ -9,6 +10,7 @@ import UserEntity from './entity/user';
 import { getPrivateKey } from './lib/auth';
 import loaderMiddleware from './dataloader';
 import api from './api';
+import { get } from 'lodash';
 
 import PostEntity from './entity/post';
 
@@ -18,11 +20,14 @@ const boot = async () => {
     const db = await createConnection();
     // const user = await db.getRepository(UserEntity).findOne(2);
 
+    app.use(cookieParser());
+
     const secret = await getPrivateKey();
     app.use(jwt({
         secret,
         credentialsRequired: false,
-    })); //.unless({path: ['/token']}));
+        getToken: (req) => get(req, 'cookies.token'),
+    }));
 
     app.use(compression());
 

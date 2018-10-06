@@ -6,7 +6,7 @@ import * as crypto from 'crypto';
 
 import AuthEntity from './type/auth';
 import UserEntity from '../entity/user';
-import { generateToken } from '../lib/auth';
+import { generateToken, expiresIn } from '../lib/auth';
 
 @Resolver(AuthEntity)
 export default class AuthResolver {
@@ -36,8 +36,14 @@ export default class AuthResolver {
         } // else if different we could update
 
         const jwt = await generateToken(user);
+        const cookieOptions = {
+            maxAge: expiresIn * 1000,
+            httpOnly: true,
+            // signed: true, // ? req.signedCookies
+        };
+        ctx.res.cookie('token', jwt, cookieOptions);
+
         const auth: AuthEntity = {
-            jwt,
             user,
             type,
         }

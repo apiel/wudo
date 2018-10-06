@@ -9,7 +9,6 @@ import GET_ME from '../../gql/query/getMe';
 const googleWebClientId = process.env.REACT_APP_GOOGLE_WEB_CLIENT_ID;
 
 class AuthGoogleBtn extends React.Component {
-
   onFailure= data => console.error('google err', data); // we should show an error
 
   onSuccess = ({ tokenId }) => {
@@ -17,12 +16,13 @@ class AuthGoogleBtn extends React.Component {
     this.props.googleAuth({
       variables: { tokenId },
       update: (proxy, { data: { googleAuth }}) => {
-        this.props.saveToken(googleAuth.jwt);
-
+        this.props.result.client.resetStore(); // reFetchObservableQueries would work as well
         const query = GET_ME;
         const getMe = googleAuth.user;
         const data = { getMe };
+        data.getMe = getMe;
         proxy.writeQuery({ query, data });
+        // this.props.result.client.reFetchObservableQueries(); // could use this instead of resetStore
       },
     });
   }
@@ -59,7 +59,6 @@ AuthGoogleBtn.propTypes = {
   classes: PropTypes.object.isRequired,
   googleAuth: PropTypes.func.isRequired,
   result: PropTypes.object.isRequired, // mutation result
-  saveToken: PropTypes.func.isRequired,
 };
 
 export default AuthGoogleBtn;

@@ -6,35 +6,23 @@ import Routes from './Routes';
 import Footer from './Footer';
 import Auth from './component/auth/Auth';
 import GET_ME from './gql/query/getMe';
-import { AuthConsumer, AuthProvider } from './context/Auth';
-
 
 const App = () => (
-  <AuthProvider>
-    <AuthConsumer>
-    {({ isLoggedin }) => {
-      // console.log('state isLoggedin', isLoggedin);
-      const skip = !isLoggedin;
-      return (
-        <Query query={GET_ME} skip={skip}>
-          {({ loading, error, data }) => {
-            if (!skip && loading) return <p>Loading...</p>;
-            // if (error) return <p>Error :(</p>; // we might have to check for proper error
-            // eg if it s not 403/401 show an error
+  <Query query={GET_ME}>
+    {({ loading, error, data }) => {
+      if (loading) return <p>Loading...</p>;
+      // if (error) return <p>Error :(</p>; // we might have to check for proper error
+      // eg if it s not 403/401 show an error
 
-            const profile = get(data, 'getMe');
-            return (
-              <div className="App">
-                { profile ? (<Routes />) : <Auth /> }
-                <Footer />
-              </div>
-            );
-          }}
-        </Query>
+      const profile = get(data, 'getMe');
+      return (
+        <div className="App">
+          { profile ? (<Routes />) : <Auth /> }
+          <Footer />
+        </div>
       );
     }}
-    </AuthConsumer>
-  </AuthProvider>
+  </Query>
 );
 
 export default App;
