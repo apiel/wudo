@@ -12,9 +12,9 @@ const PostMediaQuery = ({ url, setMedia }) => (
         variables={{url}}
     >
         {({ loading, error, data }) => {
-            setMedia(null);
             if (loading) return (<LinearProgress />);
             if (error) return null;
+
             return get(data, 'ogs.title') ? (
                 <PostMedia url={url} og={data.ogs} setMedia={setMedia} />
             ) : null;

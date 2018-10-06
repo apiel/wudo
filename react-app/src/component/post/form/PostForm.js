@@ -52,13 +52,20 @@ const initialState = {
 class PostForm extends React.Component {
   state = initialState;
 
-  setUrl = url => this.setState({ url });
+  setUrl = url => {
+    this.setState({ url });
+    if (!url) {
+      this.setMedia(null);
+    }
+  }
   setHashTags = tags => this.setState({ tags });
 
   text = null;
   media = null;
 
-  setMedia = (media) => this.media = media;
+  setMedia = (media) => {
+    this.media = media;
+  }
 
   onSubmit = event => {
       event.preventDefault();
@@ -72,6 +79,8 @@ class PostForm extends React.Component {
       } else {
         this.setState({error: null});
         const openGraph = this.media ? this.media.state : null;
+        console.log('this.media', this.media);
+        console.log('openGraph', openGraph);
         this.props.addPost({
           variables: { text, tags, openGraph },
           update: (proxy, { data: { addPostAndTag } }) => {
