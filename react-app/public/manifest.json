@@ -29,6 +29,9 @@
     }
   ],
   "start_url": "./index.html",
+  "share_target": {
+    "url_template": "post?title={title}&text={text}&url={url}"
+  },
   "display": "standalone",
   "theme_color": "#2095ab",
   "background_color": "#ffffff"

@@ -11,15 +11,16 @@ import './index.css';
 import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 
-if (navigator.share) {
-  navigator.share({
-      title: 'WTF.youdo',
-      text: 'Share what you do!',
-      url: 'https://www.youdo.wtf/post',
-  })
-  .then(() => console.log('Successful share'))
-  .catch((error) => console.log('Error sharing', error));
-}
+// for the share button
+// if (navigator.share) {
+//   navigator.share({
+//       title: 'WTF.youdo',
+//       text: 'Share what you do!',
+//       url: 'https://www.youdo.wtf/post',
+//   })
+//   .then(() => console.log('Successful share'))
+//   .catch((error) => console.log('Error sharing', error));
+// }
 
 const theme = createMuiTheme({
   palette: {
