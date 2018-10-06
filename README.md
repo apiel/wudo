@@ -1,7 +1,6 @@
 
 TBD: readme coming soon :p
 
-- fix og
 - private
 
 - share_target <-- not yet possible
