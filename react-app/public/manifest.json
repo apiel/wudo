@@ -30,7 +30,13 @@
   ],
   "start_url": "./index.html",
   "share_target": {
-    "url_template": "post?title={title}&text={text}&url={url}"
+    "url_template": "post?title={title}&text={text}&url={url}",
+    "action": "sharetarget.html",
+    "params": {
+      "title": "title",
+      "text": "text",
+      "url": "url"
+    }
   },
   "display": "standalone",
   "theme_color": "#2095ab",
