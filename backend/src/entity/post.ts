@@ -47,4 +47,7 @@ export default class PostEntity {
   @ManyToOne(type => OpenGraphEntity, og => og.posts)
   @JoinColumn({ name: 'idOg' })
   openGraph: Promise<OpenGraphEntity>;
+
+  @Column({ name: 'idOg', nullable: true })
+  idOg: number;
 }

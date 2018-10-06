@@ -5,7 +5,6 @@ import { ApolloProvider } from 'react-apollo';
 import { createMuiTheme } from '@material-ui/core/styles';
 import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
 import { BrowserRouter } from 'react-router-dom';
-import get from 'lodash/get';
 
 import './index.css';
 import App from './App';

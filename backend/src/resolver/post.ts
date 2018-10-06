@@ -106,9 +106,9 @@ export default class PostResolver {
         const post = await this.insertPost(postTagInput.text, ctx);
 
         if (postTagInput.openGraph) {
-            post.openGraph = this.insertOpenGraph(postTagInput.openGraph, ctx);
-
-            console.log('post.openGraph', post.openGraph);
+            const openGraph = await this.insertOpenGraph(postTagInput.openGraph, ctx);
+            post.idOg = openGraph.idOg;
+            // console.log('post.idOg', post.idOg);
         }
 
         const tags = await this.processTags(postTagInput, ctx);

@@ -3,8 +3,8 @@ TBD: readme coming soon :p
 
 - fix og
 - private
-- share
 
+- share_target <-- not yet possible
 - activate notification for specified tags
 - notification for new follower?
 
