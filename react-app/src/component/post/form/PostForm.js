@@ -79,8 +79,8 @@ class PostForm extends React.Component {
       } else {
         this.setState({error: null});
         const openGraph = this.media ? this.media.state : null;
-        console.log('this.media', this.media);
-        console.log('openGraph', openGraph);
+        // console.log('this.media', this.media);
+        // console.log('openGraph', openGraph);
         this.props.addPost({
           variables: { text, tags, openGraph },
           update: (proxy, { data: { addPostAndTag } }) => {
