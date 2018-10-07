@@ -21,6 +21,7 @@ const Footer = ({ classes }) => (
     <span className={classes.span}>
         <a className="github-button" href="https://github.com/apiel/wudo/issues" data-size="large" data-show-count="true" aria-label="Issue apiel/wudo on GitHub">Issue</a>
     </span>
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
   </div>
 );
 
