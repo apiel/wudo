@@ -6,7 +6,7 @@ import Typography from '@material-ui/core/Typography';
 import { urls } from '../../Routes';
 
 const AppTittle = ({ classes, title = 'WTF.youdo', link = urls.home }) => (
-    <Typography className={classes.title} variant="title" color="inherit" noWrap>
+    <Typography className={classes.title} variant="h6" color="inherit" noWrap>
         <Link to={link} className={classes.link}>{title}</Link>
     </Typography>
 );

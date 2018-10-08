@@ -53,8 +53,8 @@ class PostMedia extends React.Component {
             /> }
             <div className={classes.details}>
                 <CardContent className={classes.content}>
-                    <Typography variant="headline">{title}</Typography>
-                    <Typography variant="subheading" color="textSecondary">
+                    <Typography variant="h5">{title}</Typography>
+                    <Typography variant="subtitle1" color="textSecondary">
                         {description}
                     </Typography>
                 </CardContent>
