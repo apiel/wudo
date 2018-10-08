@@ -9,6 +9,7 @@ import Avatar from '../Avatar';
 import styles from '../../styles/card.style';
 
 import TagItems from '../TagItems';
+import { events, action } from '../Snackbar';
 
 class FollowItem extends React.Component {
   constructor(props) {
@@ -30,6 +31,10 @@ class FollowItem extends React.Component {
       await this.props.followUserTag({
         variables: { input: { idTag, active, idUser: this.props.user.idUser }},
       });
+      const message = active ?
+        `You are following the tag #${tags[tagIndex].name}.` :
+        `You are not following the tag #${tags[tagIndex].name} anymore.`;
+      events.emit(action.open, message);
     } catch (error) {
       tags[tagIndex].active = !active;
       this.setState({ tags });

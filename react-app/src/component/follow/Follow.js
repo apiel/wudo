@@ -3,6 +3,7 @@ import React from 'react';
 import AppBarSearch from '../appBar/AppBarSearch';
 import FollowQuery from './FollowQuery';
 import FollowSearch from './FollowSearch';
+import Snackbar from '../Snackbar';
 
 export default class Follow extends React.Component {
     state = {
@@ -27,6 +28,7 @@ export default class Follow extends React.Component {
                 <FollowQuery search={this.state.search} />
                 <FollowSearch search={this.state.search} />
                 <p>Need tooltip component: click tag to follow or unfollow</p>
+                <Snackbar />
             </div>
         );
     }
