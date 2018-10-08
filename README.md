@@ -13,9 +13,9 @@ pgsql
 
 When you do `yarn install`, you might get some issue with the types. To fix it, run `yarn fix-package`
 
-The first time you run the backend, the table will be generated automatically. Before that change the in `backend/src/entity/userTag.ts` `synchronize` to true and comment lines with `@Column({ primary: true })`
+~~The first time you run the backend, the table will be generated automatically. Before that change the in `backend/src/entity/userTag.ts` `synchronize` to true and comment lines with `@Column({ primary: true })`
 
-Now the table are there, you can revert the change and run again. There is a little issue with typeorm and table with multiple primary keys.
+Now the table are there, you can revert the change and run again. There is a little issue with typeorm and table with multiple primary keys.~~
 
 
 Start backend:

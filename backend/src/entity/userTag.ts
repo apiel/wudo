@@ -2,24 +2,16 @@ import 'reflect-metadata';
 import {
   Entity,
   Column,
-  PrimaryColumn,
   ManyToOne,
-  OneToOne,
-  PrimaryGeneratedColumn,
 } from 'typeorm';
 import { ObjectType, Field } from 'type-graphql';
 
 import UserEntity from './user';
 import TagEntity from './tag';
-import { ColumnMetadata } from 'typeorm/metadata/ColumnMetadata';
 
-@Entity({name: 'user_tag', synchronize: false})
+@Entity({name: 'user_tag', synchronize: true})
 @ObjectType({ description: "Object representing the user tags" })
 export default class UserTagEntity {
-  // @PrimaryGeneratedColumn()
-  // @Column()
-  // idUserTag: number;
-
   @Field(type => UserEntity)
   @ManyToOne(type => UserEntity, user => user.followUserTags, { primary: true })
   follower: Promise<UserEntity>;
