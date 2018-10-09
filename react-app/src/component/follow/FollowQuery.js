@@ -1,43 +1,37 @@
 import React from 'react';
-import { Query } from 'react-apollo';
+import { graphql } from 'react-apollo';
 import groupBy from 'lodash/groupBy';
 
 import GET_TAGS_FOLLOWED from '../../gql/query/getTagsFollowed';
 
 import FollowMutation from './FollowMutation';
 
-const FollowQuery = ({ search }) => (
-    <Query
-        query={GET_TAGS_FOLLOWED}
-    >
-        {({ loading, error, data: { getTagsFollowed } }) => {
-            if (loading) return <p>Loading...</p>;
-            if (error) return <p>Error :(</p>;
+const FollowQuery = ({ search, data: { loading, error, getTagsFollowed }}) =>  {
+    if (loading) return <p>Loading...</p>;
+    if (error) return <p>Error :(</p>;
 
-            if (!getTagsFollowed.length) return <p>You dont follow anyone</p>;
+    if (!getTagsFollowed.length) return <p>You dont follow anyone</p>;
 
-            if (search) {
-                getTagsFollowed = getTagsFollowed.filter(
-                    item => item.followed.name.toLowerCase().indexOf(search.toLowerCase()) !== -1
-                );
-            }
+    if (search) {
+        getTagsFollowed = getTagsFollowed.filter(
+            item => item.followed.name.toLowerCase().indexOf(search.toLowerCase()) !== -1
+        );
+    }
 
-            const followedByUser = groupBy(getTagsFollowed, item => item.followed.idUser);
+    const followedByUser = groupBy(getTagsFollowed, item => item.followed.idUser);
 
-            return Object.values(followedByUser).map(userTags => {
-                const user = userTags[0].followed;
-                user.tags.forEach(
-                    tag => tag.active =
-                        userTags.findIndex(
-                            userTag => userTag.active && userTag.tag.idTag === tag.idTag
-                        ) !== -1
-                );
-                return (
-                    <FollowMutation key={user.idUser} user={user} />
-                );
-            });
-        }}
-    </Query>
-);
+    return Object.values(followedByUser).map(userTags => {
+        const user = userTags[0].followed;
+        user.tags.forEach(
+            tag => tag.active =
+                userTags.findIndex(
+                    userTag => userTag.active && userTag.tag.idTag === tag.idTag
+                ) !== -1
+        );
+        return (
+            <FollowMutation key={user.idUser} user={user} />
+        );
+    });
+};
 
-export default FollowQuery;
+export default graphql(GET_TAGS_FOLLOWED)(FollowQuery);
