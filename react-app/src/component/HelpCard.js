@@ -3,12 +3,9 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
-import IconButton from '@material-ui/core/IconButton';
-import Typography from '@material-ui/core/Typography';
-import SkipPreviousIcon from '@material-ui/icons/SkipPrevious';
-import PlayArrowIcon from '@material-ui/icons/PlayArrow';
-import SkipNextIcon from '@material-ui/icons/SkipNext';
+// import CardMedia from '@material-ui/core/CardMedia';
+// import Typography from '@material-ui/core/Typography';
+import Avatar from '@material-ui/core/Avatar';
 
 // import merge from 'lodash';
 // import cardStyles from '../styles/card.style';
@@ -33,28 +30,30 @@ const styles = theme => ({
   content: {
     flex: '1 0 auto',
   },
-  cover: {
-    width: 151,
-  },
+  // cover: {
+  //   width: 50,
+  // },
+  avatar: {
+    width: 50,
+    height: 50,
+  }
 });
 
 function HelpCard(props) {
-  const { classes, theme } = props;
+  const { classes, children } = props;
 
   return (
     <Card className={classes.card}>
-        <CardMedia
+        {/* <CardMedia
             className={classes.cover}
             image="/info1.png"
             title="Info"
-        />
+        /> */}
+        <CardContent className={classes.cover}>
+          <Avatar className={classes.avatar}>Info</Avatar>
+        </CardContent>
         <CardContent className={classes.content}>
-            <Typography component="h5" variant="h5">
-            Live From Space
-            </Typography>
-            <Typography variant="subtitle1" color="textSecondary">
-            Mac Miller
-            </Typography>
+            { children }
         </CardContent>
     </Card>
   );
@@ -63,6 +62,7 @@ function HelpCard(props) {
 HelpCard.propTypes = {
   classes: PropTypes.object.isRequired,
   theme: PropTypes.object.isRequired,
+  children: PropTypes.node.isRequired,
 };
 
 export default withStyles(styles, { withTheme: true })(HelpCard);

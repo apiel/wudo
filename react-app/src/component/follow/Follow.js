@@ -1,10 +1,12 @@
 import React from 'react';
+import Typography from '@material-ui/core/Typography';
 
 import AppBarSearch from '../appBar/AppBarSearch';
 import FollowQuery from './FollowQuery';
 import FollowSearch from './FollowSearch';
 import Snackbar from '../Snackbar';
 import HelpCard from '../HelpCard';
+import TagItems from '../TagItems';
 
 export default class Follow extends React.Component {
     state = {
@@ -12,6 +14,11 @@ export default class Follow extends React.Component {
     };
 
     searchTimer = null;
+
+    tagsExample = [
+        { idTag: 'tagFollow', name: 'follow', active: true },
+        { idTag: 'tagUnfollow', name: 'unfollow', active: false },
+    ];
 
     onSearch = (e) => {
         const search = e.target.value;
@@ -28,8 +35,12 @@ export default class Follow extends React.Component {
                 <AppBarSearch onSearch={this.onSearch} />
                 <FollowQuery search={this.state.search} />
                 <FollowSearch search={this.state.search} />
-                <HelpCard />
-                <p>Need tooltip component: click tag to follow or unfollow</p>
+                <HelpCard>
+                    <Typography variant="body1" gutterBottom>
+                        Search for people or/and #tags. You can then click on tag to follow or unfollow.
+                    </Typography>
+                    <TagItems tags={this.tagsExample} />
+                </HelpCard>
                 <Snackbar />
             </div>
         );

@@ -29,7 +29,7 @@ class SimpleSnackbar extends React.Component {
   }
 
   eventOpen = (message) => {
-    console.log('eventOpen', message);
+    // console.log('eventOpen', message);
     this.setState({ open: true, message });
   }
 
