@@ -4,6 +4,9 @@ import { withStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardContent from '@material-ui/core/CardContent';
+import { graphql } from 'react-apollo';
+
+import FOLLOW_USER_TAG from '../../gql/mutation/followUserTag';
 
 import Avatar from '../Avatar';
 import styles from '../../styles/card.style';
@@ -28,7 +31,7 @@ class FollowItem extends React.Component {
     tags[tagIndex].active = active;
     this.setState({ tags });
     try {
-      await this.props.followUserTag({
+      await this.props.mutate({
         variables: { input: { idTag, active, idUser: this.props.user.idUser }},
       });
       const message = active ?
@@ -70,7 +73,7 @@ class FollowItem extends React.Component {
 FollowItem.propTypes = {
   classes: PropTypes.object.isRequired,
   user: PropTypes.object.isRequired,
-  followUserTag: PropTypes.func.isRequired,
+  mutate: PropTypes.func.isRequired,
 };
 
-export default withStyles(styles)(FollowItem);
+export default graphql(FOLLOW_USER_TAG)(withStyles(styles)(FollowItem));

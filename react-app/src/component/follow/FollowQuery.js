@@ -4,7 +4,7 @@ import groupBy from 'lodash/groupBy';
 
 import GET_TAGS_FOLLOWED from '../../gql/query/getTagsFollowed';
 
-import FollowMutation from './FollowMutation';
+import FollowItem from './FollowItem';
 
 const FollowQuery = ({ search, data: { loading, error, getTagsFollowed }}) =>  {
     if (loading) return <p>Loading...</p>;
@@ -29,7 +29,7 @@ const FollowQuery = ({ search, data: { loading, error, getTagsFollowed }}) =>  {
                 ) !== -1
         );
         return (
-            <FollowMutation key={user.idUser} user={user} />
+            <FollowItem key={user.idUser} user={user} />
         );
     });
 };
