@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Snackbar from '@material-ui/core/Snackbar';
+import SnackbarContent from '@material-ui/core/SnackbarContent';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import Events from 'events';
@@ -10,27 +11,36 @@ const styles = theme => ({
   close: {
     padding: theme.spacing.unit / 2,
   },
+  error: {
+    backgroundColor: theme.palette.error.dark,
+  },
 });
 
 export const events = new Events();
 export const action = {
     open: 'open',
-    message: '',
+    error: 'error',
 }
 
 class SimpleSnackbar extends React.Component {
   state = {
     open: false,
+    class: '',
+    message: '',
   };
 
   constructor(props) {
     super(props);
     events.on(action.open, this.eventOpen);
+    events.on(action.error, this.eventError);
   }
 
   eventOpen = (message) => {
-    // console.log('eventOpen', message);
-    this.setState({ open: true, message });
+    this.setState({ open: true, class: '', message });
+  }
+
+  eventError = (message) => {
+    this.setState({ open: true, class: this.props.classes.error, message });
   }
 
   handleClose = (event, reason) => {
@@ -55,19 +65,23 @@ class SimpleSnackbar extends React.Component {
           ContentProps={{
             'aria-describedby': 'message-id',
           }}
-          message={<span id="message-id">{this.state.message}</span>}
-          action={[
-            <IconButton
-              key="close"
-              aria-label="Close"
-              color="inherit"
-              className={classes.close}
-              onClick={this.handleClose}
-            >
-              <CloseIcon />
-            </IconButton>,
-          ]}
-        />
+        >
+          <SnackbarContent
+            className={this.state.class}
+            message={<span id="message-id">{this.state.message}</span>}
+            action={[
+              <IconButton
+                key="close"
+                aria-label="Close"
+                color="inherit"
+                className={classes.close}
+                onClick={this.handleClose}
+              >
+                <CloseIcon />
+              </IconButton>,
+            ]}
+          />
+        </Snackbar>
     );
   }
 }

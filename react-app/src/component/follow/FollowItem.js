@@ -41,6 +41,7 @@ class FollowItem extends React.Component {
     } catch (error) {
       tags[tagIndex].active = !active;
       this.setState({ tags });
+      events.emit(action.error, 'Something went wrong while saving.');
       // we could show a snackbars message
       // we should then forward the error
     }

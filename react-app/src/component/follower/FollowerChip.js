@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Mutation } from 'react-apollo';
+import { graphql } from 'react-apollo';
 import { withStyles } from '@material-ui/core/styles';
 import Chip from '@material-ui/core/Chip';
 import CheckCircle from '@material-ui/icons/Done';
@@ -8,6 +8,7 @@ import NotInterested from '@material-ui/icons/NotInterested';
 
 import ALLOW_FOLLOWER from '../../gql/mutation/allowFollower';
 import Avatar from '../Avatar';
+import { events, action } from '../Snackbar';
 
 const styles = theme => ({
   chip: {
@@ -29,18 +30,24 @@ class FollowerChip extends React.Component {
     this.setState({ follower  });
   }
 
-  onClick = (user, allowFollower) => async() => {
+  onClick = (user) => async() => {
     this.toggleAccept();
     try {
-        await allowFollower({
+        const allow = this.state.follower.accepted;
+        const message = allow ?
+          `${this.props.user.name} allowed.` :
+          `${this.props.user.name} blocked for this tag.`;
+        events.emit(action.open, message);
+        await this.props.mutate({
             variables: { input: {
                 idTag: this.props.idTag,
                 idUser: this.props.user.idUser,
-                allow: this.state.follower.accepted,
+                allow,
             }},
         });
     } catch (error) {
         this.toggleAccept();
+        events.emit(action.error, 'Something went wrong while saving.');
         // we could show a snackbars message
         // we should then forward the error
     }
@@ -49,23 +56,16 @@ class FollowerChip extends React.Component {
   render() {
     const { classes, user } = this.props;
     const { follower } = this.state;
-
+    const deleteIcon = follower.accepted ? <CheckCircle /> : <NotInterested />;
     return (
-        <Mutation mutation={ALLOW_FOLLOWER}>
-            {(allowFollower) => {
-              const deleteIcon = follower.accepted ? <CheckCircle /> : <NotInterested />;
-              return (
-                <Chip
-                  className={classes.chip}
-                  avatar={ <Avatar user={user} /> }
-                  label={user.name}
-                  onClick={this.onClick(user, allowFollower)}
-                  onDelete={this.onClick(user, allowFollower)}
-                  deleteIcon={deleteIcon}
-                />
-              );
-            }}
-        </Mutation>
+      <Chip
+        className={classes.chip}
+        avatar={ <Avatar user={user} /> }
+        label={user.name}
+        onClick={this.onClick(user)}
+        onDelete={this.onClick(user)}
+        deleteIcon={deleteIcon}
+      />
     );
   }
 }
@@ -75,6 +75,7 @@ FollowerChip.propTypes = {
   user: PropTypes.object.isRequired,
   follower: PropTypes.object.isRequired,
   idTag: PropTypes.number.isRequired,
+  mutate: PropTypes.func.isRequired,
 };
 
-export default withStyles(styles)(FollowerChip);
+export default graphql(ALLOW_FOLLOWER)(withStyles(styles)(FollowerChip));

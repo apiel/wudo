@@ -50,6 +50,7 @@ yarn start
 
 ### Todo and possible idea
 
+- fix issue allow/block follower
 - new tag & trend tag
 - search by tag
 

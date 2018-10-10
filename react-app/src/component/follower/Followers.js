@@ -1,12 +1,15 @@
 import React from 'react';
 import groupBy from 'lodash/groupBy';
 import Queries from 'react-apollo-composer';
+import Typography from '@material-ui/core/Typography';
 
 import GET_FOLLOWERS from '../../gql/query/getFollowers';
 import GET_ME from '../../gql/query/getMe';
 
 import AppBarBack from '../appBar/AppBarBack';
 import FollowerCard from './FollowerCard';
+import HelpCard from '../HelpCard';
+import Snackbar from '../Snackbar';
 
 const Followers = () => (
     <div>
@@ -34,7 +37,12 @@ const Followers = () => (
                 });
             }}
         </Queries>
-        <p>Tooltip help: here is followers... click on name to allow or forbid them to follow your tags.</p>
+        <HelpCard styles={{ maxWidth: 300 }}>
+            <Typography variant="body1" gutterBottom>
+                This is the list of your tags and followers. You can click on your followers to allow or block them from following your tags.
+            </Typography>
+        </HelpCard>
+        <Snackbar />
     </div>
 );
 
