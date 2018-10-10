@@ -1,17 +1,10 @@
 import React from 'react';
-import { Query } from 'react-apollo';
+import { graphql } from 'react-apollo';
 
 import GET_ME from '../../gql/query/getMe';
 import Avatar from '../Avatar';
 
-const AppBarProfile = () => (
-    <Query
-        query={GET_ME}
-    >
-        {({ data: { getMe } }) => (
-            <Avatar user={getMe} useHashColor={false} />
-        )}
-    </Query>
-);
+const AppBarProfile = ({ data: { getMe } }) =>
+    <Avatar user={getMe} useHashColor={false} />;
 
-export default AppBarProfile;
+export default graphql(GET_ME)(AppBarProfile);

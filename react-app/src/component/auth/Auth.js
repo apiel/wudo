@@ -5,7 +5,7 @@ import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import classNames from 'classnames';
 
-import AuthGoogleMutation from './AuthGoogleMutation';
+import AuthGoogleBtn from './AuthGoogleBtn';
 import AppBarGuest from '../appBar/AppBarGuest';
 
 const styles = theme => ({
@@ -37,7 +37,7 @@ const Auth = ({ classes }) => (
   <div>
     <AppBarGuest />
     <Grid container justify="center" className={classes.root}>
-    <AuthGoogleMutation classes={classes} />
+    <AuthGoogleBtn classes={classes} />
     <Button
       variant="contained"
       className={classNames(classes.button, classes.fb)}

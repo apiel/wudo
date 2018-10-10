@@ -3,8 +3,10 @@ import PropTypes from 'prop-types';
 import Button from '@material-ui/core/Button';
 import classNames from 'classnames';
 import { GoogleLogin } from 'react-google-login';
+import { graphql, withApollo } from 'react-apollo';
 
 import GET_ME from '../../gql/query/getMe';
+import GOOGLE_AUTH from '../../gql/mutation/googleAuth';
 
 const googleWebClientId = process.env.REACT_APP_GOOGLE_WEB_CLIENT_ID;
 
@@ -12,11 +14,10 @@ class AuthGoogleBtn extends React.Component {
   onFailure= data => console.error('google err', data); // we should show an error
 
   onSuccess = ({ tokenId }) => {
-    // console.log('tokenId', tokenId);
-    this.props.googleAuth({
+    this.props.mutate({
       variables: { tokenId },
       update: (proxy, { data: { googleAuth }}) => {
-        this.props.result.client.resetStore(); // reFetchObservableQueries would work as well
+        this.props.client.resetStore(); // reFetchObservableQueries would work as well
         const query = GET_ME;
         const getMe = googleAuth.user;
         const data = { getMe };
@@ -57,8 +58,8 @@ class AuthGoogleBtn extends React.Component {
 
 AuthGoogleBtn.propTypes = {
   classes: PropTypes.object.isRequired,
-  googleAuth: PropTypes.func.isRequired,
-  result: PropTypes.object.isRequired, // mutation result
+  mutate: PropTypes.func.isRequired,
+  client: PropTypes.object.isRequired,
 };
 
-export default AuthGoogleBtn;
+export default graphql(GOOGLE_AUTH)(withApollo(AuthGoogleBtn));
