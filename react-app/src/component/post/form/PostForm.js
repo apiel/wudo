@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Query, graphql, compose } from 'react-apollo';
+import { graphql, compose } from 'react-apollo';
 import merge from 'lodash/merge';
 import moment from 'moment';
 import { withStyles } from '@material-ui/core/styles';
@@ -70,16 +70,19 @@ class PostForm extends React.Component {
         } else {
           this.setState({ error: null, loading: true });
           const openGraph = this.media ? this.media.state : null;
-          await this.props.mutate({
-            variables: { text, tags, openGraph },
-            update: (proxy, { data: { addPostAndTag } }) => {
-              const query = GET_POSTS;
-              const data = proxy.readQuery({ query });
-              data.getPosts.unshift(addPostAndTag);
-              proxy.writeQuery({ query, data });
-            },
-            refetchQueries: [{ query: GET_POSTS }], // this should not be necessary!!! dont want to query since we update cache
-          });
+          await this.props.mutate(
+            {
+              variables: { text, tags, openGraph },
+              update: (proxy, { data: { addPostAndTag } }) => {
+                const query = GET_POSTS;
+                const data = proxy.readQuery({ query });
+                data.getPosts.unshift(addPostAndTag);
+                proxy.writeQuery({ query, data });
+                // console.log('yoyoyo mutate posts');
+              },
+              refetchQueries: [{ query: GET_POSTS }], // this should not be necessary!!! dont want to query since we update cache
+            }
+          );
           this.text.setState({value: ''});
           this.setState(initialState);
         }

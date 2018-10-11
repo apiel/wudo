@@ -57,7 +57,7 @@ yarn start
 - we tag followed and so on, show user that something happen
 - add tooltip for explaining how to use youdo.wtf
 
-- login 
+- login
 -- pinterest
 -- facebook
 -- github
