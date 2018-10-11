@@ -47,6 +47,7 @@ const initialState = {
   url: null,
   tags: [],
   openGraph: null,
+  loading: false,
 }
 
 class PostForm extends React.Component {
@@ -67,31 +68,35 @@ class PostForm extends React.Component {
     this.media = media;
   }
 
-  onSubmit = event => {
-      event.preventDefault();
-      const text = this.text.state.value;
-      const tags = this.state.tags;
+  onSubmit = async(event) => {
+      try {
+        event.preventDefault();
+        const text = this.text.state.value;
+        const tags = this.state.tags;
 
-      if (!tags.length) {
-        this.setState({
-          error: 'Please specify at least one #tag. A tag should start by the character "#" for example #hello-world',
-        });
-      } else {
-        this.setState({error: null});
-        const openGraph = this.media ? this.media.state : null;
-        // console.log('this.media', this.media);
-        // console.log('openGraph', openGraph);
-        this.props.addPost({
-          variables: { text, tags, openGraph },
-          update: (proxy, { data: { addPostAndTag } }) => {
-            const query = GET_POSTS;
-            const data = proxy.readQuery({ query });
-            data.getPosts.unshift(addPostAndTag);
-            proxy.writeQuery({ query, data });
-            this.text.setState({value: ''});
-            this.setState(initialState);
-          },
-        });
+        if (!tags.length) {
+          throw 'Please specify at least one #tag. A tag should start by the character "#" for example #hello-world';
+        } else {
+          this.setState({ error: null, loading: true });
+          const openGraph = this.media ? this.media.state : null;
+          await this.props.addPost({
+            variables: { text, tags, openGraph },
+            update: (proxy, { data: { addPostAndTag } }) => {
+              const query = GET_POSTS;
+              const data = proxy.readQuery({ query });
+              data.getPosts.unshift(addPostAndTag);
+              proxy.writeQuery({ query, data });
+            },
+            refetchQueries: [{ query: GET_POSTS }],
+          });
+          this.text.setState({value: ''});
+          this.setState(initialState);
+        }
+      } catch (error) {
+        if (typeof(error) !== 'string') {
+          error = 'Something went wrong while sending your post, please try again. If the problem persist, don\'t hesitate to contact us.';
+        }
+        this.setState({error, loading: false});
       }
   }
 
@@ -101,11 +106,6 @@ class PostForm extends React.Component {
 
   render() {
     const { classes } = this.props;
-
-    const error = this.props.result.error ?
-      'Something went wrong while sending your post, please try again. If the problem persist, don\'t hesitate to contact us.'
-      : this.state.error;
-
     return (
       <Query query={GET_ME}>
         {({ data: { getMe } }) => (
@@ -125,7 +125,7 @@ class PostForm extends React.Component {
               }
               <CardContent>
                 <PostInputText
-                  error={error}
+                  error={this.state.error}
                   setUrl={this.setUrl}
                   setHashTags={this.setHashTags}
                   ref={node => { this.text = node; }}
@@ -143,10 +143,10 @@ class PostForm extends React.Component {
                     color="primary"
                     className={classes.button}
                     type="submit"
-                    disabled={this.props.result.loading}
+                    disabled={this.state.loading}
                   >
                       Post
-                      {this.props.result.loading ?
+                      {this.state.loading ?
                         'ing...'
                         : (<Icon className={classes.rightIcon}>send</Icon>)
                       }
