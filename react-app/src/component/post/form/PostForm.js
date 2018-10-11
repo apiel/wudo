@@ -73,14 +73,13 @@ class PostForm extends React.Component {
           await this.props.mutate(
             {
               variables: { text, tags, openGraph },
-              update: (proxy, { data: { addPostAndTag } }) => {
+              update: (store, { data: { addPostAndTag } }) => {
                 const query = GET_POSTS;
-                const data = proxy.readQuery({ query });
-                data.getPosts.unshift(addPostAndTag);
-                proxy.writeQuery({ query, data });
-                // console.log('yoyoyo mutate posts');
+                const data = store.readQuery({ query });
+                store.writeQuery({ query, data: {
+                  getPosts: [addPostAndTag, ...data.getPosts],
+                }});
               },
-              refetchQueries: [{ query: GET_POSTS }], // this should not be necessary!!! dont want to query since we update cache
             }
           );
           this.text.setState({value: ''});
