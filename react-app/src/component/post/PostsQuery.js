@@ -12,8 +12,8 @@ const PostsQuery = () => (
             if (loading) return <p>Loading...</p>;
             if (error) return <p>Error :(</p>;
 
-            return data.getPosts.map(({ idPost, ...post }) => (
-                <Post key={idPost} post={post} />
+            return data.getPosts.map(({ id, ...post }) => (
+                <Post key={id} post={post} />
             ));
         }}
     </Query>

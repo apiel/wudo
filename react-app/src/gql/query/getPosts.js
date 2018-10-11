@@ -5,7 +5,7 @@ import selectTag from '../select/selectTag';
 import selectOpenGraph from '../select/selectOpenGraph';
 
 export const select = () => `{
-    idPost
+    id
     text
     creationDate
     user ${selectUser()}

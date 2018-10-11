@@ -18,7 +18,7 @@ import OpenGraphEntity from './openGraph';
 @ObjectType({ description: "Object representing user post" })
 export default class PostEntity {
   @PrimaryGeneratedColumn()
-  @Field()
+  @Field({ name: 'id' })
   idPost: number;
 
   @Column()
