@@ -1,13 +1,13 @@
 import React from 'react';
 
 import AppBar from '../appBar/AppBarMain';
-import PostMutation from './form/PostMutation';
+import PostForm from './form/PostForm';
 import PostsQuery from './PostsQuery';
 
 const Posts = () => (
     <div>
         <AppBar />
-        <PostMutation />
+        <PostForm />
         <PostsQuery />
     </div>
 );

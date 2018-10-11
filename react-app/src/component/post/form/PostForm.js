@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Query } from 'react-apollo';
+import { Query, graphql, compose } from 'react-apollo';
 import merge from 'lodash/merge';
 import moment from 'moment';
 import { withStyles } from '@material-ui/core/styles';
@@ -10,16 +10,6 @@ import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
 import Icon from '@material-ui/core/Icon';
 import Button from '@material-ui/core/Button';
-// before https://github.com/TeamWertarbyte/material-ui-chip-input
-//
-// need ChipAutoSuggest -> https://material-ui.com/demos/autocomplete/ ->downshift or react-select see multi
-// https://www.npmjs.com/package/downshift
-// https://www.npmjs.com/package/react-select
-// or may be use mention system directly in text edit
-// like https://ant.design/components/mention/
-// maybe this https://www.npmjs.com/package/react-mentions
-//
-// or use both mention in textfield + autocomplete tags
 
 import PostMediaQuery from './PostMediaQuery';
 import postCardStyles from '../../../styles/card.style';
@@ -29,6 +19,7 @@ import TagItems from '../../TagItems';
 
 import GET_POSTS from '../../../gql/query/getPosts';
 import GET_ME from '../../../gql/query/getMe';
+import ADD_POST from '../../../gql/mutation/addPost';
 
 const styles = theme => merge(postCardStyles(theme), {
   card: {
@@ -75,11 +66,11 @@ class PostForm extends React.Component {
         const tags = this.state.tags;
 
         if (!tags.length) {
-          throw 'Please specify at least one #tag. A tag should start by the character "#" for example #hello-world';
+          throw Error('Please specify at least one #tag. A tag should start by the character "#" for example #hello-world');
         } else {
           this.setState({ error: null, loading: true });
           const openGraph = this.media ? this.media.state : null;
-          await this.props.addPost({
+          await this.props.mutate({
             variables: { text, tags, openGraph },
             update: (proxy, { data: { addPostAndTag } }) => {
               const query = GET_POSTS;
@@ -87,15 +78,14 @@ class PostForm extends React.Component {
               data.getPosts.unshift(addPostAndTag);
               proxy.writeQuery({ query, data });
             },
-            refetchQueries: [{ query: GET_POSTS }],
+            refetchQueries: [{ query: GET_POSTS }], // this should not be necessary!!! dont want to query since we update cache
           });
           this.text.setState({value: ''});
           this.setState(initialState);
         }
-      } catch (error) {
-        if (typeof(error) !== 'string') {
-          error = 'Something went wrong while sending your post, please try again. If the problem persist, don\'t hesitate to contact us.';
-        }
+      } catch (err) {
+        const error = err.constructor.name !== 'ApolloError' ? err.message
+            : 'Something went wrong while sending your post, please try again. If the problem persist, don\'t hesitate to contact us.';
         this.setState({error, loading: false});
       }
   }
@@ -105,65 +95,64 @@ class PostForm extends React.Component {
   getTags = () => this.state.tags.map(tag => ({ idTag: tag, name: tag }));
 
   render() {
-    const { classes } = this.props;
+    const { classes, data: { getMe } } = this.props;
     return (
-      <Query query={GET_ME}>
-        {({ data: { getMe } }) => (
-          <form onSubmit={this.onSubmit}>
-            <Card className={classes.card}>
-              <CardHeader
-                avatar={
-                  <Avatar user={getMe} />
-                }
-                title={getMe.name}
-                subheader={moment().calendar()} // LLLL
-              />
-              { this.state.tags &&
-                <CardActions style={{ paddingTop: 0, paddingBottom: 0 }}>
-                  <TagItems tags={this.getTags()} />
-                </CardActions>
-              }
-              <CardContent>
-                <PostInputText
-                  error={this.state.error}
-                  setUrl={this.setUrl}
-                  setHashTags={this.setHashTags}
-                  ref={node => { this.text = node; }}
-                />
-              </CardContent>
-              { this.state.url &&
-                <PostMediaQuery
-                  url={this.state.url}
-                  setMedia={this.setMedia}
-                />
-              }
-              <CardActions className={classes.actions} disableActionSpacing>
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    className={classes.button}
-                    type="submit"
-                    disabled={this.state.loading}
-                  >
-                      Post
-                      {this.state.loading ?
-                        'ing...'
-                        : (<Icon className={classes.rightIcon}>send</Icon>)
-                      }
-                  </Button>
-              </CardActions>
-            </Card>
-          </form>
-        )}
-      </Query>
+      <form onSubmit={this.onSubmit}>
+        <Card className={classes.card}>
+          <CardHeader
+            avatar={
+              <Avatar user={getMe} />
+            }
+            title={getMe.name}
+            subheader={moment().calendar()} // LLLL
+          />
+          { this.state.tags &&
+            <CardActions style={{ paddingTop: 0, paddingBottom: 0 }}>
+              <TagItems tags={this.getTags()} />
+            </CardActions>
+          }
+          <CardContent>
+            <PostInputText
+              error={this.state.error}
+              setUrl={this.setUrl}
+              setHashTags={this.setHashTags}
+              ref={node => { this.text = node; }}
+            />
+          </CardContent>
+          { this.state.url &&
+            <PostMediaQuery
+              url={this.state.url}
+              setMedia={this.setMedia}
+            />
+          }
+          <CardActions className={classes.actions} disableActionSpacing>
+              <Button
+                variant="contained"
+                color="primary"
+                className={classes.button}
+                type="submit"
+                disabled={this.state.loading}
+              >
+                  Post
+                  {this.state.loading ?
+                    'ing...'
+                    : (<Icon className={classes.rightIcon}>send</Icon>)
+                  }
+              </Button>
+          </CardActions>
+        </Card>
+      </form>
     );
   }
 }
 
 PostForm.propTypes = {
   classes: PropTypes.object.isRequired,
-  addPost: PropTypes.func.isRequired,
-  result: PropTypes.object.isRequired, // mutation result
+  mutate: PropTypes.func.isRequired,
 };
 
-export default withStyles(styles)(PostForm);
+export default compose(
+  graphql(ADD_POST),
+  graphql(GET_ME),
+  withStyles(styles),
+)(PostForm);

@@ -75,3 +75,15 @@ yarn start
 
 - like ... smiley
 - share post
+
+
+// before https://github.com/TeamWertarbyte/material-ui-chip-input
+//
+// need ChipAutoSuggest -> https://material-ui.com/demos/autocomplete/ ->downshift or react-select see multi
+// https://www.npmjs.com/package/downshift
+// https://www.npmjs.com/package/react-select
+// or may be use mention system directly in text edit
+// like https://ant.design/components/mention/
+// maybe this https://www.npmjs.com/package/react-mentions
+//
+// or use both mention in textfield + autocomplete tags

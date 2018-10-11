@@ -22,6 +22,9 @@ import registerServiceWorker from './registerServiceWorker';
 // }
 
 const theme = createMuiTheme({
+  typography: {
+    useNextVariants: true,
+  },
   palette: {
     primary: { main: '#2095ab' },
     secondary: { main: '#fda329' },
