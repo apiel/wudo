@@ -23,20 +23,20 @@ import AllowFollowerInput from './type/allowFollowerInput';
 // @Resolver(UserTagType)
 @Resolver(UserTagEntity)
 export default class UserTagResolver {
-    @FieldResolver()
-    follower(@Root() userTag: UserTagEntity, @Ctx() ctx) {
-        return ctx.loader.follower.load(userTag.followerIdUser);
-    }
+    // @FieldResolver()
+    // follower(@Root() userTag: UserTagEntity, @Ctx() ctx) {
+    //     return ctx.loader.follower.load(userTag.followerIdUser);
+    // }
 
-    @FieldResolver()
-    followed(@Root() userTag: UserTagEntity, @Ctx() ctx) {
-        return ctx.loader.followed.load(userTag.followedIdUser);
-    }
+    // @FieldResolver()
+    // followed(@Root() userTag: UserTagEntity, @Ctx() ctx) {
+    //     return ctx.loader.followed.load(userTag.followedIdUser);
+    // }
 
-    @FieldResolver()
-    tag(@Root() userTag: UserTagEntity, @Ctx() ctx) {
-        return ctx.loader.tag.load(userTag.tagIdTag);
-    }
+    // @FieldResolver()
+    // tag(@Root() userTag: UserTagEntity, @Ctx() ctx) {
+    //     return ctx.loader.tag.load(userTag.tagIdTag);
+    // }
 
     @Authorized()
     @Query(returns => [UserTagEntity])

@@ -59,3 +59,12 @@ const boot = async () => {
 boot();
 
 export default app;
+
+
+/*
+SELECT accepted, "tagIdTag", public.tag.name, public.user.name, "followerIdUser", "followedIdUser"
+FROM public.user_tag, public.tag, public.user
+where "idTag" = "tagIdTag" and "idUser" = "followerIdUser"
+ORDER BY "followedIdUser" ASC,  "tagIdTag" ASC
+*/
+
