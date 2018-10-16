@@ -1,5 +1,6 @@
 import 'reflect-metadata';
 import { Resolver, Query, Ctx, Arg, Authorized } from 'type-graphql';
+import { Connection } from 'typeorm';
 import TagEntity from '../entity/tag';
 
 @Resolver(TagEntity)
@@ -12,9 +13,14 @@ export default class TagResolver {
 
     @Authorized() // not really necessary
     @Query(returns => [TagEntity])
-    getTags(@Ctx() ctx) {
-        return ctx.db.getRepository(TagEntity).find();
+    getLastTags(@Ctx() ctx) {
+        const db: Connection = ctx.db;
+        return db.getRepository(TagEntity).find({
+            take: 10,
+            order: { creationDate: 'DESC' }
+        });
     }
 
-    // need to create tag
+    // getMostFollowedTags
+    // getMostPostedTags
 }
