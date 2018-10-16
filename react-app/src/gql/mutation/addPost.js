@@ -1,6 +1,6 @@
 import gql from 'graphql-tag';
 
-import { select } from '../query/getPosts';
+import { select, fragments } from '../query/getPosts';
 
 const template = gql`
 mutation AddPost($text: String!, $tags: [String!]!, $openGraph: openGraphInput) {
@@ -12,6 +12,8 @@ mutation AddPost($text: String!, $tags: [String!]!, $openGraph: openGraphInput) 
       }
     ) ${select()}
 }
+
+${fragments}
 `;
 
 export default template;

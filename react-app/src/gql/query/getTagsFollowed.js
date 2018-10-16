@@ -1,12 +1,13 @@
 import gql from 'graphql-tag';
 
-import select from '../select/selectUserTag';
-import selectTag from '../select/selectTag';
+import selectUserTag from '../fragment/userTag';
 
-export const query = `
-  getTagsFollowed ${select({ followedParams: `tags ${selectTag()}` })}
+const template = gql`{
+  getTagsFollowed {
+    ...SelectUserTag
+  }
+}
+${selectUserTag(true)}
 `;
-
-const template = gql`{ ${query} }`;
 
 export default template;

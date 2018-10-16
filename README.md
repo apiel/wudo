@@ -50,9 +50,10 @@ yarn start
 
 ### Todo and possible idea
 
-- fix issue allow/block follower
+- fix space between #tag
 - new tag & trend tag
 - search by tag
+- make it shareable!! share_target or reactnative app? or java nativ app?
 
 - we tag followed and so on, show user that something happen
 - add tooltip for explaining how to use youdo.wtf
@@ -63,7 +64,7 @@ yarn start
 -- github
 -- twitter
 
-- share_target <-- not yet possible
+- share_target <-- not yet possible https://wicg.github.io/web-share-target/demos/sharetarget.html
 - activate notification for specified tags
 - notification for new follower?
 
