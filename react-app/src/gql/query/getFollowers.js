@@ -4,7 +4,7 @@ import SelectUserTag, { SelectFollower } from '../fragment/userTag';
 
 const template = gql`{
     getFollowers {
-        ...SelectFollow
+        ...SelectFollower
         ...SelectUserTag
     }
 }

@@ -11,8 +11,8 @@ const SelectUserTag = gql`
   }
 `;
 
-const SelectFollowFollower = (isForfollowedTags = false) => gql`
-  fragment SelectFollow on UserTagEntity {
+const SelectFollowFollower = (name, isForfollowedTags = false) => gql`
+  fragment ${name} on UserTagEntity {
     follower { ...SelectUser }
     followed {
       ...SelectUser
@@ -25,7 +25,7 @@ const SelectFollowFollower = (isForfollowedTags = false) => gql`
   ${SelectTag}
 `;
 
-export const SelectFollower = SelectFollowFollower();
-export const SelectFollowed = SelectFollowFollower(true);
+export const SelectFollower = SelectFollowFollower('SelectFollower');
+export const SelectFollowed = SelectFollowFollower('SelectFollowed', true);
 
 export default SelectUserTag;
