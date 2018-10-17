@@ -1,6 +1,6 @@
 import gql from 'graphql-tag';
 
-import SelectUserTag, { SelectFollow } from '../fragment/userTag';
+import SelectUserTag, { SelectFollowed } from '../fragment/userTag';
 
 const template = gql`{
   getTagsFollowed {
@@ -9,7 +9,7 @@ const template = gql`{
   }
 }
 ${SelectUserTag}
-${SelectFollow(true)}
+${SelectFollowed}
 `;
 
 export default template;
