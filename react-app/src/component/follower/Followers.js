@@ -13,7 +13,7 @@ import Snackbar from '../Snackbar';
 
 const Followers = () => (
     <div>
-        <AppBarBack title='Followers' />
+        <AppBarBack title='Tag followers' />
         <Queries queries={{ me: GET_ME, followers: GET_FOLLOWERS }}>
             {({ me, followers, _loading, _hasError }) => {
                 if (_loading) return <p>Loading...</p>;

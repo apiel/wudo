@@ -32,7 +32,7 @@ export default class Follow extends React.Component {
     render() {
         return (
             <div>
-                <AppBarSearch onSearch={this.onSearch} />
+                <AppBarSearch onSearch={this.onSearch} title="Peoples and tags" />
                 <FollowQuery search={this.state.search} />
                 <FollowSearch search={this.state.search} />
                 <HelpCard>
