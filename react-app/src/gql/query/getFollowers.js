@@ -1,13 +1,15 @@
 import gql from 'graphql-tag';
 
-import selectUserTag from '../fragment/userTag';
+import SelectUserTag, { SelectFollow } from '../fragment/userTag';
 
 const template = gql`{
     getFollowers {
+        ...SelectFollow
         ...SelectUserTag
     }
 }
-${selectUserTag()}
+${SelectUserTag}
+${SelectFollow()}
 `;
 
 export default template;

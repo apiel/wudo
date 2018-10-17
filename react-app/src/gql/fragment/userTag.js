@@ -1,23 +1,28 @@
 import gql from 'graphql-tag';
 
-import selectUser from './user';
-import selectTag from './tag';
+import SelectUser from './user';
+import SelectTag from './tag';
 
-const fragment = (followedTags = false) => gql`
+const SelectUserTag = gql`
   fragment SelectUserTag on UserTagEntity {
+    accepted
+    active
+    viewed
+  }
+`;
+
+export const SelectFollow = (followedTags = false) => gql`
+  fragment SelectFollow on UserTagEntity {
     follower { ...SelectUser }
     followed {
       ...SelectUser
       ${followedTags ? 'tags { ...SelectTag }' : ''}
     }
     tag { ...SelectTag }
-    accepted
-    active
-    viewed
   }
 
-  ${selectUser}
-  ${selectTag}
+  ${SelectUser}
+  ${SelectTag}
 `;
 
-export default fragment;
+export default SelectUserTag;
