@@ -10,6 +10,7 @@ import {
 } from 'type-graphql';
 import { difference, uniq } from 'lodash';
 
+import db from '../db';
 import PostEntity from '../entity/post';
 import TagEntity from '../entity/tag';
 import OpenGraphEntity from '../entity/openGraph';
@@ -22,7 +23,7 @@ export default class PostResolver {
     @Authorized()
     @Query(returns => [PostEntity])
     getPosts(@Ctx() ctx) {
-        return ctx.db.getRepository(PostEntity)
+        return db().getRepository(PostEntity)
                     .createQueryBuilder('post')
                     .leftJoin('post.tags', 'tag')
                     .leftJoin('tag.users', 'user')
@@ -40,7 +41,7 @@ export default class PostResolver {
         const post = new PostEntity;
         post.text = text;
         post.user = ctx.user;
-        await ctx.db.getRepository(PostEntity).save(post);
+        await db().getRepository(PostEntity).save(post);
 
         return post;
     }
@@ -51,12 +52,12 @@ export default class PostResolver {
         // we should start a transaction
         const post = await this.insertPost(postInput.text, ctx);
 
-        post.tags = await ctx.db.getRepository(TagEntity).find({
+        post.tags = await db().getRepository(TagEntity).find({
             where: {
                 idTag: In(<number[]>postInput.tags),
             },
         });
-        await ctx.db.getRepository(PostEntity).save(post);
+        await db().getRepository(PostEntity).save(post);
         return post;
     }
 
@@ -66,12 +67,12 @@ export default class PostResolver {
             tag.name = name;
             return tag;
         });
-        await ctx.db.getRepository(TagEntity).save(newTags);
+        await db().getRepository(TagEntity).save(newTags);
         return newTags;
     }
 
     async insertOpenGraph(openGraph: OpenGraphInput, ctx) {
-        const og = await ctx.db.getRepository(OpenGraphEntity).findOne({
+        const og = await db().getRepository(OpenGraphEntity).findOne({
             where: openGraph,
         });
         if (og) {
@@ -79,13 +80,13 @@ export default class PostResolver {
             return og;
         }
         console.log('save openGraph', openGraph);
-        await ctx.db.getRepository(OpenGraphEntity).save(openGraph);
+        await db().getRepository(OpenGraphEntity).save(openGraph);
         return openGraph;
     }
 
     async processTags(postTagInput: PostTagInput, ctx) {
         const tags = uniq(postTagInput.tags.map(tag => tag.toLocaleLowerCase()));
-        const existingTags: TagEntity[] = await ctx.db.getRepository(TagEntity).find({
+        const existingTags: TagEntity[] = await db().getRepository(TagEntity).find({
             select: ['name', 'idTag'],
             where: {
                 name: In(tags),
@@ -114,7 +115,7 @@ export default class PostResolver {
         const tags = await this.processTags(postTagInput, ctx);
         post.tags = (async () => tags)();
 
-        await ctx.db.getRepository(PostEntity).save(post);
+        await db().getRepository(PostEntity).save(post);
 
         return post;
     }

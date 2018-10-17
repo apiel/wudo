@@ -12,6 +12,7 @@ import {
 // import { In } from 'typeorm';
 // import { values } from 'lodash';
 
+import db from '../db';
 // import UserTagType, { TagsFollowedByUser, FollowUserTags, UserTagItem } from './type/userTag';
 // import { UserTagItem } from './type/userTag';
 import UserTagEntity from '../entity/userTag';
@@ -41,7 +42,7 @@ export default class UserTagResolver {
     @Authorized()
     @Query(returns => [UserTagEntity])
     getFollowers(@Ctx() ctx) {
-        return ctx.db.getRepository(UserTagEntity).find({
+        return db().getRepository(UserTagEntity).find({
             where: {
                 followedIdUser: ctx.user.idUser,
             }
@@ -51,7 +52,7 @@ export default class UserTagResolver {
     @Authorized()
     @Query(returns => [UserTagEntity])
     getTagsFollowed(@Ctx() ctx) {
-        return ctx.db.getRepository(UserTagEntity).find({
+        return db().getRepository(UserTagEntity).find({
             where: {
                 followerIdUser: ctx.user.idUser,
             }
@@ -66,16 +67,16 @@ export default class UserTagResolver {
             followedIdUser: input.idUser,
             tagIdTag: input.idTag,
         };
-        const userTag = await ctx.db.getRepository(UserTagEntity).findOne({ where });
+        const userTag = await db().getRepository(UserTagEntity).findOne({ where });
         const params = { active: input.active ? new Date : null };
 
         if (userTag) {
-            await ctx.db.getRepository(UserTagEntity).update(where, params);
+            await db().getRepository(UserTagEntity).update(where, params);
         } else {
-            await ctx.db.getRepository(UserTagEntity).insert({...where, ...params})
+            await db().getRepository(UserTagEntity).insert({...where, ...params})
         }
 
-        return ctx.db.getRepository(UserTagEntity).findOne({ where });
+        return db().getRepository(UserTagEntity).findOne({ where });
     }
 
     @Authorized()
@@ -87,8 +88,8 @@ export default class UserTagResolver {
             tagIdTag: input.idTag,
         };
         const params = { accepted: input.allow ? new Date : null };
-        await ctx.db.getRepository(UserTagEntity).update(where, params);
+        await db().getRepository(UserTagEntity).update(where, params);
 
-        return ctx.db.getRepository(UserTagEntity).findOne({ where });
+        return db().getRepository(UserTagEntity).findOne({ where });
     }
 }

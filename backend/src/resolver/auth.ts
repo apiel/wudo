@@ -4,6 +4,7 @@ import fetch from 'node-fetch';
 import * as sharp from 'sharp';
 import * as crypto from 'crypto';
 
+import db from '../db';
 import AuthEntity from './type/auth';
 import UserEntity from '../entity/user';
 import { generateToken, expiresIn } from '../lib/auth';
@@ -18,7 +19,7 @@ export default class AuthResolver {
         if (!google || !google.email) {
             throw new Error('Something went wrong with Google auth.');
         }
-        let user: UserEntity = await ctx.db.getRepository(UserEntity).findOne({ email: google.email });
+        let user: UserEntity = await db().getRepository(UserEntity).findOne({ email: google.email });
         let type = 'signin';
 
         if (!user) {
@@ -32,7 +33,7 @@ export default class AuthResolver {
             const hash = crypto.createHash('sha1');
             hash.update(user.avatar);
             user.avatarChecksum = hash.digest('hex');
-            await ctx.db.getRepository(UserEntity).save(user);
+            await db().getRepository(UserEntity).save(user);
         } // else if different we could update
 
         const jwt = await generateToken(user);
