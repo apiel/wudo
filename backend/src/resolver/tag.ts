@@ -16,7 +16,6 @@ export default class TagResolver {
     @Authorized() // not really necessary
     @Query(returns => [TagEntity])
     getLastTags(@Ctx() ctx) {
-        const db: Connection = db;
         return db().getRepository(TagEntity).find({
             take: 10,
             order: { creationDate: 'DESC' }
