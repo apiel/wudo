@@ -1,15 +1,14 @@
 import gql from 'graphql-tag';
 
-// might look at getFollowers for select
+import SelectUserTag from '../fragment/userTag';
 
 const template = gql`
 mutation AllowFollower($input: AllowFollowerInput!) {
   allowFollower(userTag: $input) {
-    accepted
-    viewed
-    active
+    ...SelectUserTag
   }
 }
+${SelectUserTag}
 `;
 
 export default template;

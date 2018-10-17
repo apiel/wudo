@@ -16,6 +16,6 @@ mutation googleAuth($tokenId: String!) {
 
 ${selectUser}
 ${selectTag}
-`; // need to use select from getMe
+`;
 
 export default template;
