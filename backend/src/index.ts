@@ -3,16 +3,18 @@ import * as jwt from 'express-jwt';
 import * as cookieParser from 'cookie-parser';
 import * as graphqlHTTP from 'express-graphql';
 import * as compression from 'compression';
+import { get } from 'lodash';
 
 import schema from './schema';
 import { getPrivateKey } from './lib/auth';
 import loaderMiddleware from './dataloader';
 import api from './api';
-import { get } from 'lodash';
+import { waitForDb } from './db';
 
 const app = express();
 
 const boot = async () => {
+    await waitForDb();
     app.use(cookieParser());
 
     const secret = await getPrivateKey();

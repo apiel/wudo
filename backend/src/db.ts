@@ -4,8 +4,22 @@ let db = null;
 
 createConnection().then(_db => db = _db);
 
+export const waitForDb = (retry = 100) => new Promise((resolve, reject) => {
+    const interval = setInterval(() => {
+        if (db) {
+            // console.log('db is ready...', retry);
+            clearInterval(interval);
+            resolve(db);
+        }
+        if (!retry) {
+            clearInterval(interval);
+            reject();
+        }
+        retry--;
+    }, 10);
+});
 
-const waitForDb = () => {
+const waitForDbSync = () => {
     // this is a bit dangerous :p and going against JS pattern
     for(let retry = 1000; retry > 0; retry--) {
         if (db) {
@@ -17,7 +31,7 @@ const waitForDb = () => {
 
 const getDb = () => {
     if (!db) {
-        waitForDb();
+        waitForDbSync();
     }
     return db;
 }
