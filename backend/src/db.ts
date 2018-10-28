@@ -29,7 +29,7 @@ const waitForDbSync = () => {
     throw Error('DB is not initialized!');
 }
 
-const getDb = () => {
+const getDb = ()/*: Connection*/ => {
     if (!db) {
         waitForDbSync();
     }
